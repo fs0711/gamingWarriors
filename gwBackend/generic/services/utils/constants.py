@@ -54,19 +54,14 @@ OBJECT_STATUS_INACTIVE = static_data["statuses"][1]
 OBJECT_STATUS_SUSPENDED = static_data["statuses"][2]
 # DEFAULT ROLES
 DEFAULT_ADMIN_ROLE_OBJECT = static_data["user_roles_and_rights"][0]
-DEFAULT_GM_ROLE_OBJECT = static_data["user_roles_and_rights"][1]
-DEFAULT_DGM_ROLE_OBJECT = static_data["user_roles_and_rights"][2]
-DEFAULT_AM_ROLE_OBJECT = static_data["user_roles_and_rights"][3]
-DEFAULT_AGENT_ROLE_OBJECT = static_data["user_roles_and_rights"][4]
-DEFAULT_DGM_AGENT_ROLE_OBJECT = static_data["user_roles_and_rights"][5]
-DEFAULT_DEFAULT_ROLE_OBJECT = static_data["user_roles_and_rights"][6]
+DEFAULT_OWNER_ROLE_OBJECT = static_data["user_roles_and_rights"][1]
+DEFAULT_MG_ROLE_OBJECT = static_data["user_roles_and_rights"][2]
+DEFAULT_FI_ROLE_OBJECT = static_data["user_roles_and_rights"][3]
 DEFAULT_ROLE_OBJECTS = [
     DEFAULT_ADMIN_ROLE_OBJECT,
-    DEFAULT_GM_ROLE_OBJECT,
-    DEFAULT_DGM_ROLE_OBJECT,
-    DEFAULT_AM_ROLE_OBJECT,
-    DEFAULT_AGENT_ROLE_OBJECT,
-    DEFAULT_DGM_AGENT_ROLE_OBJECT,
+    DEFAULT_OWNER_ROLE_OBJECT,
+    DEFAULT_MG_ROLE_OBJECT,
+    DEFAULT_FI_ROLE_OBJECT,
 ]
 
 OBJECT_STATUS_ACTIVE_ID = 1
@@ -77,28 +72,19 @@ OBJECT_STATUS_SUSPENDED_ID = 3
 # STARTING
 STATIC_DATA = static_data
 
-SEARCH_DEPTH_MAX = 4
+SEARCH_DEPTH_MAX = 3
 
 # USER TYPES
 ADMIN = "admin"
-GM = "gm"
-DGM = "dgm"
-AM = "am"
-AGENT = "agent"
-DGM_AGENT = "dgm_agent"
-DGM_LANCER = "dgm_lancer"
-AM_LANCER = "am_lancer"
-
+OWNER = "owner"
+MG = "mg"
+FI = "fi"
 
 # USER ROLE IDS
 ROLE_ID_ADMIN = 1
-ROLE_ID_GM = 2
-ROLE_ID_DGM = 3
-ROLE_ID_AM = 4
-ROLE_ID_AGENT = 5
-ROLE_ID_DGM_AGENT = 6
-ROLE_ID_DGM_LANCER = 7
-ROLE_ID_AM_LANCER = 8
+ROLE_ID_OWNER = 2
+ROLE_ID_MG = 3
+ROLE_ID_FI = 4
 
 # ENDING
 
@@ -158,6 +144,8 @@ PURPOSE_RESET_PASSWORD = "reset-password"
 USER = "user"
 USER__NAME = "name"
 USER__EMAIL_ADDRESS = "email_address"
+USER__CITY = "city"
+USER__CARD_ID = "card_id"
 USER__PHONE_NUMBER = "phone_number"
 USER__PASSWORD = "password"
 USER__GENDER = "gender"
@@ -303,6 +291,8 @@ REQUIRED_FIELDS_LIST__USER = [
     USER__EMAIL_ADDRESS,
     USER__PASSWORD,
     USER__PHONE_NUMBER,
+    USER__CITY,
+    USER__CARD_ID,
     USER__GENDER,
     USER__ROLE,
     USER__NIC

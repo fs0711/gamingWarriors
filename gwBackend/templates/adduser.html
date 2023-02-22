@@ -2,19 +2,19 @@
 {% block scripthead %}
 
 <script>
-    response_code = parseInt("{{response_code}}")
-    response_message = "{{response_message}}"
-    {% if response_code == 200 %}
-    console.log({{response_data|tojson}})
-    // document.location = "/home"
+    // response_code = parseInt("{{response_code}}")
+    // response_message = "{{response_message}}"
+    // {% if response_code == 200 %}
+    // console.log({{response_data|tojson}})
+    // // document.location = "/home"
 
-    {% endif %}
-    {% if response_code == 4003 %}
-    alert(`Validation Failed \n` + `{{ response_data| tojson}}`)
-    console.log({{ response_data| tojson}})
-    {% elif response_code != 200 %}
-    alert(`Error \n` + `{{ response_message}}`)
-    {% endif %}
+    // {% endif %}
+    // {% if response_code == 4003 %}
+    // alert(`Validation Failed \n` + `{{ response_data| tojson}}`)
+    // console.log({{ response_data| tojson}})
+    // {% elif response_code != 200 %}
+    // alert(`Error \n` + `{{ response_message}}`)
+    // {% endif %}
 
 </script>
 {% endblock %}
@@ -82,7 +82,7 @@
                                         <label class="col-md-2 control-label">NIC</label>
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nic"
-                                                placeholder="Phone Number" required>
+                                                placeholder="Nic" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -93,12 +93,26 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label">Card Id</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="card_id"
+                                                placeholder="Card Id" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label">Manager</label>
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="manager"
                                                 placeholder="Manager" required>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">City</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="city"
+                                                placeholder="City" required>
+                                        </div>
+                                    </div>                                
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Role</label>
                                         <div class="col-md-10">

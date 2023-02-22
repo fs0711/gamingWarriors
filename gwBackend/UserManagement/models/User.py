@@ -84,6 +84,8 @@ class User(models.Model):
     password = db.StringField(required=True)
     gender = db.StringField(required=True)
     nic = db.StringField(required=True)
+    card_id=db.StringField(required=True)
+    city=db.StringField(required=True)
     role = db.DictField(required=True)
     manager = db.LazyReferenceField('User')
     def __str__(self):
@@ -93,6 +95,8 @@ class User(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.USER__NAME: self[constants.USER__NAME],
+            constants.USER__CARD_ID: self[constants.USER__CARD_ID],
+            constants.USER__CITY: self[constants.USER__CITY],
             constants.USER__EMAIL_ADDRESS: self[constants.USER__EMAIL_ADDRESS],
             constants.USER__PHONE_NUMBER: self[constants.USER__PHONE_NUMBER],
             constants.USER__GENDER: self[constants.USER__GENDER],
