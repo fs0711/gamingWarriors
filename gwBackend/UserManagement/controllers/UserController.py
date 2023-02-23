@@ -70,7 +70,7 @@ class UserController(Controller):
     @classmethod
     def suspend_controller(cls, data):
         _, _, obj = cls.db_update_single_record(
-            read_filter=data[constants.ID],
+            read_filter={constants.ID: data[constants.ID]},
             update_filter={
                 constants.STATUS: constants.OBJECT_STATUS_SUSPENDED},
             update_mode=constants.UPDATE_MODE__PARTIAL,

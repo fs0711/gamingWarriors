@@ -62,7 +62,7 @@ def update_view(data):
 def suspend_view(data):
     data = request.form
     res = UserController.suspend_controller(data=data)
-    return render_template("view_user.html", **res)
+    return res
 
 
 @users_bp.route("/", methods=["GET"])
