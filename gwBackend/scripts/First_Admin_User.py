@@ -32,8 +32,10 @@ def create_admin_user_if_not_exists(run=False):
                     constants.USER__PASSWORD:  common_utils.encrypt_password(password=config.DEFAULT_ADMIN_PASSWORD),
                     constants.USER__PHONE_NUMBER: config.DEFAULT_ADMIN_PHONE,
                     constants.USER__GENDER: constants.GENDER_LIST[0],
-                    constants.USER__NIC: "abcNic",
+                    constants.USER__NIC: "123456",
                     constants.USER__ROLE: constants.DEFAULT_ADMIN_ROLE_OBJECT,
+                    constants.USER__CITY: config.DEFAULT_ADMIN_CITY,
+                    constants.USER__CARD_ID: config.DEFAULT_ADMIN_CARD_ID
                 }
             )
             if not is_valid:

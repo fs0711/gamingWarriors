@@ -51,7 +51,7 @@ def static_data_view():
     return jsonify(constants.STATIC_DATA)
 
 
-app.register_blueprint(users_bp, url_prefix="/")
+app.register_blueprint(users_bp, url_prefix="/api/users")
 app.register_blueprint(leads_bp, url_prefix="/api/leads")
 app.register_blueprint(follow_ups_bp, url_prefix="/api/follow_ups")
 app.register_blueprint(reports_bp, url_prefix="/api/reports")

@@ -39,7 +39,7 @@ def create_view(data):
 )
 def read_view(data):
     res = UserController.read_controller(data=data)
-    return render_template("view_user.html", **res)
+    return res
 
 
 @users_bp.route("/update", methods=["PUT"])
@@ -64,25 +64,12 @@ def suspend_view(data):
     res = UserController.suspend_controller(data=data)
     return res
 
-
-@users_bp.route("/", methods=["GET"])
-@decorators.logging
-@decorators.keys_validator()
-def logined_user_view(data):
-    return render_template("login.html", Response=response_utils.get_response_object())
-
-
-@users_bp.route("/", methods=["POST"])
+@users_bp.route("/login", methods=["POST"])
 @decorators.logging
 @decorators.keys_validator(constants.LOGIN_REQUIRED_FIELDS_LIST, [])
 def login_user_view(data):
     res = UserController.login_controller(data=data)
-    return render_template("login.html", **res)
-    # if res['response_code'] != response_codes.CODE_SUCCESS:
-    #     return redirect(url_for('dashboard_view'), Response=res)
-    # else:
-    #     return render_template("failed.html", Response=res)
-
+    return res
 
 @users_bp.route("/logout", methods=["GET"])
 @decorators.logging
