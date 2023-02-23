@@ -61,6 +61,7 @@ def update_view(data):
 )
 def suspend_view(data):
     data = request.form
+    
     res = UserController.suspend_controller(data=data)
     return res
 
