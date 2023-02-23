@@ -79,15 +79,20 @@ class User(models.Model):
         return {}
 
     name = db.StringField(required=True)
-    email_address = db.StringField(required=True)
+    address = db.StringField(required=True)
     phone_number = db.StringField(required=True)
-    password = db.StringField(required=True)
-    gender = db.StringField(required=True)
     nic = db.StringField(required=True)
+<<<<<<< HEAD
     card_id=db.StringField(required=True)
     city=db.StringField(required=True)
     role = db.DictField(required=True)
     manager = db.LazyReferenceField('User')
+=======
+    password = db.StringField(required=True)
+    branch = db.StringField(required=True)
+    email_address = db.DictField(required=True)
+    # manager = db.LazyReferenceField('User')
+>>>>>>> 86418a004044ce20cf2fc72ce82eef63b06c511f
     def __str__(self):
         return str(self.pk)
 
@@ -95,13 +100,17 @@ class User(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.USER__NAME: self[constants.USER__NAME],
+<<<<<<< HEAD
             constants.USER__CARD_ID: self[constants.USER__CARD_ID],
             constants.USER__CITY: self[constants.USER__CITY],
             constants.USER__EMAIL_ADDRESS: self[constants.USER__EMAIL_ADDRESS],
+=======
+            # constants.USER__ADDRESS: self[constants.USER__ADDRESS],
+>>>>>>> 86418a004044ce20cf2fc72ce82eef63b06c511f
             constants.USER__PHONE_NUMBER: self[constants.USER__PHONE_NUMBER],
-            constants.USER__GENDER: self[constants.USER__GENDER],
             constants.USER__NIC: self[constants.USER__NIC],
-            constants.USER__ROLE: self[constants.USER__ROLE],
+            constants.USER__PASSWORD: self[constants.USER__PASSWORD],
+            # constants.USER__BRANCH: self[constants.USER__BRANCH],
             constants.STATUS: self[constants.STATUS],
         }
 
