@@ -192,6 +192,18 @@ CLIENT__ASSIGNED_BY = "assigned_by"
 CLIENT__TRANSFERED = "transfered"
 CLIENT__TRANSFERED_ON = "transfered_on"
 
+# Branch Constants
+BRANCH = "branch"
+BRANCH__ID = "branch_id"
+BRANCH__NAME = "first_name"
+BRANCH__LOCATION = "location"
+BRANCH__CITY = "city"
+BRANCH__GAME_TYPES = "game_types"
+BRANCH__GAME_COUNT = "game_count"
+BRANCH__USERS = "users"
+BRANCH__OPENING_TIME = "timings"
+BRANCH__CLOSING_TIME = "timing"
+
 # Lead Constants
 LEAD = "lead"
 LEAD__ID = "lead_id"
@@ -406,6 +418,18 @@ REQUIRED_FIELDS_LIST__CLIENTS = [
     CLIENT__COUNTRY,
     CLIENT__CITY,
     CLIENT__CLIENT_CATEGORY,
+]
+
+#BRANCH
+REQUIRED_FIELDS_LIST__BRANCH = [
+    BRANCH__NAME,
+    BRANCH__CITY,
+    BRANCH__LOCATION,
+    BRANCH__GAME_TYPES,
+    BRANCH__GAME_COUNT,
+    BRANCH__USERS,
+    BRANCH__OPENING_TIME,
+    BRANCH__CLOSING_TIME,
 ]
 
 #temp fields

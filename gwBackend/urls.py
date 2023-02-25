@@ -10,10 +10,7 @@ from gwBackend import app, config
 from gwBackend.LeadsManagement.controllers.LeadsController import LeadsController
 from gwBackend.generic.services.utils import constants, decorators
 from gwBackend.UserManagement.views.users import users_bp
-from gwBackend.LeadsManagement.views.leads import leads_bp
-from gwBackend.LeadsManagement.views.follow_ups import follow_ups_bp
-from gwBackend.LeadsManagement.views.reports import reports_bp
-from gwBackend.ClientsManagement.views.clients import clients_bp
+from gwBackend.BranchManagement.views.branch import branch_bp
 from gwBackend.generic.services.utils import common_utils
 from gwBackend.generic.services.utils.common_utils import current_user
 from gwBackend.LeadsManagement.controllers.DashboardController import DashboardController
@@ -52,7 +49,4 @@ def static_data_view():
 
 
 app.register_blueprint(users_bp, url_prefix="/api/users")
-app.register_blueprint(leads_bp, url_prefix="/api/leads")
-app.register_blueprint(follow_ups_bp, url_prefix="/api/follow_ups")
-app.register_blueprint(reports_bp, url_prefix="/api/reports")
-app.register_blueprint(clients_bp, url_prefix="/api/clients")
+app.register_blueprint(branch_bp, url_prefix="/api/branch")

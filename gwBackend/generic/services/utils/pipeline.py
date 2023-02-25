@@ -1,5 +1,23 @@
 from datetime import datetime, date, time, timedelta
 
+KPI_REPORT_BRANCH = [
+    {
+        '$group': {
+            '_id': {
+                'assigned_to': '$assigned_to', 
+                'type': '$followup_type', 
+                'sub_type': '$followup_last_work'
+            }, 
+            'count': {
+                '$sum': 1
+            }
+        }
+    }, {
+        '$sort': {
+            'assigned_to': 1
+        }
+    }
+]
 KPI_REPORT_LEAD = [
     {
         '$group': {
