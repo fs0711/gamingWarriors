@@ -8,7 +8,7 @@ from flask import Blueprint, redirect, url_for, redirect, render_template, reque
 
 # Local imports
 from gwBackend.generic.services.utils import constants, decorators, common_utils
-from gwBackend.BranchManagement.controllers import BranchController
+from gwBackend.BranchManagement.controllers.BranchController import BranchController
 from gwBackend.config import config
 
 branch_bp = Blueprint("branch_bp", __name__)
@@ -18,20 +18,18 @@ branch_bp = Blueprint("branch_bp", __name__)
 @decorators.is_authenticated
 @decorators.keys_validator(
     constants.REQUIRED_FIELDS_LIST__BRANCH,
-    constants.REQUIRED_FIELDS_LIST__BRANCH,
+    constants.OPTIONAL_FIELDS_LIST__BRANCH,
     request_form_data=False
 )
 def branch_create_view(data):
-    rest = BranchController.create_controller(data=data)
-    return (rest)
+    res = BranchController.create_controller(data=data)
+    return res
 
 
-@branch_bp.route("/read", methods=["GET", "POST"])
+@branch_bp.route("/read", methods=["GET"])
 @decorators.is_authenticated
 @decorators.keys_validator()
 def read_view(data):
-    if request.method == "POST":
-        data = request.form
     res = BranchController.read_controller(data=data)
     return res
 
@@ -41,18 +39,16 @@ def read_view(data):
 # @decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
     [],
-    constants.ALL_FIELDS_LIST__LEAD,
+    constants.ALL_FIELDS_LIST__BRANCH,
 )
 def update_view(data):
     return BranchController.update_controller(data=data)
 
-@branch_bp.route("/search", methods=["POST", "GET"])
+
+@branch_bp.route("/search", methods=["POST"])
 @decorators.is_authenticated
 @decorators.keys_validator()
 def search_view(data):
-    if request.method == "POST":
-        data = request.form
-        res = BranchController.search_controller(data=data)
-        return render_template("find_leads.html", **res)
-    
-    return render_template("find_leads.html")
+    data = request.form
+    res = BranchController.search_controller(data=data)
+    return res
