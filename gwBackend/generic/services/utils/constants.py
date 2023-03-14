@@ -163,6 +163,32 @@ USER__ROLE__MANAGER_NAME = "manager_name"
 USER__NEW_PASSWORD = "new_password"
 USER__OLD_PASSWORD = "old_password"
 
+# Required, Optional Fields Lists
+# User
+LOGIN_REQUIRED_FIELDS_LIST = [USER__EMAIL_ADDRESS, USER__PASSWORD]
+REQUIRED_FIELDS_LIST__USER = [
+    USER__NAME,
+    USER__EMAIL_ADDRESS,
+    USER__PASSWORD,
+    USER__PHONE_NUMBER,
+    USER__CITY,
+    USER__CARD_ID,
+    USER__GENDER,
+    USER__ROLE,
+    USER__NIC
+]
+OPTIONAL_FIELDS_LIST__USER = [
+    USER__EMAIL_ADDRESS,
+    USER__PHONE_NUMBER,
+    # USER__ROLE__MANAGER_NAME,
+    USER__MANAGER]
+REQUIRED_UPDATE_FIELDS_LIST__USER = list(
+    set(REQUIRED_FIELDS_LIST__USER + [ID])
+    - set([USER__PASSWORD, USER__EMAIL_ADDRESS, USER__PHONE_NUMBER])
+)
+ALL_FIELDS_LIST__USER = OPTIONAL_FIELDS_LIST__USER + \
+    REQUIRED_FIELDS_LIST__USER + [ID]
+
 
 # TOKEN Constants
 TOKEN = "token"
@@ -174,34 +200,78 @@ TOKEN__IS_EXPIRED = "is_expired"
 TOKEN__IS_REVOKED = "is_revoked"
 
 # Client Constants
-CLIENT = "lead"
-CLIENT__ID = "lead_id"
-CLIENT__NAME = "first_name"
+CLIENT = "client"
+CLIENT__ID = "client_id"
+CLIENT__NAME = "name"
 CLIENT__NIC = "nic"
 CLIENT__PHONE_NUMBER = "phone_number"
 CLIENT__EMAIL_ADDRESS = "email_address"
-CLIENT__ADDRESS = "address"
+CLIENT__CARD_NUMBER = "card_number"
 CLIENT__ADDRESS__KEY_LIST = ["Home", "Office"]
-CLIENT__GENDER = "gender"
-CLIENT__COUNTRY = "country"
+CLIENT__MEMBERSHIP_LEVEL = "membership_level"
+CLIENT__CREDIT = "credit"
+CLIENT__REWARD_POINTS = "reward_points"
+CLIENT__GAME_HISTORY = "game_history"
 CLIENT__CITY = "city"
-CLIENT__CLIENT_CATEGORY = "client_category"
-CLIENT__CLIENT_CATEGORY__LIST = ["Investor", "User", "Agent"]
-CLIENT__ASSIGNED_TO = "assigned_to"
-CLIENT__ASSIGNED_BY = "assigned_by"
-CLIENT__TRANSFERED = "transfered"
-CLIENT__TRANSFERED_ON = "transfered_on"
+# CLIENT__CLIENT_CATEGORY = "client_category"
+# CLIENT__CLIENT_CATEGORY__LIST = ["Investor", "User", "Agent"]
+# CLIENT__ASSIGNED_TO = "assigned_to"
+# CLIENT__ASSIGNED_BY = "assigned_by"
+# CLIENT__TRANSFERED = "transfered"
+# CLIENT__TRANSFERED_ON = "transfered_on"
+
+#REQUIRED Clients FIELD LIST
+
+REQUIRED_FIELDS_LIST__CLIENTS = [
+    CLIENT__NAME,
+    CLIENT__NIC,
+    CLIENT__PHONE_NUMBER,
+    CLIENT__EMAIL_ADDRESS,
+    CLIENT__CARD_NUMBER,
+    CLIENT__MEMBERSHIP_LEVEL,
+    CLIENT__REWARD_POINTS,
+    CLIENT__GAME_HISTORY,
+    CLIENT__CITY,
+    CLIENT__CREDIT,
+]
+
+REQUIRED_UPDATE_FIELDS_LIST__CLIENTS = list(
+    set([ID])
+)
+ALL_FIELDS_LIST__CLIENTS =REQUIRED_FIELDS_LIST__CLIENTS + [ID, CREATED_BY, CREATED_ON]
 
 # Branch Constants
 BRANCH = "branch"
 BRANCH__ID = "branch_id"
 BRANCH__NAME = "name"
-BRANCH__LOCATION = "location"
+BRANCH__LOCATION_LNG = "location_lng"
+BRANCH__LOCATION_LAT = "location_lat"
 BRANCH__CITY = "city"
 BRANCH__GAME_TYPES = "game_types"
 BRANCH__USERS = "users"
 BRANCH__OPENING_TIME = "opening_time"
 BRANCH__CLOSING_TIME = "closing_time"
+
+# REQUIRED BRANCH FIELD LIST
+REQUIRED_FIELDS_LIST__BRANCH = [
+    BRANCH__NAME,
+    BRANCH__CITY,
+    BRANCH__GAME_TYPES,
+    BRANCH__OPENING_TIME,
+    BRANCH__CLOSING_TIME,
+]
+
+#OPTIONAL BRANCH FIELD LIST
+OPTIONAL_FIELDS_LIST__BRANCH = [
+    BRANCH__LOCATION_LNG,
+    BRANCH__LOCATION_LAT,
+    BRANCH__USERS,
+]
+REQUIRED_UPDATE_FIELDS_LIST__BRANCH = list(
+    set([ID])
+)
+ALL_FIELDS_LIST__BRANCH = OPTIONAL_FIELDS_LIST__BRANCH + \
+    REQUIRED_FIELDS_LIST__BRANCH + [ID, CREATED_BY, CREATED_ON]
 
 
 # Lead Constants
@@ -272,56 +342,7 @@ LEAD_HISTORY__TRANSFERED = "transfered"
 LEAD_HISTORY__FOLLOWUP = "followup_id"
 LEAD_HISTORY__TRANSFERED_ON = "transfered_on"
 
-# Follow Up Constants
-FOLLOW_UP = "follow_up"
-FOLLOWUP__ID = "follow_id"
-FOLLOW_UP__LEAD = "lead"
-FOLLOW_UP__TYPE = "type"
-FOLLOW_UP__TYPE_LIST = ["All", "Call", "Meeting"]
-FOLLOW_UP__NEXT_TASK_LIST = ["DoNothing", "ContactClient", "FollowUp", "ReceiveTokenPayment", "MeetClient", "ArrangeMeeting", "ReceiveCompleteDownPayment", "Closed(Won)", "SignSaleAgreement"]
-FOLLOW_UP__SUB_TYPE = "sub_type"
-FOLLOW_UP__LEVEL = "lead_level"
-FOLLOW_UP__LEVEL__LIST = ["AtomBomb", "Hot", "Moderate", "Cold", "SubZero"]
-FOLLOW_UP__STATUS = "lead_status"
-FOLLOW_UP__STATUS__LIST = ["Interested", "Not Interested"]
-FOLLOW_UP__COMPLETION_DATE = "completion_date"
-FOLLOW_UP__COMMENT = "comment"
-FOLLOW_UP__ASSIGNED_TO = "assigned_to"
-
-FOLLOW_UP__NEXT_TASK = "next_task"
-FOLLOW_UP__NEXT_PROJECT = "next_project"
-FOLLOW_UP__NEXT_DEADLINE = "next_deadline"
-FOLLOW_UP__NEXT_COMMENT = "next_comment"
-DATE_FROM = "date_start"
-DATE_TO = "date_end"
-
-# Required, Optional Fields Lists
-# User
-LOGIN_REQUIRED_FIELDS_LIST = [USER__EMAIL_ADDRESS, USER__PASSWORD]
-REQUIRED_FIELDS_LIST__USER = [
-    USER__NAME,
-    USER__EMAIL_ADDRESS,
-    USER__PASSWORD,
-    USER__PHONE_NUMBER,
-    USER__CITY,
-    USER__CARD_ID,
-    USER__GENDER,
-    USER__ROLE,
-    USER__NIC
-]
-OPTIONAL_FIELDS_LIST__USER = [
-    USER__EMAIL_ADDRESS,
-    USER__PHONE_NUMBER,
-    # USER__ROLE__MANAGER_NAME,
-    USER__MANAGER]
-REQUIRED_UPDATE_FIELDS_LIST__USER = list(
-    set(REQUIRED_FIELDS_LIST__USER + [ID])
-    - set([USER__PASSWORD, USER__EMAIL_ADDRESS, USER__PHONE_NUMBER])
-)
-ALL_FIELDS_LIST__USER = OPTIONAL_FIELDS_LIST__USER + \
-    REQUIRED_FIELDS_LIST__USER + [ID]
-
-# Lead
+#OPTINAL AND REQUIRED FIELD LIST 
 REQUIRED_FIELDS_LIST__LEAD = [
     LEAD__FIRST_NAME,
     LEAD__GENDER,
@@ -347,6 +368,29 @@ REQUIRED_UPDATE_FIELDS_LIST__LEAD = list(
 )
 ALL_FIELDS_LIST__LEAD = OPTIONAL_FIELDS_LIST__LEAD + \
     REQUIRED_FIELDS_LIST__LEAD + [ID, CREATED_BY, CREATED_ON]
+
+# Follow Up Constants
+FOLLOW_UP = "follow_up"
+FOLLOWUP__ID = "follow_id"
+FOLLOW_UP__LEAD = "lead"
+FOLLOW_UP__TYPE = "type"
+FOLLOW_UP__TYPE_LIST = ["All", "Call", "Meeting"]
+FOLLOW_UP__NEXT_TASK_LIST = ["DoNothing", "ContactClient", "FollowUp", "ReceiveTokenPayment", "MeetClient", "ArrangeMeeting", "ReceiveCompleteDownPayment", "Closed(Won)", "SignSaleAgreement"]
+FOLLOW_UP__SUB_TYPE = "sub_type"
+FOLLOW_UP__LEVEL = "lead_level"
+FOLLOW_UP__LEVEL__LIST = ["AtomBomb", "Hot", "Moderate", "Cold", "SubZero"]
+FOLLOW_UP__STATUS = "lead_status"
+FOLLOW_UP__STATUS__LIST = ["Interested", "Not Interested"]
+FOLLOW_UP__COMPLETION_DATE = "completion_date"
+FOLLOW_UP__COMMENT = "comment"
+FOLLOW_UP__ASSIGNED_TO = "assigned_to"
+
+FOLLOW_UP__NEXT_TASK = "next_task"
+FOLLOW_UP__NEXT_PROJECT = "next_project"
+FOLLOW_UP__NEXT_DEADLINE = "next_deadline"
+FOLLOW_UP__NEXT_COMMENT = "next_comment"
+DATE_FROM = "date_start"
+DATE_TO = "date_end"
 
 # Follow Up
 REQUIRED_FIELDS_LIST__FOLLOW_UP = [
@@ -405,40 +449,6 @@ OPTIONAL_FIELDS_LIST__LEAD_FOLLOWUP = [
     FOLLOW_UP__NEXT_COMMENT,
     FOLLOW_UP__NEXT_PROJECT
 ]
-
-#Clients 
-
-REQUIRED_FIELDS_LIST__CLIENTS = [
-    CLIENT__NAME,
-    CLIENT__NIC,
-    CLIENT__PHONE_NUMBER,
-    CLIENT__EMAIL_ADDRESS,
-    CLIENT__ADDRESS,
-    CLIENT__GENDER,
-    CLIENT__COUNTRY,
-    CLIENT__CITY,
-    CLIENT__CLIENT_CATEGORY,
-]
-
-#BRANCH
-REQUIRED_FIELDS_LIST__BRANCH = [
-    BRANCH__NAME,
-    BRANCH__CITY,
-    BRANCH__GAME_TYPES,
-    BRANCH__OPENING_TIME,
-    BRANCH__CLOSING_TIME,
-]
-
-#BRANCH FIELD LIST
-OPTIONAL_FIELDS_LIST__BRANCH = [
-    BRANCH__LOCATION,
-    BRANCH__USERS,
-]
-REQUIRED_UPDATE_FIELDS_LIST__BRANCH = list(
-    set([ID])
-)
-ALL_FIELDS_LIST__BRANCH = OPTIONAL_FIELDS_LIST__BRANCH + \
-    REQUIRED_FIELDS_LIST__BRANCH + [ID, CREATED_BY, CREATED_ON]
 
 #temp fields
 

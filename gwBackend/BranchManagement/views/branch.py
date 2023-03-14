@@ -26,10 +26,11 @@ def branch_create_view(data):
     return res
 
 
-@branch_bp.route("/read", methods=["GET"])
+@branch_bp.route("/read", methods=["GET","POST"])
 @decorators.is_authenticated
 @decorators.keys_validator()
 def read_view(data):
+    data = common_utils.posted()
     res = BranchController.read_controller(data=data)
     return res
 
@@ -51,4 +52,14 @@ def update_view(data):
 def search_view(data):
     data = request.form
     res = BranchController.search_controller(data=data)
+    return res
+
+@branch_bp.route("/suspend", methods=["POST"])
+@decorators.is_authenticated
+@decorators.keys_validator(
+    [constants.ID]
+)
+def suspend_view(data):
+    data = common_utils.posted()
+    res = BranchController.suspend_controller(data=data)
     return res
