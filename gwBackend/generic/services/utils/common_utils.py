@@ -126,7 +126,9 @@ def verify_password(password_hash, password):
 
 def get_access_token():
     """ Gets user token from header. """
-    return request.cookies.get('access_token', None)
+    # return request.cookies.get('access_token', None)
+    return [request.headers.get('x-session-key', None),
+            request.headers.get('x-session-type', None)]
 
 
 def get_token():
