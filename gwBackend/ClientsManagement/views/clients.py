@@ -46,7 +46,6 @@ def read_view(data):
 
 @clients_bp.route("/update", methods=["PUT"])
 @decorators.is_authenticated
-# @decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
     [],
     constants.ALL_FIELDS_LIST__CLIENTS,
