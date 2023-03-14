@@ -132,7 +132,7 @@ def get_access_token():
 
 
 def get_token():
-    access_token = get_access_token()
+    access_token, token_type = get_access_token()
     if not access_token:
         return None
     from gwBackend.UserManagement.controllers.TokenController import TokenController
