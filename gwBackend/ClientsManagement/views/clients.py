@@ -49,6 +49,7 @@ def read_view(data):
 # @decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
     [],
+    constants.ALL_FIELDS_LIST__CLIENTS,
 )
 def update_view(data):
     return ClientsController.update_controller(data=data)
