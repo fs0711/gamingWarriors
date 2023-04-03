@@ -66,7 +66,6 @@ class UserController(Controller):
             response_message=response_codes.MESSAGE_SUCCESS,
             response_data=obj.display(),
         )
-
     @classmethod
     def suspend_controller(cls, data):
         _, _, obj = cls.db_update_single_record(

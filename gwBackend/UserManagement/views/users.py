@@ -57,10 +57,9 @@ def update_view(data):
 @decorators.is_authenticated
 @decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
-    []
+    [constants.ID]
 )
 def suspend_view(data):
-    data = request.form
     res = UserController.suspend_controller(data=data)
     return res
 
