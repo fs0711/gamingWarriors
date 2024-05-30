@@ -1,5 +1,4 @@
 # Python imports
-import pandas as pd
 import re
 from math import nan, isnan
 # Framework imports
@@ -387,8 +386,8 @@ class LeadsController(Controller):
     
     @classmethod
     def lead_bulk_add(cls, data):
-        datafile = pd.read_csv(data)
-        jout = datafile.to_dict(orient="split")
+        datafile = []
+        jout = []
         unique = []
         duplicates = []
         lead = {}

@@ -1,7 +1,6 @@
 # Python imports
 import os
 import re
-import pandas as pd
 from datetime import datetime
 # Framework imports
 from flask import Blueprint, redirect, url_for, redirect, render_template, request

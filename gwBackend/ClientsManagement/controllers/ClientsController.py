@@ -1,5 +1,4 @@
 # Python imports
-import pandas as pd
 import re
 from math import nan, isnan
 # Framework imports
