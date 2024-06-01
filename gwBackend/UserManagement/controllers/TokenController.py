@@ -15,9 +15,14 @@ class TokenController(Controller):
     Model = Token
 
     @classmethod
-    def generate_access_token(cls, user, purpose, expiry_time):
+    def generate_access_token(cls, purpose, expiry_time, platform, user):
         access_token = common_utils.generate_uuid4()
-        expiry_timestamp = common_utils.get_time(offset=expiry_time)
+        if platform == constants.PLATFORM_WEB:
+            expiry_timestamp = common_utils.get_time(offset=expiry_time)
+        if platform == constants.PLATFORM_MOBILE:
+            expiry_timestamp = common_utils.get_time(days=expiry_time)
+        if platform == constants.PLATFORM_DEVICE:
+            expiry_timestamp = common_utils.get_time(days=expiry_time)
         return cls.db_insert_record(
             {
                 constants.TOKEN__ACCESS_TOKEN: access_token,
@@ -25,7 +30,8 @@ class TokenController(Controller):
                 constants.TOKEN__PURPOSE: purpose,
                 constants.TOKEN__EXPIRY_TIME: expiry_timestamp,
                 constants.TOKEN__IS_EXPIRED: False,
-                constants.TOKEN__IS_REVOKED: False
+                constants.TOKEN__IS_REVOKED: False,
+                constants.TOKEN__PLATFORM: platform
             }
         )
 
