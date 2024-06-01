@@ -13,8 +13,8 @@ class Gameunit(models.Model):
     def validation_rules(cls):
         return {
             constants.GAMEUNIT__TYPE: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.GAMEUNIT__GAME_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.GAMEUNIT__PLAY_COUNT: [{"rule": "datatype", "datatype": str}],
+            constants.GAMEUNIT__GAME_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": int}],
+            constants.GAMEUNIT__PLAY_COUNT: [{"rule": "datatype", "datatype": int}],
             constants.GAMEUNIT__UNIT_STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__GAME_STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__BRANCH: [],
@@ -24,13 +24,15 @@ class Gameunit(models.Model):
     def update_validation_rules(cls): 
         return {}
 
+    name = db.StringField(required=True)
     type = db.StringField(required=True)
     branch = db.LazyReferenceField('Branch')
-    game_level = db.StringField(reuired=True)
-    play_count = db.StringField(required=True)
+    game_level = db.IntField(reuired=True)
+    play_count = db.IntField(required=True)
     unit_status = db.StringField(required=True)
     game_status = db.StringField(required=True)
     cost = db.IntField(required=True)
+    access_token = db.StringField(required=True)
 
     def __str__(self):
         return str(self.pk)
@@ -38,6 +40,7 @@ class Gameunit(models.Model):
     def display(self):
         return {
             constants.ID: str(self[constants.ID]),
+            constants.GAMEUNIT__NAME: self[constants.GAMEUNIT__NAME],
             constants.GAMEUNIT__TYPE: self[constants.GAMEUNIT__TYPE],
             constants.GAMEUNIT__BRANCH: self[constants.GAMEUNIT__BRANCH],
             constants.GAMEUNIT__GAME_LEVEL: self[constants.GAMEUNIT__GAME_LEVEL],
@@ -45,6 +48,7 @@ class Gameunit(models.Model):
             constants.GAMEUNIT__UNIT_STATUS: self[constants.GAMEUNIT__UNIT_STATUS],
             constants.GAMEUNIT__GAME_STATUS: self[constants.GAMEUNIT__GAME_STATUS],
             constants.GAMEUNIT__COST: self[constants.GAMEUNIT__COST],
+            constants.GAMEUNIT__ACCESS_TOKEN: self[constants.GAMEUNIT__ACCESS_TOKEN],
             constants.STATUS: self[constants.STATUS],
             constants.CREATED_BY: self.created_by.fetch().name,
             constants.CREATED_ON: self[constants.CREATED_ON],

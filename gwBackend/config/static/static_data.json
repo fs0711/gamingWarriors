@@ -53,8 +53,12 @@
 
     "gender": [
         "Male",
-        "Female",
-        "Other"
+        "Female"
+    ],
+
+    "game_types": [
+        "Arcade",
+        "Snooker"
     ]
 
 }
