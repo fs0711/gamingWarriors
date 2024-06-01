@@ -14,9 +14,7 @@ class Gameunit(models.Model):
         return {
             constants.GAMEUNIT__TYPE: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__GAME_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": int}],
-            constants.GAMEUNIT__PLAY_COUNT: [{"rule": "datatype", "datatype": int}],
             constants.GAMEUNIT__UNIT_STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.GAMEUNIT__GAME_STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__BRANCH: [],
         }
 
@@ -28,9 +26,9 @@ class Gameunit(models.Model):
     type = db.StringField(required=True)
     branch = db.LazyReferenceField('Branch')
     game_level = db.IntField(reuired=True)
-    play_count = db.IntField(required=True)
+    play_count = db.IntField()
     unit_status = db.StringField(required=True)
-    game_status = db.StringField(required=True)
+    game_status = db.StringField()
     cost = db.IntField(required=True)
     access_token = db.StringField(required=True)
 
@@ -42,11 +40,11 @@ class Gameunit(models.Model):
             constants.ID: str(self[constants.ID]),
             constants.GAMEUNIT__NAME: self[constants.GAMEUNIT__NAME],
             constants.GAMEUNIT__TYPE: self[constants.GAMEUNIT__TYPE],
-            constants.GAMEUNIT__BRANCH: self[constants.GAMEUNIT__BRANCH],
+            constants.GAMEUNIT__BRANCH: self[constants.GAMEUNIT__BRANCH] if self[constants.GAMEUNIT__BRANCH] != None else "",
             constants.GAMEUNIT__GAME_LEVEL: self[constants.GAMEUNIT__GAME_LEVEL],
-            constants.GAMEUNIT__PLAY_COUNT: self[constants.GAMEUNIT__PLAY_COUNT],
+            constants.GAMEUNIT__PLAY_COUNT: self[constants.GAMEUNIT__PLAY_COUNT ] if self[constants.GAMEUNIT__PLAY_COUNT] != None else 0,
             constants.GAMEUNIT__UNIT_STATUS: self[constants.GAMEUNIT__UNIT_STATUS],
-            constants.GAMEUNIT__GAME_STATUS: self[constants.GAMEUNIT__GAME_STATUS],
+            constants.GAMEUNIT__GAME_STATUS: self[constants.GAMEUNIT__GAME_STATUS] if self[constants.GAMEUNIT__GAME_STATUS] != None else "free",
             constants.GAMEUNIT__COST: self[constants.GAMEUNIT__COST],
             constants.GAMEUNIT__ACCESS_TOKEN: self[constants.GAMEUNIT__ACCESS_TOKEN],
             constants.STATUS: self[constants.STATUS],
