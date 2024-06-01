@@ -23,6 +23,13 @@ def posted():
     return request.get_json(silent=True) or {}
 
 
+def posted_form_data():
+    """
+    Get Data
+    :return:
+    """
+    return request.form or {}
+
 def posted_files():
     """
     Get Data
@@ -31,12 +38,6 @@ def posted_files():
     return request.files or {}
 
 
-def posted_form_data():
-    """
-    Get Data
-    :return:
-    """
-    return request.form or {}
 
 
 def raise_response_code(code):
@@ -50,6 +51,18 @@ def get_time(offset=0, days=0):
     return int(time.mktime(
         (datetime.datetime.now() +
          datetime.timedelta(hours=hours, days=days)).timetuple()))*1000
+
+def get_time_iso():
+    return int(datetime.datetime.now().strftime("%H%M"))
+
+def get_day():
+    return datetime.datetime.now().isoweekday()
+
+def format_time(seconds, format=config.DISPLAY_TIME_FORMAT):
+    try:
+        return "{}".format(str(datetime.timedelta(seconds=seconds)))
+    except ValueError:
+        return None
 
 
 def format_datetime(str_datetime, format=config.DATETIME_FORMAT):
@@ -126,10 +139,13 @@ def verify_password(password_hash, password):
 
 def get_access_token():
     """ Gets user token from header. """
-    # return request.cookies.get('access_token', None)
-    return [request.headers.get('x-session-key', None),
-            request.headers.get('x-session-type', None)]
-
+    access_token =  request.cookies.get('access_token', None)
+    session_type =  request.cookies.get('session_type', None)
+    if not access_token:
+        return [request.headers.get('x-session-key', None),
+                request.headers.get('x-session-type', None)]
+    else:
+        return [access_token, session_type]
 
 def get_token():
     access_token, token_type = get_access_token()
@@ -143,6 +159,11 @@ def get_token():
     __global__.set_current_user(user)
     return token_obj
 
+def get_last_update(token):
+    from gwBackend.UserManagement.controllers.TokenController import TokenController
+    token_obj = TokenController.get_token(token)
+    last_update = epoch_to_datetime(token_obj[constants.UPDATED_ON])
+    return last_update
 
 def current_user():
     user = __global__.get_current_user()
