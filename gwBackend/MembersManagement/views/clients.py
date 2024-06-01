@@ -7,7 +7,7 @@ from datetime import datetime
 from flask import Blueprint, redirect, url_for, redirect, render_template, request
 
 # Local imports
-from gwBackend.ClientsManagement.controllers.ClientsController import ClientsController
+from gwBackend.MembersManagement.controllers.ClientsController import ClientsController
 from gwBackend.LeadsManagement.controllers.FollowUpController import FollowUpController
 from gwBackend.UserManagement.controllers.UserController import UserController
 from gwBackend.generic.services.utils import constants, decorators, common_utils

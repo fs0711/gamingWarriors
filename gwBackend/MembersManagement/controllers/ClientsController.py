@@ -7,7 +7,7 @@ from math import nan, isnan
 # Local imports
 from ast import Constant
 from gwBackend.generic.controllers import Controller
-from gwBackend.ClientsManagement.models.Clients import Clients
+from gwBackend.MembersManagement.models.Clients import Clients
 from gwBackend.LeadsManagement.controllers.LeadsHistoryController import LeadsHistoryController
 from gwBackend.UserManagement.controllers.UserController import UserController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, common_utils, pipeline

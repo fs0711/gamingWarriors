@@ -11,7 +11,7 @@ from gwBackend.LeadsManagement.controllers.LeadsController import LeadsControlle
 from gwBackend.generic.services.utils import constants, decorators
 from gwBackend.UserManagement.views.users import users_bp
 from gwBackend.BranchManagement.views.branch import branch_bp
-from gwBackend.ClientsManagement.views.clients import clients_bp
+from gwBackend.MembersManagement.views.clients import clients_bp
 from gwBackend.GameunitManagement.views.gameunit import gameunit_bp
 from gwBackend.ReservationManagement.views.reservation import reservation_bp
 from gwBackend.generic.services.utils import common_utils
