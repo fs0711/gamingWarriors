@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request
 
 # Local imports
 from gwBackend.UserManagement.controllers.UserController import UserController
-from gwBackend.generic.services.utils import constants, decorators, response_codes, response_utils
+from gwBackend.generic.services.utils import constants, decorators, response_codes, response_utils, common_utils
 
 
 users_bp = Blueprint("users_bp", __name__)
@@ -69,6 +69,14 @@ def suspend_view(data):
 def login_user_view(data):
     res = UserController.login_controller(data=data)
     return res
+
+@users_bp.route("/login/<platform>", methods=["POST"])
+@decorators.logging
+@decorators.keys_validator(constants.LOGIN_REQUIRED_FIELDS_LIST, [],
+                           request_form_data=False)
+def loginmobile_user_view(data, platform):
+    data = common_utils.posted()
+    return UserController.login_controller(data=data, platform=platform)
 
 @users_bp.route("/logout", methods=["GET"])
 @decorators.logging

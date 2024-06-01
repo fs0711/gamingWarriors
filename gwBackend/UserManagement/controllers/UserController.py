@@ -87,7 +87,16 @@ class UserController(Controller):
             ))
 
     @classmethod
-    def login_controller(cls, data):
+    def login_controller(cls, data, platform="web"):
+        if platform != constants.PLATFORM_WEB\
+            and platform != constants.PLATFORM_MOBILE\
+            and platform != constants.PLATFORM_DEVICE:
+            return response_utils.get_json_response_object(
+                response_code=response_codes.CODE_PLATFORM_INCORRECT,
+                response_message=response_codes.MESSAGE_PLATFORM_INCORRECT
+                .format(
+                    [constants.PLATFORM_WEB, constants.PLATFORM_MOBILE, constants.PLATFORM_DEVICE]),
+            )
         is_valid, error_messages = cls.cls_validate_data(data=data,
                                                          validation_rules=cls.Model.login_validation_rules())
         if is_valid:
@@ -96,36 +105,41 @@ class UserController(Controller):
             })
             if user:
                 if user.verify_password(password=data[constants.USER__PASSWORD]):
-                    expiry_time = config.TOKEN_EXPIRY_TIME_WEB
+                    if platform == constants.PLATFORM_WEB:
+                        expiry_time = config.TOKEN_EXPIRY_TIME_WEB
+                    if platform == constants.PLATFORM_MOBILE:
+                        expiry_time = config.TOKEN_EXPIRY_TIME_MOBILE                    
+                    if platform == constants.PLATFORM_DEVICE:
+                        expiry_time = config.TOKEN_EXPIRY_TIME_DEVICE                    
                     token_is_valid, token_error_messages, token = TokenController.generate_access_token(
                         user=user, purpose=constants.PURPOSE_LOGIN,
-                        expiry_time=expiry_time)
+                        expiry_time=expiry_time, platform=platform)
                     if token_is_valid:
-                        return response_utils.get_response_object(
+                        return response_utils.get_json_response_object(
                             response_code=response_codes.CODE_SUCCESS,
                             response_message=response_codes.MESSAGE_LOGIN_SUCCESS,
                             response_data=token.display())
 
                     else:
-                        return response_utils.get_response_object(
+                        return response_utils.get_json_response_object(
                             response_code=response_codes.CODE_VALIDATION_FAILED,
                             response_message=response_codes.MESSAGE_VALIDATION_FAILED,
                             response_data=token_error_messages
                         )
                 else:
-                    return response_utils.get_response_object(
+                    return response_utils.get_json_response_object(
                         response_code=response_codes.CODE_INVALID_PASSWORD,
                         response_message=response_codes.MESSAGE_INVALID_DATA.format(
                             constants.USER__PASSWORD
                         ))
             else:
-                return response_utils.get_response_object(
+                return response_utils.get_json_response_object(
                     response_code=response_codes.CODE_INVALID_EMAIL_ADDRESS,
                     response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
                         constants.USER.title(), constants.USER__EMAIL_ADDRESS
                     ))
         else:
-            return response_utils.get_response_object(
+            return response_utils.get_json_response_object(
                 response_code=response_codes.CODE_VALIDATION_FAILED,
                 response_message=response_codes.MESSAGE_VALIDATION_FAILED,
                 response_data=error_messages
