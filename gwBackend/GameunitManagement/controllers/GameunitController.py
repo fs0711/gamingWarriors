@@ -55,14 +55,6 @@ class GameunitController(Controller):
             response_data=[
                 obj.display() for obj in cls.db_read_records(read_filter=data)
             ])
-        # filter = {}
-        # if data.get(constants.DATE_FROM):
-        #     datefrom = data.get(constants.DATE_FROM) + ' 00:00:00'
-        #     dateto = data.get(constants.DATE_TO) + ' 23:59:59'
-        #     filter[constants.CREATED_ON +
-        #            "__gte"] = common_utils.convert_to_epoch1000(datefrom, format=config.FILTER_DATETIME_FORMAT)
-        #     filter[constants.CREATED_ON +
-        #            "__lte"] = common_utils.convert_to_epoch1000(dateto, format=config.FILTER_DATETIME_FORMAT)
 
     @classmethod
     def update_controller(cls, data):

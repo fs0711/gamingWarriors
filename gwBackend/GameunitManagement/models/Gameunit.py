@@ -15,7 +15,6 @@ class Gameunit(models.Model):
             constants.GAMEUNIT__TYPE: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__GAME_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__PLAY_COUNT: [{"rule": "datatype", "datatype": str}],
-            constants.GAMEUNIT__STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__UNIT_STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__GAME_STATUS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.GAMEUNIT__BRANCH: [],
@@ -29,9 +28,9 @@ class Gameunit(models.Model):
     branch = db.LazyReferenceField('Branch')
     game_level = db.StringField(reuired=True)
     play_count = db.StringField(required=True)
-    status = db.StringField(required=True)
     unit_status = db.StringField(required=True)
     game_status = db.StringField(required=True)
+    cost = db.IntField(required=True)
 
     def __str__(self):
         return str(self.pk)
@@ -43,9 +42,9 @@ class Gameunit(models.Model):
             constants.GAMEUNIT__BRANCH: self[constants.GAMEUNIT__BRANCH],
             constants.GAMEUNIT__GAME_LEVEL: self[constants.GAMEUNIT__GAME_LEVEL],
             constants.GAMEUNIT__PLAY_COUNT: self[constants.GAMEUNIT__PLAY_COUNT],
-            constants.GAMEUNIT__STATUS: self[constants.GAMEUNIT__STATUS],
             constants.GAMEUNIT__UNIT_STATUS: self[constants.GAMEUNIT__UNIT_STATUS],
             constants.GAMEUNIT__GAME_STATUS: self[constants.GAMEUNIT__GAME_STATUS],
+            constants.GAMEUNIT__COST: self[constants.GAMEUNIT__COST],
             constants.STATUS: self[constants.STATUS],
             constants.CREATED_BY: self.created_by.fetch().name,
             constants.CREATED_ON: self[constants.CREATED_ON],

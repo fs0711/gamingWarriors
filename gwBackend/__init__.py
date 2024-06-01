@@ -10,11 +10,7 @@ from gwBackend.config import config
 
 def register_scripts():
     from gwBackend.scripts import run_scripts
-    from gwBackend.scripts.JunkFollowUpLeadHistoryRemoval import junk_follow_up_lead_history_removal
-    run_scripts(execute_create_admin_user_if_not_exists=True, execute_phone_number_format_correction=False,
-                execute_update_id_field=False, execute_find_empty_leads=False,
-                execute_junk_follow_up_lead_history_removal=False, update_leads_execute=False, execute_find_missing=False, 
-                execute_report_generator=False)
+    run_scripts(execute_create_admin_user_if_not_exists=True)
     # Routing
     import gwBackend.urls
 
