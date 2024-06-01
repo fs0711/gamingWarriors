@@ -1,18 +1,15 @@
 # Python imports
-
 # Framework imports
 
 # Local imports
 from ast import Constant
 from gwBackend.generic.controllers import Controller
-from gwBackend.ReservationManagement.models.Reservation import Reservation
+from gwBackend.MembersManagement.models.Profiles import Profiles
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline
-from gwBackend import config
-from datetime import datetime
 
 
-class ReservationController(Controller):
-    Model = Reservation
+class ProfilesController(Controller):
+    Model = Profiles
 
     @classmethod
     def create_controller(cls, data):
@@ -25,7 +22,7 @@ class ReservationController(Controller):
             )
         # current_user = common_utils.current_user()
         already_exists = cls.db_read_records(read_filter={
-            constants.RESERVATION__GAME_ID+"__in": data[constants.RESERVATION__GAME_ID],
+            constants.CLIENT__PHONE_NUMBER+"__in": data[constants.CLIENT__PHONE_NUMBER],
             # constants.CREATED_BY+"__nin": [current_user]
         })
         if already_exists:
@@ -100,5 +97,5 @@ class ReservationController(Controller):
         return response_utils.get_response_object(
             response_code=response_codes.CODE_RECORD_NOT_FOUND,
             response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
-                constants.GAMEUNIT.title(), constants.ID
+                constants.CLIENT.title(), constants.ID
             ))

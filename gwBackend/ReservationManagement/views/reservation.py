@@ -1,16 +1,11 @@
 # Python imports
-import os
-import re
-import pandas as pd
-from datetime import datetime
+
 # Framework imports
-from flask import Blueprint, redirect, url_for, redirect, render_template, request
+from flask import Blueprint, request
 
 # Local imports
 from gwBackend.ReservationManagement.controllers.ReservationController import ReservationController
-from gwBackend.LeadsManagement.controllers.FollowUpController import FollowUpController
-from gwBackend.UserManagement.controllers.UserController import UserController
-from gwBackend.generic.services.utils import constants, decorators, common_utils
+from gwBackend.generic.services.utils import constants, decorators
 from gwBackend.config import config
 
 reservation_bp = Blueprint("reservation_bp", __name__)
