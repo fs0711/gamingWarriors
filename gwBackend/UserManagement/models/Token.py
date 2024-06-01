@@ -39,6 +39,7 @@ class Token(models.Model):
     expiry_time = db.IntField(required=True)
     is_expired = db.BooleanField(default=False)
     is_revoked = db.BooleanField(default=False)
+    platform = db.StringField(required=True)
 
     def display(self):
         return {

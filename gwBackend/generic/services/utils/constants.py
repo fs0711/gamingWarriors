@@ -199,6 +199,7 @@ TOKEN__PURPOSE = "purpose"
 TOKEN__EXPIRY_TIME = "expiry_time"
 TOKEN__IS_EXPIRED = "is_expired"
 TOKEN__IS_REVOKED = "is_revoked"
+TOKEN__PLATFORM = "platform"
 
 # GAMEUNIT CONSTANTS:>>>>>>
 GAMEUNIT = "game_unit"
