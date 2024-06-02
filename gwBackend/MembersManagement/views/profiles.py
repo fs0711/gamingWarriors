@@ -24,8 +24,7 @@ def create_view(data):
 @profiles_bp.route("/read", methods=["GET"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    [],
-    constants.ALL_FIELDS_LIST__MEMBERS,
+    []
 )
 def read_view(data):
     res = ProfilesController.read_controller(data=data)
@@ -34,8 +33,7 @@ def read_view(data):
 @profiles_bp.route("/update", methods=["PUT"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    [],
-    constants.ALL_FIELDS_LIST__PROREQUIRED_FIELDS_LIST__PROFILE,
+    []
 )
 def update_view(data):
     return ProfilesController.update_controller(data=data)

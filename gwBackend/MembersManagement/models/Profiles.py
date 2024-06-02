@@ -21,10 +21,10 @@ class Profiles(models.Model):
     }
 
     name = db.StringField(required=True)
-    card_id = db.LazyReferenceField("Cards")
+    card_id = db.LazyReferenceField("RfCard")
     credit = db.IntField(required=True)
     reward = db.IntField(required=True)
-    game_history = db.ObjectField()
+    game_history = db.DictField(default = {})
     member_id = db.LazyReferenceField("Members")
 
 
@@ -35,10 +35,10 @@ class Profiles(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.PROFILE__NAME:self[constants.PROFILE__NAME],
-            constants.PROFILE__CARD_ID:self[constants.PROFILE__CARD_ID],
+            constants.PROFILE__CARD_ID:self[constants.PROFILE__CARD_ID].fetch().id,
             constants.PROFILE__CREDIT:self[constants.PROFILE__CREDIT],
             constants.PROFILE__REWARD:self[constants.PROFILE__REWARD],
-            constants.PROFILE__MEMBER_ID:self[constants.PROFILE__MEMBER_ID]
+            constants.PROFILE__MEMBER_ID:self[constants.PROFILE__MEMBER_ID].fetch().id
         }
 
     def display_min(self):

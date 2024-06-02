@@ -6,6 +6,7 @@
 from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.MembersManagement.models.Members import Members
+from gwBackend.MembersManagement.controllers.ProfilesController import ProfilesController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline
 
 
@@ -33,13 +34,27 @@ class MembersController(Controller):
                 response_data=already_exists
             )
         else:
-            _,_,obj = cls.db_insert_record(data=data, db_commit=False)
-            obj.save()
-            return response_utils.get_response_object(
-                response_code=response_codes.CODE_SUCCESS,
-                response_message=response_codes.MESSAGE_SUCCESS,
-                response_data=obj.display()
-            )
+            card_id = data[constants.MEMBER__CARD_ID]
+            credit = data[constants.MEMBER__CREDIT]
+            del data[constants.MEMBER__CARD_ID]
+            del data[constants.MEMBER__CREDIT]
+            is_valid,error_messages,objm = cls.db_insert_record(data=data)
+            if is_valid:
+                member_id = str(objm.id)
+                _,_,obj = ProfilesController.db_insert_record(
+                    data={
+                        constants.PROFILE__NAME: data[constants.MEMBER__NAME],
+                        constants.PROFILE__MEMBER_ID: member_id,
+                        constants.PROFILE__CARD_ID: card_id,
+                        constants.PROFILE__CREDIT: credit,
+                        constants.PROFILE__REWARD: 0,
+                    }
+                )
+                return response_utils.get_response_object(
+                    response_code=response_codes.CODE_SUCCESS,
+                    response_message=response_codes.MESSAGE_SUCCESS,
+                    response_data=objm.display()
+                )
 
     @classmethod
     def read_controller(cls, data):

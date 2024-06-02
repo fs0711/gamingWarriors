@@ -24,7 +24,7 @@ class Members(models.Model):
                 },
             ],
             constants.MEMBER__EMAIL_ADDRESS: [{"rule": "email"}, {"rule": "datatype", "datatype": str}],
-            constants.MEMBER__CARD_UID: [{"rule": "datatype", "datatype": str}],
+            constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
         }
@@ -40,7 +40,6 @@ class Members(models.Model):
     email_address = db.StringField(reuired=True)
     city = db.StringField(required=True)
     nic = db.StringField()
-    profiles = db.ListField(required=True)
     membership_level = db.IntField(required=True)
 
 
@@ -55,7 +54,6 @@ class Members(models.Model):
             constants.MEMBER__EMAIL_ADDRESS:self[constants.MEMBER__EMAIL_ADDRESS],
             constants.MEMBER__CITY:self[constants.MEMBER__CITY],
             constants.MEMBER__MEMBERSHIP_LEVEL:self[constants.MEMBER__MEMBERSHIP_LEVEL],
-            constants.MEMBER__PROFILES:self[constants.MEMBER__PROFILES],
             constants.MEMBER__ID:self[constants.MEMBER__ID]
         }
 

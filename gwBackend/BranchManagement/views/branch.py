@@ -23,11 +23,10 @@ def branch_create_view(data):
     return res
 
 
-@branch_bp.route("/read", methods=["GET","POST"])
+@branch_bp.route("/read", methods=["GET"])
 @decorators.is_authenticated
 @decorators.keys_validator()
 def read_view(data):
-    data = common_utils.posted()
     res = BranchController.read_controller(data=data)
     return res
 

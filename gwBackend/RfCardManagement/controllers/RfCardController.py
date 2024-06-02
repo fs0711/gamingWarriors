@@ -24,8 +24,7 @@ class RfCardController(Controller):
             )
         # current_user = common_utils.current_user()
         already_exists = cls.db_read_records(read_filter={
-            constants.GAMEUNIT__TYPE+"__in": data[constants.GAMEUNIT__TYPE],
-            # constants.CREATED_BY+"__nin": [current_user]
+            constants.RFCARD__UID: data[constants.RFCARD__UID]
         })
         if already_exists:
             return response_utils.get_response_object(
@@ -34,21 +33,6 @@ class RfCardController(Controller):
                 response_data=already_exists
             )
         else:
-            user = common_utils.current_user()
-            #generate access token for device 
-            token_is_valid, token_error_messages, token = TokenController.generate_access_token(purpose=constants.PURPOSE_LOGIN, 
-                                                                                            platform=constants.PLATFORM_DEVICE, 
-                                                                                            expiry_time=config.TOKEN_EXPIRY_TIME_DEVICE,
-                                                                                            user=user)
-            if token_is_valid:
-                data.update({constants.GAMEUNIT__ACCESS_TOKEN:token[constants.TOKEN__ACCESS_TOKEN]})
-                _, _, obj = cls.db_insert_record(
-                    data=data, default_validation=False)
-                return response_utils.get_response_object(
-                    response_code=response_codes.CODE_SUCCESS,
-                    response_message=response_codes.MESSAGE_SUCCESS,
-                    response_data=obj.display()
-                )
             _,_,obj = cls.db_insert_record(data=data, db_commit=False)
             obj.save()
             return response_utils.get_response_object(
