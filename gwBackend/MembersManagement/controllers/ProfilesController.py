@@ -22,6 +22,7 @@ class ProfilesController(Controller):
             )
         # current_user = common_utils.current_user()
         else:
+            data[constants.PROFILE__REWARD] = 0
             _,_,obj = cls.db_insert_record(data=data, db_commit=False)
             obj.save()
             return response_utils.get_response_object(

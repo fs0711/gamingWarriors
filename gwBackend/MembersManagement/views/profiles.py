@@ -13,7 +13,6 @@ profiles_bp = Blueprint("profiles_bp", __name__)
 @profiles_bp.route("/create", methods=["POST"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    constants.REQUIRED_FIELDS_LIST__PROFILE,
     constants.REQUIRED_FIELDS_LIST__PROFILE
 )
 def create_view(data):

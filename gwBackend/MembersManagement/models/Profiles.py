@@ -35,10 +35,10 @@ class Profiles(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.PROFILE__NAME:self[constants.PROFILE__NAME],
-            constants.PROFILE__CARD_ID:self[constants.PROFILE__CARD_ID].fetch().id,
+            constants.PROFILE__CARD_ID:str(self[constants.PROFILE__CARD_ID].fetch().id),
             constants.PROFILE__CREDIT:self[constants.PROFILE__CREDIT],
             constants.PROFILE__REWARD:self[constants.PROFILE__REWARD],
-            constants.PROFILE__MEMBER_ID:self[constants.PROFILE__MEMBER_ID].fetch().id
+            constants.PROFILE__MEMBER_ID:str(self[constants.PROFILE__MEMBER_ID].fetch().id)
         }
 
     def display_min(self):
