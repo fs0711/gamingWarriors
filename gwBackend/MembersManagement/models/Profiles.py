@@ -5,6 +5,7 @@
 # Local imports
 from gwBackend.generic import models
 from gwBackend.generic import db
+from gwBackend.MembersManagement.models.Members import Members
 from gwBackend.generic.services.utils import constants, common_utils
 
 class Profiles(models.Model):
@@ -18,14 +19,12 @@ class Profiles(models.Model):
 
     }
 
-    member_id = db.SequenceField(value_decorator='MI-{}'.format)
     name = db.StringField(required=True)
-    phone_number = db.StringField(required=True)
-    email_address = db.StringField(reuired=True)
-    city = db.StringField(required=True)
-    nic = db.StringField()
-    profiles = db.ListField(required=True)
-    membership_level = db.IntField(required=True)
+    card_id = db.LazyReferenceField("Cards")
+    credit = db.IntField(required=True)
+    reward = db.IntField(required=True)
+    game_history = db.ObjectField()
+    member_id = db.LazyReferenceField("Members")
 
 
     def __str__(self):
