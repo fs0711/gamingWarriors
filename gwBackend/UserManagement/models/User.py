@@ -99,7 +99,7 @@ class User(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.USER__NAME: self[constants.USER__NAME],
-            constants.USER__CARD_ID: self[constants.USER__CARD_ID],
+            constants.USER__CARD_ID: str(self[constants.USER__CARD_ID]),
             constants.USER__CITY: self[constants.USER__CITY],
             constants.USER__EMAIL_ADDRESS: self[constants.USER__EMAIL_ADDRESS],
             constants.USER__PHONE_NUMBER: self[constants.USER__PHONE_NUMBER],
