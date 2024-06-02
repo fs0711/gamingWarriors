@@ -43,5 +43,6 @@ class Profiles(models.Model):
 
     def display_min(self):
         return {
-
+            constants.PROFILE__NAME:self[constants.PROFILE__NAME],
+            constants.PROFILE__CREDIT:self[constants.PROFILE__CREDIT],
         }

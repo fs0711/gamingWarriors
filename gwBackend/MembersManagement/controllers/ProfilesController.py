@@ -37,7 +37,7 @@ class ProfilesController(Controller):
             response_code=response_codes.CODE_SUCCESS,
             response_message=response_codes.MESSAGE_SUCCESS,
             response_data=[
-                obj.display() for obj in cls.db_read_records(read_filter=data)
+                obj.display_min() for obj in cls.db_read_records(read_filter=data)
             ])
 
     @classmethod
