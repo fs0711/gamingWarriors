@@ -6,6 +6,7 @@
 from gwBackend.generic import models
 from gwBackend.generic import db
 from gwBackend.MembersManagement.models.Members import Members
+from gwBackend.RfCardManagement.models.RfCard import RfCard
 from gwBackend.generic.services.utils import constants, common_utils
 
 class Profiles(models.Model):
