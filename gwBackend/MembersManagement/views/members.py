@@ -13,8 +13,8 @@ members_bp = Blueprint("members_bp", __name__)
 @members_bp.route("/create", methods=["POST"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    constants.REQUIRED_FIELDS_LIST__CLIENTS,
-    constants.REQUIRED_FIELDS_LIST__CLIENTS
+    constants.REQUIRED_FIELDS_LIST__MEMBERS,
+    constants.REQUIRED_FIELDS_LIST__MEMBERS
 )
 def create_view(data):
     res = MembersController.create_controller(data=data)
@@ -34,8 +34,7 @@ def read_view(data):
 @members_bp.route("/update", methods=["PUT"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    [],
-    constants.ALL_FIELDS_LIST__CLIENTS,
+    []
 )
 def update_view(data):
     return MembersController.update_controller(data=data)

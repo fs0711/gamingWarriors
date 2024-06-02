@@ -6,9 +6,8 @@ from gwBackend import app
 from gwBackend.config import config
 from gwBackend.generic.services.utils import common_utils, constants
 from gwBackend.UserManagement.controllers.UserController import UserController
-
-# from gwBackend.UserManagement.controllers.RoleController\
-#     import RoleController
+from gwBackend.RfCardManagement.controllers.RfCardController import RfCardController
+from gwBackend.BranchManagement.controllers.BranchController import BranchController
 
 
 def create_admin_user_if_not_exists(run=False):
@@ -17,14 +16,24 @@ def create_admin_user_if_not_exists(run=False):
     with app.test_request_context():
         if not bool(UserController.db_read_records({}).count()):
             print("No Users")
-            # if not bool(RoleController.db_read_records({
-            #         "category": constants.DEFAULT_ADMIN_ROLE_OBJECT}).count()):
-            #     _, _, role = RoleController.db_insert_record({
-            #         "name": "Admin",
-            #         "category": constants.DEFAULT_ADMIN_ROLE_OBJECT})
-            # else:
-            #     role = RoleController.db_read_single_record(
-            #         {"category": constants.DEFAULT_ADMIN_ROLE_OBJECT})
+            is_valid, error_messages, obj = BranchController.db_insert_record(
+                data={
+                    constants.BRANCH__NAME: config.DEFAULT_BRANCH_NAME,
+                    constants.BRANCH__CITY:config.DEFAULT_BRANCH_CITY,
+                    constants.BRANCH__OPENING_TIME:config.DEFAULT_BRANCH_OPENING_TIME,
+                    constants.BRANCH__CLOSING_TIME:config.DEFAULT_BRANCH_CLOSING_TIME,
+                    constants.BRANCH__GAME_TYPES:config.DEFAULT_BRANCH_GAME_TYPES
+                }
+            )
+            branch_id = str(obj.id)
+            is_valid, error_messages, obj = RfCardController.db_insert_record(
+                data={
+                    constants.RFCARD__UID: config.DEFAULT_ADMIN_CARD_ID,
+                    constants.RFCARD__ASSIGNED: "True",
+                    constants.RFCARD__BRANCH: branch_id
+                }
+            )
+            card_id = str(obj.id)
             is_valid, error_messages, obj = UserController.db_insert_record(
                 data={
                     constants.USER__NAME: config.DEFAULT_ADMIN_NAME,
@@ -35,7 +44,8 @@ def create_admin_user_if_not_exists(run=False):
                     constants.USER__NIC: "123456",
                     constants.USER__ROLE: constants.DEFAULT_ADMIN_ROLE_OBJECT,
                     constants.USER__CITY: config.DEFAULT_ADMIN_CITY,
-                    constants.USER__CARD_ID: config.DEFAULT_ADMIN_CARD_ID
+                    constants.USER__CARD_ID: card_id,
+                    constants.USER__BRANCH: branch_id
                 }
             )
             if not is_valid:

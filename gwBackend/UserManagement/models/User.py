@@ -5,6 +5,8 @@
 # Local imports
 from gwBackend.generic import models
 from gwBackend.generic import db
+from gwBackend.RfCardManagement.models.RfCard import RfCard
+from gwBackend.BranchManagement.models.Branch import Branch
 from gwBackend.generic.services.utils import common_utils, constants
 
 
@@ -84,10 +86,12 @@ class User(models.Model):
     password = db.StringField(required=True)
     gender = db.StringField(required=True)
     nic = db.StringField(required=True)
-    card_id=db.StringField(required=True)
+    card_id=db.LazyReferenceField("RfCard")
     city=db.StringField(required=True)
     role = db.DictField(required=True)
     manager = db.LazyReferenceField('User')
+    branch = db.LazyReferenceField("Branch")
+    
     def __str__(self):
         return str(self.pk)
 

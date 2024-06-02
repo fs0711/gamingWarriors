@@ -13,8 +13,8 @@ profiles_bp = Blueprint("profiles_bp", __name__)
 @profiles_bp.route("/create", methods=["POST"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    constants.REQUIRED_FIELDS_LIST__CLIENTS,
-    constants.REQUIRED_FIELDS_LIST__CLIENTS
+    constants.REQUIRED_FIELDS_LIST__PROFILE,
+    constants.REQUIRED_FIELDS_LIST__PROFILE
 )
 def create_view(data):
     res = ProfilesController.create_controller(data=data)
@@ -35,7 +35,7 @@ def read_view(data):
 @decorators.is_authenticated
 @decorators.keys_validator(
     [],
-    constants.ALL_FIELDS_LIST__CLIENTS,
+    constants.ALL_FIELDS_LIST__PROREQUIRED_FIELDS_LIST__PROFILE,
 )
 def update_view(data):
     return ProfilesController.update_controller(data=data)

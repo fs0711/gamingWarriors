@@ -12,25 +12,21 @@ class Members(models.Model):
     @classmethod
     def validation_rules(cls):
         return {
-            constants.CLIENT__NAME: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.CLIENT__NIC: [{"rule": "datatype", "datatype": str}],
-            constants.CLIENT__PHONE_NUMBER: [
+            constants.MEMBER__NAME: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
+            constants.MEMBER__NIC: [{"rule": "datatype", "datatype": str}],
+            constants.MEMBER__PHONE_NUMBER: [
                 {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
                 {
                     "rule": "unique",
                     "Model": cls,
-                    "Field": constants.CLIENT__PHONE_NUMBER,
+                    "Field": constants.MEMBER__PHONE_NUMBER,
                 },
             ],
-            constants.CLIENT__EMAIL_ADDRESS: [{"rule": "email"}, {"rule": "datatype", "datatype": str}],
-            constants.CLIENT__CARD_NUMBER: [{"rule": "datatype", "datatype": str}],
-            constants.CLIENT__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.CLIENT__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.CLIENT__CREDIT: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.CLIENT__REWARD_POINTS: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.CLIENT__GAME_HISTORY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-
+            constants.MEMBER__EMAIL_ADDRESS: [{"rule": "email"}, {"rule": "datatype", "datatype": str}],
+            constants.MEMBER__CARD_UID: [{"rule": "datatype", "datatype": str}],
+            constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
+            constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
         }
 
     @classmethod
@@ -53,6 +49,14 @@ class Members(models.Model):
 
     def display(self):
         return {
+            constants.ID: str(self[constants.ID]),
+            constants.MEMBER__NAME:self[constants.MEMBER__NAME],
+            constants.MEMBER__PHONE_NUMBER:self[constants.MEMBER__PHONE_NUMBER],
+            constants.MEMBER__EMAIL_ADDRESS:self[constants.MEMBER__EMAIL_ADDRESS],
+            constants.MEMBER__CITY:self[constants.MEMBER__CITY],
+            constants.MEMBER__MEMBERSHIP_LEVEL:self[constants.MEMBER__MEMBERSHIP_LEVEL],
+            constants.MEMBER__PROFILES:self[constants.MEMBER__PROFILES],
+            constants.MEMBER__ID:self[constants.MEMBER__ID]
         }
 
     def display_min(self):

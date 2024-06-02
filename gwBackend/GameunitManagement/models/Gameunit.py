@@ -22,6 +22,7 @@ class Gameunit(models.Model):
     def update_validation_rules(cls): 
         return {}
 
+    gu_id = db.SequenceField(value_decorator='GU-{}'.format)
     name = db.StringField(required=True)
     type = db.StringField(required=True)
     branch = db.LazyReferenceField('Branch')
