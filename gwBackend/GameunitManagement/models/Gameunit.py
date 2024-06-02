@@ -22,7 +22,7 @@ class Gameunit(models.Model):
     def update_validation_rules(cls): 
         return {}
 
-    gu_id = db.SequenceField(value_decorator='GU-{}'.format)
+    game_id = db.SequenceField(value_decorator='GU-{}'.format)
     name = db.StringField(required=True)
     type = db.StringField(required=True)
     branch = db.LazyReferenceField('Branch')
@@ -40,6 +40,7 @@ class Gameunit(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.GAMEUNIT__NAME: self[constants.GAMEUNIT__NAME],
+            constants.GAMEUNIT__ID: self[constants.GAMEUNIT__ID],
             constants.GAMEUNIT__TYPE: self[constants.GAMEUNIT__TYPE],
             constants.GAMEUNIT__BRANCH: self[constants.GAMEUNIT__BRANCH] if self[constants.GAMEUNIT__BRANCH] != None else "",
             constants.GAMEUNIT__GAME_LEVEL: self[constants.GAMEUNIT__GAME_LEVEL],

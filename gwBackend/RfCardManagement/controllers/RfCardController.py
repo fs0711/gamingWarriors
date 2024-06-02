@@ -49,6 +49,11 @@ class RfCardController(Controller):
             response_data=[
                 obj.display() for obj in cls.db_read_records(read_filter=data)
             ])
+                
+    @classmethod
+    def read_UID_controller(cls, data):
+        obj = cls.db_read_single_record(read_filter={constants.RFCARD__UID:data})
+        return str(obj.id)
 
     @classmethod
     def update_controller(cls, data):

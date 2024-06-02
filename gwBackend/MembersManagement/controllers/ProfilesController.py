@@ -39,14 +39,6 @@ class ProfilesController(Controller):
             response_data=[
                 obj.display() for obj in cls.db_read_records(read_filter=data)
             ])
-        # filter = {}
-        # if data.get(constants.DATE_FROM):
-        #     datefrom = data.get(constants.DATE_FROM) + ' 00:00:00'
-        #     dateto = data.get(constants.DATE_TO) + ' 23:59:59'
-        #     filter[constants.CREATED_ON +
-        #            "__gte"] = common_utils.convert_to_epoch1000(datefrom, format=config.FILTER_DATETIME_FORMAT)
-        #     filter[constants.CREATED_ON +
-        #            "__lte"] = common_utils.convert_to_epoch1000(dateto, format=config.FILTER_DATETIME_FORMAT)
 
     @classmethod
     def update_controller(cls, data):
@@ -90,3 +82,15 @@ class ProfilesController(Controller):
             response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
                 constants.CLIENT.title(), constants.ID
             ))
+
+    @classmethod
+    def recharge_controller(cls, data):
+        return
+    
+    @classmethod
+    def card_charge_controller(cls, data):
+        obj = cls.db_read_single_record(read_filter={
+            constants.PROFILE__CARD_ID:data[constants.PROFILE__CARD_ID]})
+        obj[constants.PROFILE__CREDIT] = obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST]
+        obj.save()
+        return [True, obj[constants.PROFILE__NAME]]

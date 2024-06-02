@@ -205,7 +205,7 @@ TOKEN__PLATFORM = "platform"
 # GAMEUNIT CONSTANTS:>>>>>>
 GAMEUNIT = "game_unit"
 GAMEUNIT__NAME = "name"
-GAMEUNIT__ID = "gu_id"
+GAMEUNIT__ID = "game_id"
 GAMEUNIT__TYPE = "type"
 GAMEUNIT__BRANCH = "branch"
 GAMEUNIT__GAME_LEVEL = "game_level"

@@ -39,3 +39,11 @@ def read_view(data):
 def update_view(data):
     return GameunitController.update_controller(data=data)
 
+@gameunit_bp.route("/card", methods=["POST"])
+@decorators.is_authenticated
+@decorators.keys_validator(
+    [constants.GAMEUNIT__ID, 
+     constants.RFCARD__UID]
+)
+def card_punch_view(data):
+    return GameunitController.card_punch_controller(data=data)

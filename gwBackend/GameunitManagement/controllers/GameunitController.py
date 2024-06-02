@@ -7,6 +7,8 @@ from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.GameunitManagement.models.Gameunit import Gameunit
 from gwBackend.UserManagement.controllers.TokenController import TokenController
+from gwBackend.RfCardManagement.controllers.RfCardController import RfCardController
+from gwBackend.MembersManagement.controllers.ProfilesController import ProfilesController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, common_utils, pipeline
 from gwBackend import config
 
@@ -109,3 +111,15 @@ class GameunitController(Controller):
             response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
                 constants.GAMEUNIT.title(), constants.ID
             ))
+
+    @classmethod
+    def card_punch_controller(cls, data):
+        card = RfCardController.read_UID_controller(data = data[constants.RFCARD__UID])
+        obj = cls.db_read_single_record(read_filter={
+            constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
+        recharge = ProfilesController.card_charge_controller(
+            data={constants.PROFILE__CARD_ID:card, 
+                  constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
+        print(recharge)
+        return recharge
+        
