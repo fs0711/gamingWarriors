@@ -115,11 +115,13 @@ class GameunitController(Controller):
     @classmethod
     def card_punch_controller(cls, data):
         card = RfCardController.read_UID_controller(data = data[constants.RFCARD__UID])
-        obj = cls.db_read_single_record(read_filter={
-            constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
-        recharge = ProfilesController.card_charge_controller(
-            data={constants.PROFILE__CARD_ID:card, 
-                  constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
-        print(recharge)
-        return recharge
-        
+        if card:
+            obj = cls.db_read_single_record(read_filter={
+                constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
+            recharge = ProfilesController.card_charge_controller(
+                data={constants.PROFILE__CARD_ID:card, 
+                    constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
+            print(recharge)
+            return recharge
+        else:
+            return {"status":0, "name":"None"}

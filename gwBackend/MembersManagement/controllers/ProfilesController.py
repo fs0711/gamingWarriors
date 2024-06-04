@@ -91,6 +91,9 @@ class ProfilesController(Controller):
     def card_charge_controller(cls, data):
         obj = cls.db_read_single_record(read_filter={
             constants.PROFILE__CARD_ID:data[constants.PROFILE__CARD_ID]})
-        obj[constants.PROFILE__CREDIT] = obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST]
-        obj.save()
-        return [True, obj[constants.PROFILE__NAME]]
+        if obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
+            obj[constants.PROFILE__CREDIT] = obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST]
+            obj.save()
+            return {"status":1, "name":obj[constants.PROFILE__NAME], "balance":obj[constants.PROFILE__CREDIT]}
+        else:
+            return {"status":0, "name":obj[constants.PROFILE__NAME], "balance":obj[constants.PROFILE__CREDIT]}
