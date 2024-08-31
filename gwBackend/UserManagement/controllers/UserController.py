@@ -16,8 +16,8 @@ class UserController(Controller):
     @classmethod
     def create_controller(cls, data):
         data[constants.USER__ROLE] = constants.DEFAULT_ROLE_OBJECTS[int(data[constants.USER__ROLE])]
-        user_manager = cls.db_read_single_record(read_filter={constants.USER__NAME : data[constants.USER__MANAGER]})
-        data[constants.USER__MANAGER] = user_manager[constants.ID]
+        # user_manager = cls.db_read_single_record(read_filter={constants.USER__NAME : data[constants.USER__MANAGER]})
+        # data[constants.USER__MANAGER] = user_manager[constants.ID]
         is_valid, error_messages, obj = cls.db_insert_record(
             data=data, db_commit=False)
         if is_valid:

@@ -45,15 +45,6 @@ class User(models.Model):
                 {"rule": "required"},
                 {"rule": "choices", "options": constants.GENDER_LIST},
             ],
-            constants.USER__NIC: [
-                {"rule": "required"},
-                {"rule": "datatype", "datatype": str},
-                {
-                    "rule": "unique",
-                    "Model": cls,
-                    "Field": constants.USER__NIC,
-                },
-            ],
             constants.USER__ROLE: [
                 {"rule": "required"},
                 {"rule": "datatype", "datatype": dict},
@@ -85,7 +76,6 @@ class User(models.Model):
     phone_number = db.StringField(required=True)
     password = db.StringField(required=True)
     gender = db.StringField(required=True)
-    nic = db.StringField(required=True)
     card_id=db.LazyReferenceField("RfCard")
     city=db.StringField(required=True)
     role = db.DictField(required=True)
@@ -99,12 +89,11 @@ class User(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.USER__NAME: self[constants.USER__NAME],
-            constants.USER__CARD_ID: str(self[constants.USER__CARD_ID]),
+            constants.USER__CARD_ID: self[constants.USER__CARD_ID].fetch().card_id,
             constants.USER__CITY: self[constants.USER__CITY],
             constants.USER__EMAIL_ADDRESS: self[constants.USER__EMAIL_ADDRESS],
             constants.USER__PHONE_NUMBER: self[constants.USER__PHONE_NUMBER],
             constants.USER__GENDER: self[constants.USER__GENDER],
-            constants.USER__NIC: self[constants.USER__NIC],
             constants.USER__ROLE: self[constants.USER__ROLE],
             constants.STATUS: self[constants.STATUS],
         }

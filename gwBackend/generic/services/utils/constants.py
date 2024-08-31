@@ -154,7 +154,6 @@ USER__CARD_ID = "card_id"
 USER__PHONE_NUMBER = "phone_number"
 USER__PASSWORD = "password"
 USER__GENDER = "gender"
-USER__NIC = "nic"
 USER__ROLE = "role"
 USER__MANAGER = "manager"
 USER__ROLE__ROLE_ID = "user_role_id"
@@ -181,7 +180,6 @@ REQUIRED_FIELDS_LIST__USER = [
     USER__CARD_ID,
     USER__GENDER,
     USER__ROLE,
-    USER__NIC
 ]
 OPTIONAL_FIELDS_LIST__USER = [
     USER__EMAIL_ADDRESS,
