@@ -109,5 +109,12 @@ class User(models.Model):
             constants.STATUS: self[constants.STATUS],
         }
 
+    def display_id(self):
+        return {
+            constants.ID: str(self[constants.ID]),
+            constants.USER__NAME: self[constants.USER__NAME],
+            
+        }
+
     def verify_password(self, password):
         return common_utils.verify_password(self.password, password)

@@ -157,14 +157,7 @@ class UserController(Controller):
     @classmethod
     def get_user_childs(cls, user, search_depth=4, return_self=True):
         user_level__dict = {
-            constants.ADMIN: 4,
-            constants.GM: 3,
-            constants.DGM: 2,
-            constants.AM: 1,
-            constants.AGENT: 0,
-            constants.DGM_AGENT: 0,
-            constants.DGM_LANCER: 0,
-            constants.AM_LANCER: 0
+            constants.ADMIN: 4
         }
         user_level = user_level__dict[user[constants.USER__ROLE]
                                       [constants.USER__ROLE__NAME]]
@@ -198,3 +191,12 @@ class UserController(Controller):
             response_code=response_codes.CODE_SUCCESS,
             response_message=response_codes.MESSAGE_LOGIN_SUCCESS,
             response_data=child_list)
+    
+    @classmethod 
+    def get_user_list(cls, data):
+        obj = cls.db_read_records(read_filter={constants.USER__ROLE:{"name":data[constants.USER__ROLE__NAME]}})
+        user_list = [user.display_id() for user in obj]
+        return response_utils.get_response_object(
+            response_code=response_codes.CODE_SUCCESS,
+            response_message=response_codes.MESSAGE_SUCCESS,
+            response_data= user_list)

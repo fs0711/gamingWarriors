@@ -57,11 +57,13 @@ DEFAULT_ADMIN_ROLE_OBJECT = static_data["user_roles_and_rights"][0]
 DEFAULT_OWNER_ROLE_OBJECT = static_data["user_roles_and_rights"][1]
 DEFAULT_MG_ROLE_OBJECT = static_data["user_roles_and_rights"][2]
 DEFAULT_FI_ROLE_OBJECT = static_data["user_roles_and_rights"][3]
+DEFAULT_MB_ROLE_OBJECT = static_data["user_roles_and_rights"][4]
 DEFAULT_ROLE_OBJECTS = [
     DEFAULT_ADMIN_ROLE_OBJECT,
     DEFAULT_OWNER_ROLE_OBJECT,
     DEFAULT_MG_ROLE_OBJECT,
     DEFAULT_FI_ROLE_OBJECT,
+    DEFAULT_MB_ROLE_OBJECT,
 ]
 
 OBJECT_STATUS_ACTIVE_ID = 1
@@ -79,12 +81,14 @@ ADMIN = "admin"
 OWNER = "owner"
 MG = "mg"
 FI = "fi"
+MB = "mb"
 
 # USER ROLE IDS
 ROLE_ID_ADMIN = 1
 ROLE_ID_OWNER = 2
 ROLE_ID_MG = 3
 ROLE_ID_FI = 4
+ROLE_ID_MB = 5
 
 # ENDING
 

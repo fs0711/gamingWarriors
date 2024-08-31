@@ -11,14 +11,6 @@ from gwBackend.generic.services.utils import constants, decorators, response_cod
 users_bp = Blueprint("users_bp", __name__)
 
 
-@users_bp.route("/create", methods=["GET"])
-@decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
-@decorators.keys_validator()
-def create_viewget(data):
-    return render_template("adduser.html")
-
-
 @users_bp.route("/create", methods=["POST"])
 @decorators.is_authenticated
 @decorators.roles_allowed([constants.ROLE_ID_ADMIN])
@@ -85,3 +77,12 @@ def loginmobile_user_view(data, platform):
 def logout_user_view(_):
     res = UserController.logout_controller()
     return render_template("logout.html", **res)
+
+@users_bp.route("/list", methods=["POST"])
+@decorators.is_authenticated
+@decorators.keys_validator(
+    [constants.USER__ROLE__NAME],
+)
+def list_view(data):
+    res = UserController.get_user_list(data=data)
+    return res
