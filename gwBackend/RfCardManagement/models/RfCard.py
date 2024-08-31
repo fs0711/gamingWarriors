@@ -21,7 +21,7 @@ class RfCard(models.Model):
                     "Model": cls,
                     "Field": constants.RFCARD__UID,
                 },
-                {"rule":"length", "length":7},
+                {"rule":"length", "length":8},
             ]
         }
 
