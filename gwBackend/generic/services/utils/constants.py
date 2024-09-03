@@ -263,6 +263,10 @@ MEMBER__MEMBERSHIP_LEVEL = "membership_level"
 MEMBER__CITY = "city"
 MEMBER__CARD_ID = "card_id"
 MEMBER__CREDIT = "credit"
+MEMBER__REWARD = "reward"
+MEMBER__GAME_HISTORY = "game_history"
+MEMBER__CREDIT = "credit"
+MEMBER__TYPE = "type"
 
 #REQUIRED Clients FIELD LIST
 REQUIRED_FIELDS_LIST__MEMBERS = [

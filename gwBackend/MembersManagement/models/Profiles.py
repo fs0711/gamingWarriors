@@ -26,7 +26,7 @@ class Profiles(models.Model):
     reward = db.IntField(required=True)
     game_history = db.DictField(default = {})
     member_id = db.LazyReferenceField("Members")
-
+    type = db.StringField(required=True)
 
     def __str__(self):
         return str(self.pk)

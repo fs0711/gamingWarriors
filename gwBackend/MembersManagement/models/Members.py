@@ -41,6 +41,11 @@ class Members(models.Model):
     city = db.StringField(required=True)
     nic = db.StringField()
     membership_level = db.IntField(required=True)
+    reward = db.IntField(required=True)
+    game_history = db.DictField(default = {})
+    credit = db.IntField(required=True)
+    type = db.StringField(required=True)
+    card_id = db.LazyReferenceField("RfCard")
 
 
     def __str__(self):
@@ -54,7 +59,14 @@ class Members(models.Model):
             constants.MEMBER__EMAIL_ADDRESS:self[constants.MEMBER__EMAIL_ADDRESS],
             constants.MEMBER__CITY:self[constants.MEMBER__CITY],
             constants.MEMBER__MEMBERSHIP_LEVEL:self[constants.MEMBER__MEMBERSHIP_LEVEL],
-            constants.MEMBER__ID:self[constants.MEMBER__ID]
+            constants.MEMBER__ID:self[constants.MEMBER__ID],
+            constants.MEMBER__REWARD:self[constants.MEMBER__REWARD],
+            constants.MEMBER__GAME_HISTORY:self[constants.MEMBER__GAME_HISTORY],
+            constants.MEMBER__CREDIT:self[constants.MEMBER__CREDIT],
+            constants.MEMBER__TYPE:self[constants.MEMBER__TYPE],
+            constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID]
+            
+            
         }
 
     def display_min(self):

@@ -40,16 +40,6 @@ class MembersController(Controller):
             del data[constants.MEMBER__CREDIT]
             is_valid,error_messages,objm = cls.db_insert_record(data=data)
             if is_valid:
-                member_id = str(objm.id)
-                _,_,obj = ProfilesController.db_insert_record(
-                    data={
-                        constants.PROFILE__NAME: data[constants.MEMBER__NAME],
-                        constants.PROFILE__MEMBER_ID: member_id,
-                        constants.PROFILE__CARD_ID: card_id,
-                        constants.PROFILE__CREDIT: credit,
-                        constants.PROFILE__REWARD: 0,
-                    }
-                )
                 return response_utils.get_response_object(
                     response_code=response_codes.CODE_SUCCESS,
                     response_message=response_codes.MESSAGE_SUCCESS,
@@ -107,3 +97,22 @@ class MembersController(Controller):
             response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
                 constants.MEMBER.title(), constants.ID
             ))
+    
+
+    
+    # @classmethod
+    # def card_charge_controller(cls, data):
+    #     obj = cls.db_read_single_record(read_filter={
+    #         constants.PROFILE__CARD_ID:data[constants.PROFILE__CARD_ID]})
+    #     if obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
+    #         obj[constants.PROFILE__CREDIT] = obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST]
+    #         obj.save()
+    #         return {"status":1, "name":obj[constants.PROFILE__NAME], "balance":obj[constants.PROFILE__CREDIT]}
+    #     else:
+    #         return {"status":0, "name":obj[constants.PROFILE__NAME], "balance":obj[constants.PROFILE__CREDIT]}
+    
+    
+    # @classmethod
+    # def recharge_controller(cls, data):
+    #     return
+    
