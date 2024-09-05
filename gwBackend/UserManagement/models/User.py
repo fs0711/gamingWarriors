@@ -6,6 +6,7 @@
 from gwBackend.generic import models
 from gwBackend.generic import db
 from gwBackend.RfCardManagement.models.RfCard import RfCard
+from gwBackend.OrganizationsManagement.models.Organization import Organization
 from gwBackend.BranchManagement.models.Branch import Branch
 from gwBackend.generic.services.utils import common_utils, constants
 
@@ -79,7 +80,9 @@ class User(models.Model):
     card_id=db.LazyReferenceField("RfCard")
     city=db.StringField(required=True)
     role = db.DictField(required=True)
+    nic = db.StringField()
     manager = db.LazyReferenceField('User')
+    organization = db.LazyReferenceField("Organization")
     branch = db.LazyReferenceField("Branch")
     
     def __str__(self):

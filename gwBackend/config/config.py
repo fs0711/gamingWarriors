@@ -38,7 +38,7 @@ FILTER_DATE_FORMAT = "%d %m %Y"
 FILTER_DATETIME_FORMAT = "%d %m %Y %H:%M:%S"
 TIME_ZONE = "Asia/Karachi"
 
-FRONTEND_URL = "https://proppioneers.com"
+FRONTEND_URL = "https://gamingwarriors.com"
 MONGO_DB_USER = ""
 MONGO_DB_PASSWORD = ""
 
@@ -50,9 +50,9 @@ if ENVIRONMENT == "STAGING":
     static_data_path = os.path.join(
         current_dir_path, "static/static_data.json")
     upload_files_path = os.path.join(current_dir_path, "static/uploads")
-    MONGO_DB_URI = f"mongodb://192.168.100.8:27017/gwBackend"
-    # MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@clusterX.aq4vs.mongodb.net/gwBackend?"\
-    #     "retryWrites=true&w=majority"
+    # MONGO_DB_URI = f"mongodb://192.168.100.8:27017/gwBackend"
+    MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@clusterX.aq4vs.mongodb.net/gwBackend?"\
+        "retryWrites=true&w=majority"
 
 DEFAULT_ADMIN_NAME = "Admin"
 DEFAULT_ADMIN_EMAIL = "admin@mail.com"
@@ -65,6 +65,10 @@ DEFAULT_BRANCH_CITY = "Karachi"
 DEFAULT_BRANCH_OPENING_TIME = "0900"
 DEFAULT_BRANCH_CLOSING_TIME = "1700"
 DEFAULT_BRANCH_GAME_TYPES = []
+DEFAULT_ADMIN_ORGANIZATION_NAME = "MUNAS"
+DEFAULT_ADMIN_ADDRESS = "Karachi"
+DEFAULT_ADMIN_COUNTRY = "Pakistan"
+
 
 
 # EMAIL_USER = "gwBackend316@gmail.com"

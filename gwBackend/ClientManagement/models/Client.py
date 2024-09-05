@@ -8,7 +8,7 @@ from gwBackend.generic import db
 from gwBackend.UserManagement.models import User
 from gwBackend.generic.services.utils import constants, common_utils
 
-class Branch(models.Model):
+class Client(models.Model):
     @classmethod
     def validation_rules(cls):
         return {
@@ -19,7 +19,7 @@ class Branch(models.Model):
             constants.BRANCH__GAME_TYPES: [{"rule": "datatype", "datatype": list},
                                            {"rule": "collection_format", "datatype": list,
                                            "validation_rules": [{"rule": "required"}]}],        
-            constants.BRANCH__USERS: [{"rule": "datatype", "datatype": str}],
+            constants.BRANCH__USERS: [{"rule": "datatype", "datatype": str},{"rule": "required"}],
             constants.BRANCH__OPENING_TIME: [{"rule": "required"}],
             constants.BRANCH__CLOSING_TIME: [{"rule": "required"}],
         }
@@ -33,15 +33,15 @@ class Branch(models.Model):
     }
     
     
-    branch_id = db.SequenceField(value_decorator='BR-{}'.format)
     name = db.StringField(required=True)
-    location_lng = db.FloatField()
-    location_lat = db.FloatField()
+    organization = db.LazyReferenceField('Organization', required=True)
+    contact_person = db.StringField(required=True)
+    cp_phone_number = db.ListField()
+    cp_email_address = db.StringField()
+    country = db.StringField(required=True)
     city = db.StringField(required=True)
-    game_types = db.ListField()
-    opening_time = db.IntField(required=True)
-    closing_time = db.IntField(required=True)
-    users = db.LazyReferenceField("User")
+    zipcode = db.StringField(required=True)
+    client_id = db.SequenceField(value_decorator='CL-{}'.format)
     
     
     def __str__(self):
