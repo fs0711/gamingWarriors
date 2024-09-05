@@ -6,7 +6,7 @@
 from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.MembersManagement.models.Members import Members
-from gwBackend.MembersManagement.controllers.ProfilesController import ProfilesController
+from gwBackend.RfCardManagement.controllers.RfCardController import RfCardController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline
 
 
@@ -34,16 +34,21 @@ class MembersController(Controller):
                 response_data=already_exists
             )
         else:
-            card_id = data[constants.MEMBER__CARD_ID]
-            credit = data[constants.MEMBER__CREDIT]
-            del data[constants.MEMBER__CARD_ID]
-            del data[constants.MEMBER__CREDIT]
+            # card_id = data[constants.MEMBER__CARD_ID]
+            # credit = data[constants.MEMBER__CREDIT]
+            # del data[constants.MEMBER__CARD_ID]
+            # del data[constants.MEMBER__CREDIT]
             is_valid,error_messages,objm = cls.db_insert_record(data=data)
             if is_valid:
                 return response_utils.get_response_object(
                     response_code=response_codes.CODE_SUCCESS,
                     response_message=response_codes.MESSAGE_SUCCESS,
                     response_data=objm.display()
+                )
+            else: 
+                return response_utils.get_response_object(
+                    response_code=response_codes.CODE_CREATE_FAILED,
+                    response_message=response_codes.MESSAGE_OPERATION_FAILED
                 )
 
     @classmethod

@@ -5,6 +5,7 @@
 # Local imports
 from gwBackend.generic import models
 from gwBackend.generic import db
+from gwBackend.RfCardManagement.models.RfCard import RfCard
 from gwBackend.generic.services.utils import constants, common_utils
 from gwBackend.UserManagement.models.User import User
 
@@ -27,6 +28,11 @@ class Members(models.Model):
             constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
+            
+            
+            constants.MEMBER__REWARD : [{"rule": "datatype", "datatype": str}],
+            constants.MEMBER__CREDIT : [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
+            constants.MEMBER__TYPE : [{"rule": "datatype", "datatype": str}]
         }
 
     @classmethod
@@ -64,9 +70,7 @@ class Members(models.Model):
             constants.MEMBER__GAME_HISTORY:self[constants.MEMBER__GAME_HISTORY],
             constants.MEMBER__CREDIT:self[constants.MEMBER__CREDIT],
             constants.MEMBER__TYPE:self[constants.MEMBER__TYPE],
-            constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID]
-            
-            
+            # constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID].fetch().card_id
         }
 
     def display_min(self):
