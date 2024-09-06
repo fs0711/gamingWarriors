@@ -30,24 +30,31 @@
         },
         {
             "manager": 2,
-            "name": "mg",
+            "name": "client",
             "rights": [],
-            "title": "Manager",
+            "title": "Client",
             "user_role_id": 3
         },
         {
             "manager": 3,
+            "name": "mg",
+            "rights": [],
+            "title": "Manager",
+            "user_role_id": 4
+        },
+        {
+            "manager": 4,
             "name": "fi",
             "rights": [],
             "title": "Floor Incharge",
-            "user_role_id": 4
+            "user_role_id": 5
         },
         {
             "manager": null,
             "name": "mb",
             "rights": [],
             "title": "Member",
-            "user_role_id": 5
+            "user_role_id": 6
         },
         {
             "manager": null,

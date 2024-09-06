@@ -42,7 +42,7 @@ class Branch(models.Model):
     opening_time = db.IntField(required=True)
     closing_time = db.IntField(required=True)
     users = db.LazyReferenceField("User")
-    
+    organization = db.LazyReferenceField("Organization")
     
     def __str__(self):
         return str(self.pk)
@@ -57,5 +57,6 @@ class Branch(models.Model):
             constants.BRANCH__USERS: self[constants.BRANCH__USERS].fetch().name,
             constants.BRANCH__OPENING_TIME: self[constants.BRANCH__OPENING_TIME],
             constants.BRANCH__CLOSING_TIME: self[constants.BRANCH__CLOSING_TIME],
+            constants.BRANCH__ORGANIZATION: self[constants.BRANCH__ORGANIZATION].fetch().name,
             constants.STATUS: self[constants.STATUS],
         }

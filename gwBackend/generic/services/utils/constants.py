@@ -55,12 +55,14 @@ OBJECT_STATUS_SUSPENDED = static_data["statuses"][2]
 # DEFAULT ROLES
 DEFAULT_ADMIN_ROLE_OBJECT = static_data["user_roles_and_rights"][0]
 DEFAULT_OWNER_ROLE_OBJECT = static_data["user_roles_and_rights"][1]
-DEFAULT_MG_ROLE_OBJECT = static_data["user_roles_and_rights"][2]
-DEFAULT_FI_ROLE_OBJECT = static_data["user_roles_and_rights"][3]
-DEFAULT_MB_ROLE_OBJECT = static_data["user_roles_and_rights"][4]
+DEFAULT_CLIENT_ROLE_OBJECT = static_data["user_roles_and_rights"][2]
+DEFAULT_MG_ROLE_OBJECT = static_data["user_roles_and_rights"][3]
+DEFAULT_FI_ROLE_OBJECT = static_data["user_roles_and_rights"][4]
+DEFAULT_MB_ROLE_OBJECT = static_data["user_roles_and_rights"][5]
 DEFAULT_ROLE_OBJECTS = [
     DEFAULT_ADMIN_ROLE_OBJECT,
     DEFAULT_OWNER_ROLE_OBJECT,
+    DEFAULT_CLIENT_ROLE_OBJECT,
     DEFAULT_MG_ROLE_OBJECT,
     DEFAULT_FI_ROLE_OBJECT,
     DEFAULT_MB_ROLE_OBJECT,
@@ -79,6 +81,7 @@ SEARCH_DEPTH_MAX = 3
 # USER TYPES
 ADMIN = "admin"
 OWNER = "owner"
+CLIENT = "client"
 MG = "mg"
 FI = "fi"
 MB = "mb"
@@ -86,9 +89,10 @@ MB = "mb"
 # USER ROLE IDS
 ROLE_ID_ADMIN = 1
 ROLE_ID_OWNER = 2
-ROLE_ID_MG = 3
-ROLE_ID_FI = 4
-ROLE_ID_MB = 5
+ROLE_ID_CLIENT = 3
+ROLE_ID_MG = 4
+ROLE_ID_FI = 5
+ROLE_ID_MB = 6
 
 # ENDING
 
@@ -363,6 +367,7 @@ BRANCH__GAME_TYPES = "game_types"
 BRANCH__USERS = "users"
 BRANCH__OPENING_TIME = "opening_time"
 BRANCH__CLOSING_TIME = "closing_time"
+BRANCH__ORGANIZATION = "organization"
 
 # REQUIRED BRANCH FIELD LIST
 REQUIRED_FIELDS_LIST__BRANCH = [
@@ -391,10 +396,12 @@ RFCARD = "rfcard"
 RFCARD__UID = "card_uid"
 RFCARD__BRANCH = "branch"
 RFCARD__ASSIGNED = "assigned"
+RFCARD__ORGANIZATION = "organization"
 
 REQUIRED_FIELDS_LIST__RFCARD = [
     RFCARD__UID,
     RFCARD__BRANCH,
+    RFCARD__ORGANIZATION
 ]
 
 OPTIONAL_FIELDS_LIST__RFCARD = [

@@ -5,7 +5,6 @@
 # Local imports
 from gwBackend.generic import models
 from gwBackend.generic import db
-from gwBackend.BranchManagement.models.Branch import Branch
 from gwBackend.generic.services.utils import constants, common_utils
 
 
@@ -32,6 +31,7 @@ class RfCard(models.Model):
     card_id = db.SequenceField(value_decorator='CI-{}'.format)
     card_uid = db.StringField(required=True)
     branch = db.LazyReferenceField('Branch')
+    organization = db.LazyReferenceField('Organization')
     assigned = db.BooleanField(Default = False)
 
     def __str__(self):
@@ -42,7 +42,8 @@ class RfCard(models.Model):
             constants.ID: str(self[constants.ID]),
             constants.RFCARD__UID: self[constants.RFCARD__UID],
             constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED],
-            constants.RFCARD__BRANCH:self [constants.RFCARD__BRANCH].fetch().name
+            constants.RFCARD__BRANCH:self[constants.RFCARD__BRANCH].fetch().name,
+            constants.RFCARD__ORGANIZATION:self [constants.RFCARD__ORGANIZATION].fetch().name
         }
 
     def display_min(self):

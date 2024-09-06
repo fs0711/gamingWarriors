@@ -45,7 +45,8 @@ def create_admin_user_if_not_exists(run=False):
                 data={
                     constants.RFCARD__UID: config.DEFAULT_ADMIN_CARD_ID,
                     constants.RFCARD__ASSIGNED: "True",
-                    constants.RFCARD__BRANCH: branch_id
+                    constants.RFCARD__BRANCH: branch_id,
+                    constants.RFCARD__ORGANIZATION: organization_id
                 }
             )
             card_id = str(obj.id)

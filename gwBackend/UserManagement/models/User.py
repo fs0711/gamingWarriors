@@ -5,9 +5,6 @@
 # Local imports
 from gwBackend.generic import models
 from gwBackend.generic import db
-from gwBackend.RfCardManagement.models.RfCard import RfCard
-from gwBackend.OrganizationsManagement.models.Organization import Organization
-from gwBackend.BranchManagement.models.Branch import Branch
 from gwBackend.generic.services.utils import common_utils, constants
 
 

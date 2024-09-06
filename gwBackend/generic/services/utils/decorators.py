@@ -79,7 +79,13 @@ def is_authenticated(view_function):
                 response_message=response_codes.MESSAGE_UNAUTHENTICATED_ACCESS)
         current_timestamp = common_utils.get_time()
         if not(current_timestamp > token_obj[constants.TOKEN__EXPIRY_TIME]):
-            token_obj[constants.TOKEN__EXPIRY_TIME] = common_utils.get_time(offset=config.TOKEN_EXPIRY_TIME_WEB)
+            if token_obj[constants.TOKEN__PLATFORM] == constants.PLATFORM_WEB:
+                token_obj[constants.TOKEN__EXPIRY_TIME] = common_utils.get_time(offset=config.TOKEN_EXPIRY_TIME_WEB)
+            if token_obj[constants.TOKEN__PLATFORM] == constants.PLATFORM_MOBILE:
+                token_obj[constants.TOKEN__EXPIRY_TIME] = common_utils.get_time(days=config.TOKEN_EXPIRY_TIME_MOBILE)
+            if token_obj[constants.TOKEN__PLATFORM] == constants.PLATFORM_DEVICE:
+                token_obj[constants.TOKEN__EXPIRY_TIME] = common_utils.get_time(days=config.TOKEN_EXPIRY_TIME_DEVICE)
+            token_obj[constants.UPDATED_ON] = current_timestamp
             token_obj.save()
         else:
             token_obj.is_expired = True
@@ -87,6 +93,7 @@ def is_authenticated(view_function):
             return response_utils.get_response_object(
                 response_code=response_codes.CODE_TOKEN_EXPIRED,
                 response_message=response_codes.MESSAGE_TOKEN_EXPIRED)
+
         return view_function(*args, **kwargs)
 
     return decorator

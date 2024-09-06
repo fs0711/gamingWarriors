@@ -13,7 +13,7 @@ users_bp = Blueprint("users_bp", __name__)
 
 @users_bp.route("/create", methods=["POST"])
 @decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator(
     constants.REQUIRED_FIELDS_LIST__USER,
     constants.OPTIONAL_FIELDS_LIST__USER,
@@ -24,7 +24,7 @@ def create_view(data):
 
 @users_bp.route("/read", methods=["GET"])
 @decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator(
     [],
     constants.ALL_FIELDS_LIST__USER,
@@ -36,7 +36,7 @@ def read_view(data):
 
 @users_bp.route("/update", methods=["PUT"])
 @decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator(
     [],
     constants.ALL_FIELDS_LIST__USER,
@@ -47,7 +47,7 @@ def update_view(data):
 
 @users_bp.route("/suspend", methods=["POST"])
 @decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator(
     [constants.ID]
 )
@@ -80,9 +80,20 @@ def logout_user_view(_):
 
 @users_bp.route("/list", methods=["POST"])
 @decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator(
-    [constants.USER__ROLE__NAME],
+    [constants.USER__ROLE],
 )
 def list_view(data):
     res = UserController.get_user_list(data=data)
+    return res
+
+@users_bp.route("/child_list", methods=["POST"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator(
+    [constants.ID]
+)
+def child_view(data):
+    res = UserController.get_users_childs_list(data=data)
     return res

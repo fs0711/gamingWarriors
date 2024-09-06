@@ -13,6 +13,7 @@ branch_bp = Blueprint("branch_bp", __name__)
 
 @branch_bp.route("/create", methods=["POST"])
 @decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
     constants.REQUIRED_FIELDS_LIST__BRANCH,
     constants.OPTIONAL_FIELDS_LIST__BRANCH,
@@ -25,6 +26,7 @@ def branch_create_view(data):
 
 @branch_bp.route("/read", methods=["GET"])
 @decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN, constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator()
 def read_view(data):
     res = BranchController.read_controller(data=data)
@@ -33,7 +35,7 @@ def read_view(data):
 
 @branch_bp.route("/update", methods=["PUT"])
 @decorators.is_authenticated
-# @decorators.roles_allowed([constants.ROLE_ID_ADMIN])
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
     [],
     constants.ALL_FIELDS_LIST__BRANCH,
@@ -44,6 +46,7 @@ def update_view(data):
 
 @branch_bp.route("/search", methods=["POST"])
 @decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator()
 def search_view(data):
     data = request.form
@@ -52,6 +55,7 @@ def search_view(data):
 
 @branch_bp.route("/suspend", methods=["POST"])
 @decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN])
 @decorators.keys_validator(
     [constants.ID]
 )

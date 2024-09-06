@@ -1,0 +1,12 @@
+changes to be made 
+
+list of RFID cards to be fetched everytime a card is to be assigned
+list of manager to be fetched everytime a new user is created 
+list of branches and organication to be fetched everytime a new user is created
+
+organization for user creation is compulsory
+Manager for user is not for member users
+branch is for internal users.
+
+**fix child list function. owner is returning admin. apply organization filter
+**apply organization filter in user list by role

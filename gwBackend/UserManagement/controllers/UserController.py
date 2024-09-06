@@ -155,9 +155,18 @@ class UserController(Controller):
         )
 
     @classmethod
+    def get_user(cls, data):
+        return cls.db_read_single_record(read_filter={constants.ID: data}, deleted_records=True)
+
+    @classmethod
     def get_user_childs(cls, user, search_depth=4, return_self=True):
         user_level__dict = {
-            constants.ADMIN: 4
+            constants.ADMIN: 5,
+            constants.OWNER: 4,
+            constants.CLIENT:3,
+            constants.MG:2,
+            constants.FI:1,
+            constants.MB:0
         }
         user_level = user_level__dict[user[constants.USER__ROLE]
                                       [constants.USER__ROLE__NAME]]
@@ -178,14 +187,15 @@ class UserController(Controller):
             user__childs.append(user)
         return user__childs
 
-    @classmethod
-    def get_user(cls, data):
-        return cls.db_read_single_record(read_filter={constants.ID: data}, deleted_records=True)
 
     @classmethod
     def get_users_childs_list(cls, data):
-        user_childs = UserController.get_user_childs(
-            user=common_utils.current_user(), return_self=True)
+        if data.get(constants.ID):
+            user_childs = UserController.get_user_childs(
+                user = UserController.get_user(data[constants.ID]), return_self=True)
+        else:
+            user_childs = UserController.get_user_childs(
+                user=common_utils.current_user(), return_self=True)
         child_list = [user.display() for user in user_childs]
         return response_utils.get_response_object(
             response_code=response_codes.CODE_SUCCESS,
@@ -194,7 +204,8 @@ class UserController(Controller):
     
     @classmethod 
     def get_user_list(cls, data):
-        obj = cls.db_read_records(read_filter={constants.USER__ROLE:{"name":data[constants.USER__ROLE__NAME]}})
+
+        obj = cls.db_read_records(read_filter={constants.USER__ROLE:constants.DEFAULT_ROLE_OBJECTS[data[constants.USER__ROLE]-1]})
         user_list = [user.display_id() for user in obj]
         return response_utils.get_response_object(
             response_code=response_codes.CODE_SUCCESS,
