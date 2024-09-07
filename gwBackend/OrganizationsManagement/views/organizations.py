@@ -24,7 +24,7 @@ def create_organizations(data):
 
 @organizations_bp.route("/read", methods=["GET"])
 @decorators.is_authenticated
-@decorators.roles_allowed([])
+# @decorators.roles_allowed([])
 @decorators.keys_validator()
 def read_view(data):
     return OrganizationController.read_controller(data=data)
@@ -70,7 +70,7 @@ def suspend_view(data):
 
 @organizations_bp.route("/list_organization", methods=["GET"])
 @decorators.is_authenticated
-@decorators.roles_allowed([])
+# @decorators.roles_allowed([])
 @decorators.keys_validator()
 def list_view(data):
     return OrganizationController.get_organizations()

@@ -63,3 +63,11 @@ def suspend_view(data):
     data = common_utils.posted()
     res = BranchController.suspend_controller(data=data)
     return res
+
+
+@branch_bp.route("/list_branchs", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def list_view(data):
+    return BranchController.get_branchs()

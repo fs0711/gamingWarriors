@@ -100,3 +100,11 @@ class RfCardController(Controller):
             response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
                 constants.GAMEUNIT.title(), constants.ID
             ))
+        
+    @classmethod
+    def get_rfcards(cls,data):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[obj.display_min() for obj in cls.db_read_records(read_filter=data)],
+        )

@@ -20,10 +20,11 @@ def create_view(data):
     res = RfCardController.create_controller(data=data)
     return res
 
-@rfcard_bp.route("/read", methods=["GET"])
+@rfcard_bp.route("/read", methods=["GET","POST"])
 @decorators.is_authenticated
 @decorators.keys_validator(
-    []
+    [],
+    [constants.RFCARD__ASSIGNED,constants.RFCARD__ORGANIZATION]
 )
 def read_view(data):
     res = RfCardController.read_controller(data=data)
@@ -37,3 +38,12 @@ def read_view(data):
 def update_view(data):
     return RfCardController.update_controller(data=data)
 
+@rfcard_bp.route("/list_rfcards", methods=["GET","POST"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator(
+    [],
+    [constants.RFCARD__ASSIGNED,constants.RFCARD__ORGANIZATION]
+)
+def list_view(data):
+    return RfCardController.get_rfcards(data=data)

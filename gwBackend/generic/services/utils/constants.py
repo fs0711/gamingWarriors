@@ -394,6 +394,7 @@ ALL_FIELDS_LIST__BRANCH = OPTIONAL_FIELDS_LIST__BRANCH + \
 
 # Rf card constants
 RFCARD = "rfcard"
+RFCARD__ID = "card_id"
 RFCARD__UID = "card_uid"
 RFCARD__BRANCH = "branch"
 RFCARD__ASSIGNED = "assigned"

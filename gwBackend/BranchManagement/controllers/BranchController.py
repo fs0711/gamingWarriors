@@ -80,3 +80,11 @@ class BranchController(Controller):
             response_message=response_codes.MESSAGE_NOT_FOUND_DATA.format(
                 constants.USER.title(), constants.ID
             ))
+        
+    @classmethod
+    def get_branchs(cls):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.BRANCH__NAME]} for obj in cls.db_read_records(read_filter={})],
+        )

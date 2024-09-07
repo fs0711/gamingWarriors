@@ -40,6 +40,7 @@ class RfCard(models.Model):
     def display(self):
         return {
             constants.ID: str(self[constants.ID]),
+            constants.RFCARD__ID: self[constants.RFCARD__ID],
             constants.RFCARD__UID: self[constants.RFCARD__UID],
             constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED],
             constants.RFCARD__BRANCH:self[constants.RFCARD__BRANCH].fetch().name,
@@ -49,5 +50,5 @@ class RfCard(models.Model):
     def display_min(self):
         return {
             constants.ID: str(self[constants.ID]),
-            constants.CREATED_ON: common_utils.epoch_to_datetime(self[constants.CREATED_ON]),
+            constants.RFCARD__ID: self[constants.RFCARD__ID]  
         }
