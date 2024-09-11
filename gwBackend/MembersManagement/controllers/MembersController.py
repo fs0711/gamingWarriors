@@ -7,7 +7,8 @@ from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.MembersManagement.models.Members import Members
 from gwBackend.RfCardManagement.controllers.RfCardController import RfCardController
-from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline
+from gwBackend.OrganizationsManagement.controllers.organizationcontroller import Organization
+from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline,common_utils
 
 
 class MembersController(Controller):
@@ -34,6 +35,8 @@ class MembersController(Controller):
                 response_data=already_exists
             )
         else:
+            current_user = common_utils.current_user()
+            data[constants.MEMBER__ORGANIZATION_ID]= current_user[constants.USER__ORGANIZATION]
             # card_id = data[constants.MEMBER__CARD_ID]
             # credit = data[constants.MEMBER__CREDIT]
             # del data[constants.MEMBER__CARD_ID]

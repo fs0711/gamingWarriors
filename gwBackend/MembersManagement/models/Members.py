@@ -28,11 +28,10 @@ class Members(models.Model):
             constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            
-            
             constants.MEMBER__REWARD : [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__CREDIT : [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.MEMBER__TYPE : [{"rule": "datatype", "datatype": str}]
+            constants.MEMBER__TYPE : [{"rule": "datatype", "datatype": str}],
+            # constants.MEMBER__ORGANIZATION_ID: [{"rule": "datatype", "datatype": str}],
         }
 
     @classmethod
@@ -52,6 +51,7 @@ class Members(models.Model):
     credit = db.IntField(required=True)
     type = db.StringField(required=True)
     card_id = db.LazyReferenceField("RfCard")
+    organization_id = db.LazyReferenceField("Organization")
 
 
     def __str__(self):
@@ -70,6 +70,7 @@ class Members(models.Model):
             constants.MEMBER__GAME_HISTORY:self[constants.MEMBER__GAME_HISTORY],
             constants.MEMBER__CREDIT:self[constants.MEMBER__CREDIT],
             constants.MEMBER__TYPE:self[constants.MEMBER__TYPE],
+            constants.MEMBER__ORGANIZATION_ID:str(self[constants.MEMBER__ORGANIZATION_ID])
             # constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID].fetch().card_id
         }
 

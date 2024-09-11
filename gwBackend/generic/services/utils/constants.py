@@ -311,6 +311,7 @@ MEMBER__REWARD = "reward"
 MEMBER__GAME_HISTORY = "game_history"
 MEMBER__CREDIT = "credit"
 MEMBER__TYPE = "type"
+MEMBER__ORGANIZATION_ID = "organization_id"
 
 #REQUIRED Clients FIELD LIST
 REQUIRED_FIELDS_LIST__MEMBERS = [
