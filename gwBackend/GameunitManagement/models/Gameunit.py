@@ -26,6 +26,7 @@ class Gameunit(models.Model):
     name = db.StringField(required=True)
     type = db.StringField(required=True)
     branch = db.LazyReferenceField('Branch')
+    organization = db.LazyReferenceField('Organization')
     game_level = db.IntField(reuired=True)
     play_count = db.IntField()
     unit_status = db.StringField(required=True)
@@ -42,7 +43,8 @@ class Gameunit(models.Model):
             constants.GAMEUNIT__NAME: self[constants.GAMEUNIT__NAME],
             constants.GAMEUNIT__ID: self[constants.GAMEUNIT__ID],
             constants.GAMEUNIT__TYPE: self[constants.GAMEUNIT__TYPE],
-            constants.GAMEUNIT__BRANCH: self[constants.GAMEUNIT__BRANCH] if self[constants.GAMEUNIT__BRANCH] != None else "",
+            constants.GAMEUNIT__BRANCH: str(self[constants.GAMEUNIT__BRANCH].fetch().id),
+            constants.GAMEUNIT__ORGANIZATION: str(self[constants.GAMEUNIT__ORGANIZATION].fetch().id),
             constants.GAMEUNIT__GAME_LEVEL: self[constants.GAMEUNIT__GAME_LEVEL],
             constants.GAMEUNIT__PLAY_COUNT: self[constants.GAMEUNIT__PLAY_COUNT ] if self[constants.GAMEUNIT__PLAY_COUNT] != None else 0,
             constants.GAMEUNIT__UNIT_STATUS: self[constants.GAMEUNIT__UNIT_STATUS],

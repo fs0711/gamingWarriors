@@ -13,6 +13,7 @@ from gwBackend.BranchManagement.views.branch import branch_bp
 from gwBackend.MembersManagement.views.members import members_bp
 from gwBackend.GameunitManagement.views.gameunit import gameunit_bp
 from gwBackend.ReservationManagement.views.reservation import reservation_bp
+from gwBackend.AccountsManagement.views.accounts import accounts_bp
 from gwBackend.RfCardManagement.views.rfcard import rfcard_bp
 from gwBackend.MembersManagement.views.profiles import profiles_bp
 from gwBackend.OrganizationsManagement.views.organizations import organizations_bp
@@ -38,3 +39,5 @@ app.register_blueprint(gameunit_bp, url_prefix="/api/gameunit")
 app.register_blueprint(reservation_bp, url_prefix="/api/reservation")
 app.register_blueprint(rfcard_bp, url_prefix="/api/rfid")
 app.register_blueprint(organizations_bp, url_prefix="/api/organization")
+app.register_blueprint(accounts_bp, url_prefix="/api/accounts")
+
