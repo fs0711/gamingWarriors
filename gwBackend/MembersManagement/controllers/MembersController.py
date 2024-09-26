@@ -106,21 +106,22 @@ class MembersController(Controller):
                 constants.MEMBER.title(), constants.ID
             ))
     
-
+    @classmethod
+    def card_charge_controller(cls, data):
+        obj = cls.db_read_single_record(read_filter={
+            constants.MEMBER__CARD_ID:data[constants.MEMBER__CARD_ID]})
+        if obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
+            obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST]
+            obj.save()
+            return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+        else:
+            return {"status":0, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+        
     
-    # @classmethod
-    # def card_charge_controller(cls, data):
-    #     obj = cls.db_read_single_record(read_filter={
-    #         constants.PROFILE__CARD_ID:data[constants.PROFILE__CARD_ID]})
-    #     if obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
-    #         obj[constants.PROFILE__CREDIT] = obj[constants.PROFILE__CREDIT] - data[constants.GAMEUNIT__COST]
-    #         obj.save()
-    #         return {"status":1, "name":obj[constants.PROFILE__NAME], "balance":obj[constants.PROFILE__CREDIT]}
-    #     else:
-    #         return {"status":0, "name":obj[constants.PROFILE__NAME], "balance":obj[constants.PROFILE__CREDIT]}
-    
-    
-    # @classmethod
-    # def recharge_controller(cls, data):
-    #     return
-    
+    @classmethod
+    def recharge_controller(cls, data):
+        obj = cls.db_read_single_record(read_filter={
+            constants.MEMBER__CARD_ID:data[constants.MEMBER__CARD_ID]})
+        obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] + data[constants.ACCOUNTS__AMOUNT]
+        obj.save()
+        return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}

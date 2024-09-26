@@ -8,7 +8,7 @@ from gwBackend.generic.controllers import Controller
 from gwBackend.GameunitManagement.models.Gameunit import Gameunit
 from gwBackend.UserManagement.controllers.TokenController import TokenController
 from gwBackend.RfCardManagement.controllers.RfCardController import RfCardController
-from gwBackend.MembersManagement.controllers.ProfilesController import ProfilesController
+from gwBackend.MembersManagement.controllers.MembersController import MembersController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, common_utils, pipeline
 from gwBackend import config
 
@@ -118,7 +118,7 @@ class GameunitController(Controller):
         if card:
             obj = cls.db_read_single_record(read_filter={
                 constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
-            recharge = ProfilesController.card_charge_controller(
+            recharge = MembersController.card_charge_controller(
                 data={constants.PROFILE__CARD_ID:card, 
                     constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
             print(recharge)
