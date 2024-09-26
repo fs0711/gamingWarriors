@@ -47,3 +47,10 @@ def update_view(data):
 )
 def card_punch_view(data):
     return GameunitController.card_punch_controller(data=data)
+
+
+@gameunit_bp.route("/list_gameunits", methods=["GET"])
+# @decorators.is_authenticated
+@decorators.keys_validator()
+def list_view(data):
+    return GameunitController.get_gameunits()

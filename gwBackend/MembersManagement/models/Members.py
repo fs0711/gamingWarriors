@@ -31,7 +31,7 @@ class Members(models.Model):
             constants.MEMBER__REWARD : [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__CREDIT : [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__TYPE : [{"rule": "datatype", "datatype": str}],
-            # constants.MEMBER__ORGANIZATION_ID: [{"rule": "datatype", "datatype": str}],
+
         }
 
     @classmethod

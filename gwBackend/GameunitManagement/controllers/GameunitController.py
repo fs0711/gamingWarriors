@@ -125,3 +125,11 @@ class GameunitController(Controller):
             return recharge
         else:
             return {"status":0, "name":"None"}
+        
+    @classmethod
+    def get_gameunits(cls):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.GAMEUNIT__NAME]} for obj in cls.db_read_records(read_filter={})],
+        )
