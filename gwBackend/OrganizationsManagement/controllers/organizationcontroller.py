@@ -94,5 +94,5 @@ class OrganizationController(Controller):
         return response_utils.get_json_response_object(
         response_code=response_codes.CODE_SUCCESS,
         response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.ORGANIZATION__NAME]} for obj in cls.db_read_records(read_filter={})],
+        response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.ORGANIZATION__NAME] ,'address':obj[constants.ORGANIZATION__ADDRESS],'cp_email_address':obj[constants.ORGANIZATION__CP_EMAIL], 'cp_phone_number':obj[constants.ORGANIZATION__CP_PHONE_NUMBER]}  for obj in cls.db_read_records(read_filter={})],
         )
