@@ -29,7 +29,7 @@ class AccountsController(Controller):
                     response_code=response_codes.CODE_WRONG_PARAMETERS,
                     response_message=response_codes.MESSAGE_GENERAL_ERROR
                 )
-                 
+        del data[constants.MEMBER__CARD_ID]
         is_valid, error_messages = cls.cls_validate_data(data=data)
         if not is_valid:
             return response_utils.get_response_object(
