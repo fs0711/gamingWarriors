@@ -39,3 +39,10 @@ def read_view(data):
 def update_view(data):
     return MembersController.update_controller(data=data)
 
+
+@members_bp.route("/list_members", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def list_view(data):
+    return MembersController.get_members()

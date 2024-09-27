@@ -125,3 +125,11 @@ class MembersController(Controller):
         obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] + data[constants.ACCOUNTS__AMOUNT]
         obj.save()
         return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+    
+    @classmethod
+    def get_members(cls):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[{'member_id':obj[constants.MEMBER__ID] ,'name':obj[constants.MEMBER__NAME],'phone_number':obj[constants.MEMBER__PHONE_NUMBER], 'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'membership_level':obj[constants.MEMBER__MEMBERSHIP_LEVEL],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'type':obj[constants.MEMBER__TYPE]}  for obj in cls.db_read_records(read_filter={})],
+        )

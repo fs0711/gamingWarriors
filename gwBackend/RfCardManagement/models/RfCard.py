@@ -50,5 +50,6 @@ class RfCard(models.Model):
     def display_min(self):
         return {
             constants.ID: str(self[constants.ID]),
-            constants.RFCARD__ID: self[constants.RFCARD__ID]  
+            constants.RFCARD__ID: self[constants.RFCARD__ID], 
+            constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED]  
         }
