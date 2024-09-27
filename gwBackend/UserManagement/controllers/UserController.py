@@ -211,3 +211,11 @@ class UserController(Controller):
             response_code=response_codes.CODE_SUCCESS,
             response_message=response_codes.MESSAGE_SUCCESS,
             response_data= user_list)
+        
+    @classmethod
+    def get_all_users(cls):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[{'name':str(obj[constants.USER__NAME]), 'email_address':obj[constants.USER__EMAIL_ADDRESS] ,'phone_number':obj[constants.USER__PHONE_NUMBER],'role':obj[constants.USER__ROLE]}  for obj in cls.db_read_records(read_filter={})],
+        )

@@ -39,7 +39,7 @@ def update_view(data):
     return RfCardController.update_controller(data=data)
 
 @rfcard_bp.route("/list_rfcards", methods=["GET","POST"])
-@decorators.is_authenticated
+# @decorators.is_authenticated
 # @decorators.roles_allowed([])
 @decorators.keys_validator(
     [],

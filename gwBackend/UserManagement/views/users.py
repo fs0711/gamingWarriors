@@ -97,3 +97,10 @@ def list_view(data):
 def child_view(data):
     res = UserController.get_users_childs_list(data=data)
     return res
+
+@users_bp.route("/all_users", methods=["GET"])
+# @decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def list_users(data):
+    return UserController.get_all_users()
