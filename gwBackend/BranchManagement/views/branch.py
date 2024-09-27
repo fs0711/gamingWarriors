@@ -71,3 +71,10 @@ def suspend_view(data):
 @decorators.keys_validator()
 def list_view(data):
     return BranchController.get_branchs()
+
+@branch_bp.route("/list_branchs_ids", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def list_view_ids(data):
+    return BranchController.get_branchs_ids()
