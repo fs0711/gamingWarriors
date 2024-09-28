@@ -47,3 +47,25 @@ def update_view(data):
 )
 def list_view(data):
     return RfCardController.get_rfcards(data=data)
+
+
+@rfcard_bp.route("/list_by_org", methods=["POST"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator(
+    [constants.RFCARD__ORGANIZATION]
+)
+def list_card_by_org(data):
+    res = RfCardController.get_rfcards_org(data=data)
+    return res
+
+
+@rfcard_bp.route("/get_card_id", methods=["POST"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator(
+    [constants.RFCARD__UID]
+)
+def list_card_by_uid(data):
+    res = RfCardController.get_card_id_list(data=data)
+    return res

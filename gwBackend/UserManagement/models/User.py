@@ -90,6 +90,8 @@ class User(models.Model):
             constants.ID: str(self[constants.ID]),
             constants.USER__NAME: self[constants.USER__NAME],
             constants.USER__CARD_ID: self[constants.USER__CARD_ID].fetch().card_id,
+            constants.USER__BRANCH: str(self[constants.USER__BRANCH].fetch().id),
+            constants.USER__ORGANIZATION: str(self[constants.USER__ORGANIZATION].fetch().id),
             constants.USER__CITY: self[constants.USER__CITY],
             constants.USER__EMAIL_ADDRESS: self[constants.USER__EMAIL_ADDRESS],
             constants.USER__PHONE_NUMBER: self[constants.USER__PHONE_NUMBER],
