@@ -59,6 +59,18 @@ def list_card_by_org(data):
     res = RfCardController.get_rfcards_org(data=data)
     return res
 
+@rfcard_bp.route("/list_by_branch", methods=["POST"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator(
+    [constants.RFCARD__BRANCH]
+)
+def list_card_by_branch(data):
+    res = RfCardController.get_rfcards_branch(data=data)
+    return res
+
+
+
 
 @rfcard_bp.route("/get_card_id", methods=["POST"])
 @decorators.is_authenticated
