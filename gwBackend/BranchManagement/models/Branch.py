@@ -60,3 +60,9 @@ class Branch(models.Model):
             constants.BRANCH__ORGANIZATION: self[constants.BRANCH__ORGANIZATION].fetch().name,
             constants.STATUS: self[constants.STATUS],
         }
+    
+    def display_branchs_id(self):
+        return {
+            constants.ID: str(self[constants.ID]), 
+            constants.BRANCH__NAME: self[constants.BRANCH__NAME], 
+        }

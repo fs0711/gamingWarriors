@@ -78,3 +78,13 @@ def list_view(data):
 @decorators.keys_validator()
 def list_view_ids(data):
     return BranchController.get_branchs_ids()
+
+@branch_bp.route("/list_by_orgs", methods=["POST"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator(
+    [constants.BRANCH__ORGANIZATION]
+)
+def list_branchs_by_orgs(data):
+    res = BranchController.get_branchs_orgs(data=data)
+    return res

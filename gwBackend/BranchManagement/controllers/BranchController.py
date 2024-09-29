@@ -94,5 +94,18 @@ class BranchController(Controller):
         return response_utils.get_json_response_object(
         response_code=response_codes.CODE_SUCCESS,
         response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.BRANCH__NAME] } for obj in cls.db_read_records(read_filter={})],
+        response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.BRANCH__NAME],'organization':str(obj[constants.BRANCH__ORGANIZATION]) } for obj in cls.db_read_records(read_filter={})],
+        )
+    
+
+        
+    @classmethod
+    def get_branchs_orgs(cls,data):
+        
+        obj = cls.db_read_records(read_filter={constants.BRANCH__ORGANIZATION:data[constants.BRANCH__ORGANIZATION]})
+        branch_id_list = [branch.display_branchs_id() for branch in obj]
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=branch_id_list
         )
