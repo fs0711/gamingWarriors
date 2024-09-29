@@ -51,7 +51,9 @@ class RfCard(models.Model):
         return {
             constants.ID: str(self[constants.ID]),
             constants.RFCARD__ID: self[constants.RFCARD__ID], 
-            constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED]  
+            constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED],
+            constants.RFCARD__BRANCH:self[constants.RFCARD__BRANCH].fetch().name,
+            constants.RFCARD__ORGANIZATION:self [constants.RFCARD__ORGANIZATION].fetch().name  
         }
     
     def display_card_id(self):
