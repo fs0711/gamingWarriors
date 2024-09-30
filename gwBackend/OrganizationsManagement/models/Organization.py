@@ -29,6 +29,7 @@ class Organization(models.Model):
     def update_validation_rules(cls): return {
     }
 
+    organization_id = db.SequenceField(value_decorator='OI-{}'.format)
     name = db.StringField(required=True)
     address = db.StringField(required=True)
     city = db.StringField(required=True)
@@ -49,6 +50,7 @@ class Organization(models.Model):
     def display(self):
         return {
             constants.ID:str(self[constants.ID]),
+            constants.ORGANIZATION__ID: self[constants.ORGANIZATION__ID],
             constants.ORGANIZATION__NAME: self[constants.ORGANIZATION__NAME],
             constants.ORGANIZATION__ADDRESS: self[constants.ORGANIZATION__ADDRESS],
             constants.ORGANIZATION__CITY: self[constants.ORGANIZATION__CITY],

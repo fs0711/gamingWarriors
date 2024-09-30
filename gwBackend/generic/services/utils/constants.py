@@ -215,6 +215,7 @@ TOKEN__PLATFORM = "platform"
 
 # organization Constants
 ORGANIZATION = "organization"
+ORGANIZATION__ID = "organization_id"
 ORGANIZATION__NAME='name'
 ORGANIZATION__ADDRESS='address'
 ORGANIZATION__CITY='city'
