@@ -26,6 +26,7 @@ class Members(models.Model):
             ],
             constants.MEMBER__EMAIL_ADDRESS: [{"rule": "email"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
+            constants.MEMBER__PARENT: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__REWARD : [{"rule": "datatype", "datatype": str}],
@@ -50,6 +51,7 @@ class Members(models.Model):
     game_history = db.DictField(default = {})
     credit = db.IntField(required=True)
     type = db.StringField(required=True)
+    parent = db.LazyReferenceField("Members")
     card_id = db.LazyReferenceField("RfCard")
     organization_id = db.LazyReferenceField("Organization")
 
@@ -70,7 +72,8 @@ class Members(models.Model):
             constants.MEMBER__GAME_HISTORY:self[constants.MEMBER__GAME_HISTORY],
             constants.MEMBER__CREDIT:self[constants.MEMBER__CREDIT],
             constants.MEMBER__TYPE:self[constants.MEMBER__TYPE],
-            constants.MEMBER__ORGANIZATION_ID:str(self[constants.MEMBER__ORGANIZATION_ID])
+            constants.MEMBER__PARENT:str(self[constants.MEMBER__PARENT]),
+            constants.MEMBER__ORGANIZATION_ID:str(self[constants.MEMBER__ORGANIZATION_ID].fetch().id)
             # constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID].fetch().card_id
         }
 
