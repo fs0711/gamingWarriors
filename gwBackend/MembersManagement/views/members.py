@@ -46,3 +46,11 @@ def update_view(data):
 @decorators.keys_validator()
 def list_view(data):
     return MembersController.get_members()
+
+
+@members_bp.route("/list_members_id", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def list_view_id(data):
+    return MembersController.get_members_id()

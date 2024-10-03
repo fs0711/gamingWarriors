@@ -131,5 +131,13 @@ class MembersController(Controller):
         return response_utils.get_json_response_object(
         response_code=response_codes.CODE_SUCCESS,
         response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[{'member_id':obj[constants.MEMBER__ID] ,'name':obj[constants.MEMBER__NAME],'phone_number':obj[constants.MEMBER__PHONE_NUMBER],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'membership_level':obj[constants.MEMBER__MEMBERSHIP_LEVEL],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'type':obj[constants.MEMBER__TYPE],'organization':str(obj[constants.MEMBER__ORGANIZATION_ID].fetch().name),'parent':str(obj[constants.MEMBER__PARENT].fetch().member_id),'card_id':str(obj[constants.MEMBER__CARD_ID].fetch().card_id)}  for obj in cls.db_read_records(read_filter={})],
+        response_data=[{'id':str(obj[constants.ID]),'member_id':obj[constants.MEMBER__ID] ,'name':obj[constants.MEMBER__NAME],'phone_number':obj[constants.MEMBER__PHONE_NUMBER],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'membership_level':obj[constants.MEMBER__MEMBERSHIP_LEVEL],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'type':obj[constants.MEMBER__TYPE],'organization':str(obj[constants.MEMBER__ORGANIZATION_ID].fetch().name),'parent':str(obj[constants.MEMBER__PARENT].fetch().member_id),'card_id':str(obj[constants.MEMBER__CARD_ID].fetch().card_id)}  for obj in cls.db_read_records(read_filter={})],
+        )
+        
+    @classmethod
+    def get_members_id(cls):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[{'id':str(obj[constants.ID]),'member_id':obj[constants.MEMBER__ID]}  for obj in cls.db_read_records(read_filter={})],
         )
