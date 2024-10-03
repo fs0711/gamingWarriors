@@ -81,3 +81,13 @@ def list_card_by_branch(data):
 def list_card_by_uid(data):
     res = RfCardController.get_card_id_list(data=data)
     return res
+
+
+
+@rfcard_bp.route("/list_rfcard_ids", methods=["GET"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator()
+def list_rfcard_ids(data):
+    res = RfCardController.get_rfcard_ids()
+    return res

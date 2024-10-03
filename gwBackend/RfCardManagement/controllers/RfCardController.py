@@ -140,3 +140,12 @@ class RfCardController(Controller):
             response_code=response_codes.CODE_SUCCESS,
             response_message=response_codes.MESSAGE_SUCCESS,
             response_data= card_id_list)
+        
+    @classmethod
+    def get_rfcard_ids(cls):
+        return response_utils.get_json_response_object(
+        response_code=response_codes.CODE_SUCCESS,
+        response_message=response_codes.MESSAGE_SUCCESS,
+        response_data=[{'id':str(obj[constants.ID]), 'card_id':obj[constants.RFCARD__ID],'card_uid':obj[constants.RFCARD__UID] } for obj in cls.db_read_records(read_filter={})],
+        )
+    
