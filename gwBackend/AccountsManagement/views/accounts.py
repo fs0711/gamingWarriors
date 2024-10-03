@@ -27,6 +27,15 @@ def read_view(data):
     res = AccountsController.read_controller(data=data)
     return res
 
+
+@accounts_bp.route("/list_transactions", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def list_transactions(data):
+    return AccountsController.get_transactions()
+
+
 # @accounts_bp.route("/update", methods=["PUT"])
 # @decorators.is_authenticated
 # @decorators.keys_validator(

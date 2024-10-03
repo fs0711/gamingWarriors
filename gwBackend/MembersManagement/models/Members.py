@@ -72,7 +72,7 @@ class Members(models.Model):
             constants.MEMBER__GAME_HISTORY:self[constants.MEMBER__GAME_HISTORY],
             constants.MEMBER__CREDIT:self[constants.MEMBER__CREDIT],
             constants.MEMBER__TYPE:self[constants.MEMBER__TYPE],
-            constants.MEMBER__PARENT:str(self[constants.MEMBER__PARENT]),
+            constants.MEMBER__PARENT:str(self[constants.MEMBER__PARENT].fetch().name),
             constants.MEMBER__ORGANIZATION_ID:str(self[constants.MEMBER__ORGANIZATION_ID].fetch().id)
             # constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID].fetch().card_id
         }
