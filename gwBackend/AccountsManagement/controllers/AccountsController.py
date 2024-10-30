@@ -68,9 +68,10 @@ class AccountsController(Controller):
         return response_utils.get_json_response_object(
         response_code=response_codes.CODE_SUCCESS,
         response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[{'transaction_id':obj[constants.ACCOUNTS__ID], 'member':str(obj[constants.ACCOUNTS__MEMBER_ID].fetch().member_id),'amount':obj[constants.ACCOUNTS__AMOUNT],'purpose':obj[constants.ACCOUNTS__PURPOSE],'type':obj[constants.ACCOUNTS__TYPE],'branch':str(obj[constants.ACCOUNTS__BRANCH].fetch().name),'organization':str(obj[constants.BRANCH__ORGANIZATION].fetch().name)  } for obj in cls.db_read_records(read_filter={})],
+        response_data=[{'transaction_id':obj[constants.ACCOUNTS__ID],'amount':obj[constants.ACCOUNTS__AMOUNT],'purpose':obj[constants.ACCOUNTS__PURPOSE],'type':obj[constants.ACCOUNTS__TYPE],'branch':str(obj[constants.ACCOUNTS__BRANCH].fetch().name),'organization':str(obj[constants.ACCOUNTS__ORGANIZATION].fetch().name)  } for obj in cls.db_read_records(read_filter={})],
         )
 
+# , 'member':str(obj[constants.ACCOUNTS__MEMBER_ID].fetch().member_id)
     # @classmethod
     # def update_controller(cls, data):
     #     is_valid, error_messages, obj = cls.db_update_single_record(

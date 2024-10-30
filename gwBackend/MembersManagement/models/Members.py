@@ -26,7 +26,7 @@ class Members(models.Model):
             ],
             constants.MEMBER__EMAIL_ADDRESS: [{"rule": "email"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
-            constants.MEMBER__PARENT: [{"rule": "datatype", "datatype": str}],
+            # constants.MEMBER__PARENT: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__REWARD : [{"rule": "datatype", "datatype": str}],
