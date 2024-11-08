@@ -41,8 +41,8 @@ class Branch(models.Model):
     game_types = db.ListField()
     opening_time = db.IntField(required=True)
     closing_time = db.IntField(required=True)
-    users = db.LazyReferenceField("User")
-    organization = db.LazyReferenceField("Organization")
+    users = db.LazyReferenceField(document_type="User")
+    organization = db.LazyReferenceField(document_type="Organization")
     
     def __str__(self):
         return str(self.pk)

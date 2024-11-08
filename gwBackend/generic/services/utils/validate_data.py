@@ -1,7 +1,7 @@
 # Python imports
 import re
 # Framework imports
-from flask_mongoengine import BaseQuerySet
+from mongoengine import QuerySet
 # Local imports
 from gwBackend.generic.services.utils import common_utils, constants
 
@@ -172,7 +172,7 @@ def unique(data, key, rule, main_data=None):
     model = rule["Model"]
     field = rule["Field"]
     obj = None
-    if(type(model) != BaseQuerySet):
+    if(type(model) != QuerySet):
         obj = model.objects(**{field: data[key],
                                constants.STATUS: constants.OBJECT_STATUS_ACTIVE}).first()
     else:
@@ -192,7 +192,7 @@ def exists(data, key, rule):
     model = rule["Model"]
     field = rule["Field"]
     obj = None
-    if(type(model) != BaseQuerySet):
+    if(type(model) != QuerySet):
         obj = model.objects(**{field: data[key],
                                constants.STATUS: constants.OBJECT_STATUS_ACTIVE}).first()
     else:
@@ -365,7 +365,7 @@ def fetch_obj(data, key, rule):
     field = rule["Field"]
     obj_field = rule["ObjField"]
 
-    if(type(model) != BaseQuerySet):
+    if(type(model) != QuerySet):
         obj = model.objects(**{field: data[key],
                                constants.STATUS: constants.OBJECT_STATUS_ACTIVE}).first()
     else:

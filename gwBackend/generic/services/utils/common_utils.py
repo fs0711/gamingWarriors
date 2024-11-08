@@ -1,6 +1,8 @@
 # Python imports
 import datetime
 import time
+import string
+import random
 import re
 import json
 import uuid
@@ -174,3 +176,9 @@ def current_user():
         return token_obj[constants.TOKEN__USER].fetch()
     print('User not found')
     return None
+
+def generate_random_string(length=32):
+    base_string = str(int(time.time()))  
+    random_chars = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + base_string) 
+                           for _ in range(length))
+    return random_chars
