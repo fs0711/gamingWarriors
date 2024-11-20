@@ -60,7 +60,11 @@ class User(models.Model):
 
     @classmethod
     def update_validation_rules(cls):
-        return {}
+        return {
+            constants.USER__ROLE: [
+                {"rule": "non-existent"},
+            ],
+        }
 
     name = db.StringField()
     email_address = db.StringField()
