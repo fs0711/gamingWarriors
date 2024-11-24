@@ -235,7 +235,8 @@ class UserController(Controller):
         for user in users:
             if user[constants.USER__URL_KEY]:
                 obj = user.display()
-                user_list.append([obj[constants.USER__CARD_ID], user[constants.USER__URL_KEY]])
+                url = f"{config.DEFAULT_WEB}{user[constants.USER__URL_KEY]}"
+                user_list.append([obj[constants.USER__CARD_ID],url,obj[constants.USER__ORGANIZATION]])
         return response_utils.get_response_object(
             response_code=response_codes.CODE_SUCCESS,
             response_message=response_codes.MESSAGE_SUCCESS,
