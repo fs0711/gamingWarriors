@@ -44,8 +44,13 @@ class UserController(Controller):
                 obj.display() for obj in cls.db_read_records(read_filter=data)
             ])
 
+
+
     @classmethod
     def update_controller(cls, data):
+        if data.get(constants.USER__PASSWORD):
+            data[constants.USER__PASSWORD] = common_utils.encrypt_password(password=data[constants.USER__PASSWORD])
+        data[constants.USER__URL_KEY] = ""
         is_valid, error_messages, obj = cls.db_update_single_record(
             read_filter={constants.ID: data[constants.ID]}, update_filter=data
         )
@@ -66,6 +71,8 @@ class UserController(Controller):
             response_message=response_codes.MESSAGE_SUCCESS,
             response_data=obj.display(),
         )
+        
+
     @classmethod
     def suspend_controller(cls, data):
         _, _, obj = cls.db_update_single_record(
@@ -219,3 +226,21 @@ class UserController(Controller):
         response_message=response_codes.MESSAGE_SUCCESS,
         response_data=[{'name':str(obj[constants.USER__NAME]), 'email_address':obj[constants.USER__EMAIL_ADDRESS] ,'phone_number':obj[constants.USER__PHONE_NUMBER],'role':obj[constants.USER__ROLE],'organization':str(obj[constants.USER__ORGANIZATION].fetch().name),'branch':str(obj[constants.USER__BRANCH].fetch().name)}  for obj in cls.db_read_records(read_filter={})],
         )
+        
+        
+    @classmethod
+    def url_controller(cls, data):
+        users = cls.db_read_records(read_filter={})
+        user_list = []
+        for user in users:
+            if user[constants.USER__URL_KEY]:
+                obj = user.display()
+                url = f"{config.DEFAULT_WEB}{user[constants.USER__URL_KEY]}"
+                user_list.append([obj[constants.USER__CARD_ID],url,obj[constants.USER__ORGANIZATION]])
+        return response_utils.get_response_object(
+            response_code=response_codes.CODE_SUCCESS,
+            response_message=response_codes.MESSAGE_SUCCESS,
+            response_data= user_list)
+            
+        
+        

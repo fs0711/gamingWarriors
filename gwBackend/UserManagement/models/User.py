@@ -13,11 +13,9 @@ class User(models.Model):
     def validation_rules(cls):
         return {
             constants.USER__NAME: [
-                {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
             ],
             constants.USER__EMAIL_ADDRESS: [
-                {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
                 {
                     "rule": "unique",
@@ -26,7 +24,6 @@ class User(models.Model):
                 },
             ],
             constants.USER__PHONE_NUMBER: [
-                {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
                 {
                     "rule": "unique",
@@ -35,12 +32,10 @@ class User(models.Model):
                 },
             ],
             constants.USER__PASSWORD: [
-                {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
                 {"rule": "password"},
             ],
             constants.USER__GENDER: [
-                {"rule": "required"},
                 {"rule": "choices", "options": constants.GENDER_LIST},
             ],
             constants.USER__ROLE: [
@@ -55,11 +50,9 @@ class User(models.Model):
     def login_validation_rules(cls):
         return {
             constants.USER__EMAIL_ADDRESS: [
-                {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
             ],
             constants.USER__PASSWORD: [
-                {"rule": "required"},
                 {"rule": "datatype", "datatype": str},
                 {"rule": "password"},
             ],
@@ -67,20 +60,25 @@ class User(models.Model):
 
     @classmethod
     def update_validation_rules(cls):
-        return {}
+        return {
+            constants.USER__ROLE: [
+                {"rule": "non-existent"},
+            ],
+        }
 
-    name = db.StringField(required=True)
-    email_address = db.StringField(required=True)
-    phone_number = db.StringField(required=True)
-    password = db.StringField(required=True)
-    gender = db.StringField(required=True)
-    card_id=db.LazyReferenceField("RfCard")
-    city=db.StringField(required=True)
+    name = db.StringField()
+    email_address = db.StringField()
+    phone_number = db.StringField()
+    password = db.StringField()
+    gender = db.StringField()
+    card_id=db.LazyReferenceField(document_type="RfCard")
+    city=db.StringField()
     role = db.DictField(required=True)
     nic = db.StringField()
-    manager = db.LazyReferenceField('User')
-    organization = db.LazyReferenceField("Organization")
-    branch = db.LazyReferenceField("Branch")
+    url_key = db.StringField(default = "")
+    manager = db.LazyReferenceField(document_type="User")
+    organization = db.LazyReferenceField(document_type="Organization")
+    branch = db.LazyReferenceField(document_type="Branch")
     
     def __str__(self):
         return str(self.pk)

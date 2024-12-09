@@ -30,9 +30,10 @@ class RfCard(models.Model):
 
     card_id = db.SequenceField(value_decorator='CI-{}'.format)
     card_uid = db.StringField(required=True)
-    branch = db.LazyReferenceField('Branch')
-    organization = db.LazyReferenceField('Organization')
+    branch = db.LazyReferenceField(document_type="Branch")
+    organization = db.LazyReferenceField(document_type="Organization")
     assigned = db.BooleanField(Default = False)
+    
 
     def __str__(self):
         return str(self.pk)

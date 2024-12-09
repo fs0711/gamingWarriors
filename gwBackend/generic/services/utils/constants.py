@@ -170,6 +170,7 @@ USER__ROLE__MANAGER = "manager"
 USER__ROLE__MANAGER_ID = "manager_id"
 USER__ROLE__MANAGER_NAME = "manager_name"
 USER__ORGANIZATION = "organization"
+USER__URL_KEY = "url_key"
 
 USER__NEW_PASSWORD = "new_password"
 USER__OLD_PASSWORD = "old_password"
@@ -317,6 +318,8 @@ MEMBER__CREDIT = "credit"
 MEMBER__TYPE = "type"
 MEMBER__PARENT = "parent"
 MEMBER__ORGANIZATION_ID = "organization_id"
+MEMBER__USER_ID = "user_id"
+
 
 #REQUIRED Clients FIELD LIST
 REQUIRED_FIELDS_LIST__MEMBERS = [
@@ -408,11 +411,13 @@ RFCARD__UID = "card_uid"
 RFCARD__BRANCH = "branch"
 RFCARD__ASSIGNED = "assigned"
 RFCARD__ORGANIZATION = "organization"
+RFCARD__CREDIT = "credit"
 
 REQUIRED_FIELDS_LIST__RFCARD = [
     RFCARD__UID,
     RFCARD__BRANCH,
-    RFCARD__ORGANIZATION
+    RFCARD__ORGANIZATION,
+    RFCARD__CREDIT
 ]
 
 OPTIONAL_FIELDS_LIST__RFCARD = [

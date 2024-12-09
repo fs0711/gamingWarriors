@@ -15,22 +15,11 @@ class Members(models.Model):
         return {
             constants.MEMBER__NAME: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__NIC: [{"rule": "datatype", "datatype": str}],
-            constants.MEMBER__PHONE_NUMBER: [
-                {"rule": "required"},
-                {"rule": "datatype", "datatype": str},
-                {
-                    "rule": "unique",
-                    "Model": cls,
-                    "Field": constants.MEMBER__PHONE_NUMBER,
-                },
-            ],
-            constants.MEMBER__EMAIL_ADDRESS: [{"rule": "email"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
             # constants.MEMBER__PARENT: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
-            constants.MEMBER__CITY: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
             constants.MEMBER__REWARD : [{"rule": "datatype", "datatype": str}],
-            constants.MEMBER__CREDIT : [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
+            constants.MEMBER__CREDIT : [{"rule": "required"}, {"rule": "datatype", "datatype": int}],
             constants.MEMBER__TYPE : [{"rule": "datatype", "datatype": str}],
 
         }
@@ -42,18 +31,16 @@ class Members(models.Model):
 
     member_id = db.SequenceField(value_decorator='MI-{}'.format)
     name = db.StringField(required=True)
-    phone_number = db.StringField(required=True)
-    email_address = db.StringField(reuired=True)
-    city = db.StringField(required=True)
     nic = db.StringField()
-    membership_level = db.IntField(required=True)
-    reward = db.IntField(required=True)
+    membership_level = db.StringField(required=True)
+    reward = db.StringField(required=True)
     game_history = db.DictField(default = {})
     credit = db.IntField(required=True)
     type = db.StringField(required=True)
-    parent = db.LazyReferenceField("Members")
-    card_id = db.LazyReferenceField("RfCard")
-    organization_id = db.LazyReferenceField("Organization")
+    parent = db.LazyReferenceField(document_type="Members")
+    card_id = db.LazyReferenceField(document_type="RfCard")
+    organization_id = db.LazyReferenceField(document_type="Organization")
+    user_id = db.LazyReferenceField(document_type="User")
 
 
     def __str__(self):

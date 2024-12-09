@@ -35,8 +35,8 @@ def read_view(data):
 
 
 @users_bp.route("/update", methods=["PUT"])
-@decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+#@decorators.is_authenticated
+#@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator(
     [],
     constants.ALL_FIELDS_LIST__USER,
@@ -104,3 +104,19 @@ def child_view(data):
 @decorators.keys_validator()
 def list_users(data):
     return UserController.get_all_users()
+
+
+@users_bp.route("/<string>", methods=["GET"])
+@decorators.keys_validator()
+def verify(data,string):
+    data["url_key"] = string
+    return UserController.read_controller(data = data)
+
+
+@users_bp.route("/all", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.roles_allowed([])
+@decorators.keys_validator()
+def url_keys(data):
+    return UserController.url_controller(data)
+

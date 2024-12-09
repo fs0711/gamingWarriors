@@ -6,7 +6,6 @@
 from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.MembersManagement.models.Members import Members
-from gwBackend.RfCardManagement.controllers.RfCardController import RfCardController
 from gwBackend.OrganizationsManagement.controllers.organizationcontroller import Organization
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline,common_utils
 

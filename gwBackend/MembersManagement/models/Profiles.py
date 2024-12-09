@@ -21,11 +21,11 @@ class Profiles(models.Model):
     }
 
     name = db.StringField(required=True)
-    card_id = db.LazyReferenceField("RfCard")
+    card_id = db.LazyReferenceField(document_type="RfCard")
     credit = db.IntField(required=True)
     reward = db.IntField(required=True)
     game_history = db.DictField(default = {})
-    member_id = db.LazyReferenceField("Members")
+    member_id = db.LazyReferenceField(document_type="Members")
     type = db.StringField(required=True)
 
     def __str__(self):
