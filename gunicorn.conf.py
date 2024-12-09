@@ -1,5 +1,5 @@
-bind = "unix:munasiot.sock"
+bind = "unix:gwbackend.sock"
 workers = 1
-accesslog = "/var/log/munas-iot/reqlog"
-errorlog = "/var/log/munas-iot/errlog"
+accesslog = "/var/log/gwbackend/reqlog"
+errorlog = "/var/log/gwbackend/errlog"
 umask = 7
