@@ -3,8 +3,8 @@ import os
 # Local imports
 
 
-ENVIRONMENT = "LOCAL"
-# ENVIRONMENT = "STAGING"
+# ENVIRONMENT = "LOCAL"
+ENVIRONMENT = "STAGING"
 
 FUNCTION_LOGGING = False
 
@@ -38,7 +38,7 @@ FILTER_DATE_FORMAT = "%d %m %Y"
 FILTER_DATETIME_FORMAT = "%d %m %Y %H:%M:%S"
 TIME_ZONE = "Asia/Karachi"
 
-FRONTEND_URL = "https://gamingwarriors.com"
+FRONTEND_URL = "https://api.thedragonzone.com"
 MONGO_DB_USER = ""
 MONGO_DB_PASSWORD = ""
 
@@ -68,7 +68,7 @@ DEFAULT_BRANCH_GAME_TYPES = []
 DEFAULT_ADMIN_ORGANIZATION_NAME = "MUNAS"
 DEFAULT_ADMIN_ADDRESS = "Karachi"
 DEFAULT_ADMIN_COUNTRY = "Pakistan"
-DEFAULT_WEB = "http://localhost:5054/updatemember/"
+DEFAULT_WEB = "http://portal.thedragonzone.com/updatemember/"
 
 
 DUMMY_NAME = "Name"
