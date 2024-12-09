@@ -39,8 +39,8 @@ FILTER_DATETIME_FORMAT = "%d %m %Y %H:%M:%S"
 TIME_ZONE = "Asia/Karachi"
 
 FRONTEND_URL = "https://api.thedragonzone.com"
-MONGO_DB_USER = ""
-MONGO_DB_PASSWORD = ""
+MONGO_DB_USER = "munas"
+MONGO_DB_PASSWORD = "k9QauSm0wACivnIO"
 
 MONGO_DB_URI = ""
 if ENVIRONMENT == "LOCAL":
