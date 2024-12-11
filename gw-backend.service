@@ -1,5 +1,5 @@
 [Unit]
-Description=Gunicorn instance to serve munas IOT
+Description=Gunicorn instance to serve dragonzone backend
 After=network.target
 
 [Service]
