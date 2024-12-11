@@ -10,3 +10,12 @@ branch is for internal users.
 
 **fix child list function. owner is returning admin. apply organization filter
 **apply organization filter in user list by role
+
+                proxy_pass http://localhost:5054;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection keep-alive;
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+                proxy_set_header   X-Fowarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header   X-Fowarded-Proto $scheme;
