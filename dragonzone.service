@@ -1,0 +1,18 @@
+[Unit]
+Description=.NET service to serve dargonzone frontend
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/home/gamingfrontend/publish/
+ExecStart=/usr/bin/dotnet /home/gamingfrontend/publish/POS.dll
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-dragonzonefrontend
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
