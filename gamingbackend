@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name api.thedragonzone.com backend.thedragonzone.com;
+    server_name api.thedragonzone.com;
 
     location / {
         include proxy_params;

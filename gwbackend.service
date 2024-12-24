@@ -1,5 +1,5 @@
 [Unit]
-Description=Gunicorn instance to serve dragonzone backend
+Description=Gunicorn instance to serve gwbackend
 After=network.target
 
 [Service]
