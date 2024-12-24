@@ -51,7 +51,7 @@ if ENVIRONMENT == "STAGING":
         current_dir_path, "static/static_data.json")
     upload_files_path = os.path.join(current_dir_path, "static/uploads")
     # MONGO_DB_URI = f"mongodb://192.168.100.8:27017/gwBackend"
-    MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@clusterX.aq4vs.mongodb.net/gwBackend?"
+    # MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@clusterX.aq4vs.mongodb.net/gwBackend?"
     MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@munas-california.inrzszt.mongodb.net/gwBackend"
         # "retryWrites=true&w=majority"
 
