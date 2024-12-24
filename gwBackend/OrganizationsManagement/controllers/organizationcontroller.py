@@ -96,3 +96,12 @@ class OrganizationController(Controller):
         response_message=response_codes.MESSAGE_SUCCESS,
         response_data=[{'id':str(obj[constants.ID]),'organization_id':obj[constants.ORGANIZATION__ID], 'name':obj[constants.ORGANIZATION__NAME] ,'address':obj[constants.ORGANIZATION__ADDRESS],'cp_email_address':obj[constants.ORGANIZATION__CP_EMAIL], 'cp_phone_number':obj[constants.ORGANIZATION__CP_PHONE_NUMBER]}  for obj in cls.db_read_records(read_filter={})],
         )
+        
+        
+    @classmethod
+    def sales_controller(cls, data):
+        obj = cls.db_read_single_record(read_filter={
+            constants.ACCOUNTS__ORGANIZATION_NAME:data[constants.ACCOUNTS__ORGANIZATION_NAME]})
+        obj[constants.ORGANIZATION__SALE] = obj[constants.ORGANIZATION__SALE] + data[constants.ACCOUNTS__AMOUNT]
+        obj.save()
+        return {"status":1}
