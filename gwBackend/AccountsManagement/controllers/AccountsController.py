@@ -7,7 +7,6 @@ from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.AccountsManagement.models.Accounts import Accounts
 from gwBackend.MembersManagement.controllers.MembersController import MembersController
-from gwBackend.AccountsManagement.controllers.ProfitController import ProfitController
 from gwBackend.OrganizationsManagement.controllers.organizationcontroller import OrganizationController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, common_utils, pipeline
 from gwBackend import config
@@ -35,23 +34,19 @@ class AccountsController(Controller):
         if data[constants.ACCOUNTS__AMOUNT] != "0":
             amount = float(data[constants.ACCOUNTS__AMOUNT])
             percentage =  float(user[constants.USER__ORGANIZATION].fetch().profit)
-            amount_org = amount * percentage
-            amount_admin = amount * (1.0 - percentage)
+            data[constants.ACCOUNTS__AMOUNT_ORGANIZATION] = amount * percentage
+            data[constants.ACCOUNTS__AMOUNT_ADMIN] = amount * (1.0 - percentage)
 
-            
-            is_valid, error_messages, obj = ProfitController.db_insert_record(
-                data={
-                    constants.PROFIT__AMOUNT_ADMIN: amount_admin,
-                    constants.PROFIT__AMOUNT_ORGANIZATION: amount_org,
-                    constants.PROFIT__TOTAL_AMOUNT : amount,
-                    constants.PROFIT__ORGANIZATION: str(user[constants.USER__ORGANIZATION].fetch().id),
-                }
-            )
-            
-            if amount_org != "0":
+            if data[constants.ACCOUNTS__AMOUNT_ORGANIZATION] != "0":
                 obj = OrganizationController.sales_controller(data={constants.ACCOUNTS__ORGANIZATION_NAME: data[constants.ACCOUNTS__ORGANIZATION_NAME], 
-                                                         constants.ACCOUNTS__AMOUNT:amount_org})
-        
+                                                         constants.ACCOUNTS__AMOUNT:data[constants.ACCOUNTS__AMOUNT_ORGANIZATION] })
+                
+            
+            admin_organization_name = "MUNAS"
+            if data[constants.ACCOUNTS__AMOUNT_ADMIN] != "0":
+                obj = OrganizationController.sales_controller(data={constants.ACCOUNTS__ORGANIZATION_NAME: admin_organization_name, 
+                                                         constants.ACCOUNTS__AMOUNT:data[constants.ACCOUNTS__AMOUNT_ADMIN]})
+         
         del data[constants.MEMBER__CARD_ID]
         is_valid, error_messages = cls.cls_validate_data(data=data)
         if not is_valid:
