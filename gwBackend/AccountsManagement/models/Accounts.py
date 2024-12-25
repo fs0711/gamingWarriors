@@ -28,10 +28,10 @@ class Accounts(models.Model):
 
     transaction_id = db.SequenceField(value_decorator='TI-{}'.format)
     type = db.StringField(required=True)
-    branch = db.LazyReferenceField(document_type="Branch")
-    organization = db.LazyReferenceField(document_type="Organization")
+    branch = db.LazyReferenceField("Branch")
+    organization = db.LazyReferenceField("Organization")
     amount = db.IntField(required=True)
-    member = db.LazyReferenceField(document_type="Members")
+    member = db.LazyReferenceField("Members")
     purpose = db.StringField(required=True)
     name = db.StringField()
     

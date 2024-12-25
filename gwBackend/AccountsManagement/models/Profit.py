@@ -26,7 +26,7 @@ class Profit(models.Model):
     profit_org = db.FloatField(required=True)
     profit_admin = db.FloatField(required=True)
     total_amount = db.FloatField(required=True)
-    organization = db.LazyReferenceField(document_type="Organization")
+    organization = db.LazyReferenceField("Organization")
     
     def __str__(self):
         return str(self.pk)

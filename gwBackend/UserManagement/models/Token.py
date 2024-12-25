@@ -34,7 +34,7 @@ class Token(models.Model):
     def update_validation_rules(self): return{
     }
     access_token = db.StringField(required=True, unique=True)
-    user = db.LazyReferenceField(document_type="User", required = True)
+    user = db.LazyReferenceField("User", required = True)
     purpose = db.StringField(required=True)
     expiry_time = db.IntField(required=True)
     is_expired = db.BooleanField(default=False)

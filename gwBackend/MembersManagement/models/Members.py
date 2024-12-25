@@ -37,10 +37,10 @@ class Members(models.Model):
     game_history = db.DictField(default = {})
     credit = db.IntField(required=True)
     type = db.StringField(required=True)
-    parent = db.LazyReferenceField(document_type="Members")
-    card_id = db.LazyReferenceField(document_type="RfCard")
-    organization_id = db.LazyReferenceField(document_type="Organization")
-    user_id = db.LazyReferenceField(document_type="User")
+    parent = db.LazyReferenceField("Members")
+    card_id = db.LazyReferenceField("RfCard")
+    organization_id = db.LazyReferenceField("Organization")
+    user_id = db.LazyReferenceField("User")
 
 
     def __str__(self):

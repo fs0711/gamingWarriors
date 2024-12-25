@@ -71,14 +71,14 @@ class User(models.Model):
     phone_number = db.StringField()
     password = db.StringField()
     gender = db.StringField()
-    card_id=db.LazyReferenceField(document_type="RfCard")
+    card_id=db.LazyReferenceField("RfCard")
     city=db.StringField()
     role = db.DictField(required=True)
     nic = db.StringField()
     url_key = db.StringField(default = "")
-    manager = db.LazyReferenceField(document_type="User")
-    organization = db.LazyReferenceField(document_type="Organization")
-    branch = db.LazyReferenceField(document_type="Branch")
+    manager = db.LazyReferenceField("User")
+    organization = db.LazyReferenceField("Organization")
+    branch = db.LazyReferenceField("Branch")
     
     def __str__(self):
         return str(self.pk)
