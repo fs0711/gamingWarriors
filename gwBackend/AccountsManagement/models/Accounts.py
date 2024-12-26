@@ -33,6 +33,10 @@ class Accounts(models.Model):
     amount = db.IntField(required=True)
     member = db.LazyReferenceField(document_type="Members")
     purpose = db.StringField(required=True)
+    name = db.StringField()
+    profit_org = db.FloatField(required=True)
+    profit_admin = db.FloatField(required=True)
+    
     
 
     def __str__(self):
