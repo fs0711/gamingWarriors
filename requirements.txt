@@ -13,7 +13,6 @@ Flask-Cors
 Flask-Mail
 Flask-Moment
 flask-mongoengine-3
-flask-pyopenssl
 Flask-WTF
 idna
 itsdangerous
