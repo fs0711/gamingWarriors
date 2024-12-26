@@ -3,8 +3,8 @@ import os
 # Local imports
 
 
-ENVIRONMENT = "LOCAL"
-# ENVIRONMENT = "STAGING"
+# ENVIRONMENT = "LOCAL"
+ENVIRONMENT = "STAGING"
 
 FUNCTION_LOGGING = False
 
@@ -38,9 +38,9 @@ FILTER_DATE_FORMAT = "%d %m %Y"
 FILTER_DATETIME_FORMAT = "%d %m %Y %H:%M:%S"
 TIME_ZONE = "Asia/Karachi"
 
-FRONTEND_URL = "https://gamingwarriors.com"
-MONGO_DB_USER = ""
-MONGO_DB_PASSWORD = ""
+FRONTEND_URL = "https://api.thedragonzone.com"
+MONGO_DB_USER = "munas"
+MONGO_DB_PASSWORD = "k9QauSm0wACivnIO"
 
 MONGO_DB_URI = ""
 if ENVIRONMENT == "LOCAL":
@@ -51,8 +51,7 @@ if ENVIRONMENT == "STAGING":
         current_dir_path, "static/static_data.json")
     upload_files_path = os.path.join(current_dir_path, "static/uploads")
     # MONGO_DB_URI = f"mongodb://192.168.100.8:27017/gwBackend"
-    MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@clusterX.aq4vs.mongodb.net/gwBackend?"\
-        "retryWrites=true&w=majority"
+    MONGO_DB_URI = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@munas-california.inrzszt.mongodb.net/munas"
 
 DEFAULT_ADMIN_NAME = "Admin"
 DEFAULT_ADMIN_EMAIL = "admin@mail.com"
@@ -68,7 +67,7 @@ DEFAULT_BRANCH_GAME_TYPES = []
 DEFAULT_ADMIN_ORGANIZATION_NAME = "MUNAS"
 DEFAULT_ADMIN_ADDRESS = "Karachi"
 DEFAULT_ADMIN_COUNTRY = "Pakistan"
-DEFAULT_WEB = "http://localhost:5054/updatemember/"
+DEFAULT_WEB = "http://portal.thedragonzone.com/updatemember/"
 
 
 DUMMY_NAME = "Name"
