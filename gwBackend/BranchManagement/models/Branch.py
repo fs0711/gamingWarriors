@@ -22,6 +22,8 @@ class Branch(models.Model):
             constants.BRANCH__USERS: [{"rule": "datatype", "datatype": str}],
             constants.BRANCH__OPENING_TIME: [{"rule": "required"}],
             constants.BRANCH__CLOSING_TIME: [{"rule": "required"}],
+            constants.BRANCH__PERCENTAGE: [{"rule": "required"}, {"rule": "datatype", "datatype": float}]
+            
         }
 
     @classmethod
@@ -43,6 +45,8 @@ class Branch(models.Model):
     closing_time = db.IntField(required=True)
     users = db.LazyReferenceField(document_type="User")
     organization = db.LazyReferenceField(document_type="Organization")
+    percentage = db.FloatField(required=True)
+    
     
     def __str__(self):
         return str(self.pk)
