@@ -3,7 +3,7 @@ server {
     server_name portal.thedragonzone.com;  # Replace with your domain or public IP
 
     location / {
-        proxy_pass http://localhost:5000;  # Forward requests to your .NET app
+        proxy_pass http://localhost:5054;  # Forward requests to your .NET app
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection keep-alive;

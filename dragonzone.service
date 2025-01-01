@@ -5,8 +5,8 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/home/gamingfrontend/publish/
-ExecStart=/usr/bin/dotnet /home/gamingfrontend/publish/POS.dll
+WorkingDirectory=/home/dragonzone-frontend/publish/
+ExecStart=/usr/bin/dotnet /home/dragonzone-frontend/publish/POS.dll --urls http://127.0.0.1:5054
 Restart=always
 RestartSec=10
 KillSignal=SIGINT
