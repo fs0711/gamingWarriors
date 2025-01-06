@@ -13,7 +13,7 @@ class Members(models.Model):
     @classmethod
     def validation_rules(cls):
         return {
-            constants.MEMBER__NAME: [{"rule": "required"}, {"rule": "datatype", "datatype": str}],
+            constants.MEMBER__NAME: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__NIC: [{"rule": "datatype", "datatype": str}],
             constants.MEMBER__CARD_ID: [{"rule": "datatype", "datatype": str}],
             # constants.MEMBER__PARENT: [{"rule": "datatype", "datatype": str}],
@@ -26,11 +26,12 @@ class Members(models.Model):
 
     @classmethod
     def update_validation_rules(cls): return {
-
+        constants.MEMBER__MEMBERSHIP_LEVEL: [{"rule": "non-existent"}],
+        constants.MEMBER__CREDIT: [{"rule": "non-existent"}]
     }
 
     member_id = db.SequenceField(value_decorator='MI-{}'.format)
-    name = db.StringField(required=True)
+    name = db.StringField()
     nic = db.StringField()
     membership_level = db.StringField(required=True)
     reward = db.StringField(required=True)

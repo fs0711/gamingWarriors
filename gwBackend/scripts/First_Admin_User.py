@@ -1,5 +1,5 @@
-# Date Created 14/09/2021 17:05:00
-
+# Framework imports
+from flask import abort
 
 # Local imports
 from gwBackend import app
@@ -17,17 +17,7 @@ def create_admin_user_if_not_exists(run=False):
     with app.test_request_context():
         if not bool(UserController.db_read_records({}).count()):
             print("No Users")
-            is_valid, error_messages, obj = BranchController.db_insert_record(
-                data={
-                    constants.BRANCH__NAME: config.DEFAULT_BRANCH_NAME,
-                    constants.BRANCH__CITY:config.DEFAULT_BRANCH_CITY,
-                    constants.BRANCH__OPENING_TIME:config.DEFAULT_BRANCH_OPENING_TIME,
-                    constants.BRANCH__CLOSING_TIME:config.DEFAULT_BRANCH_CLOSING_TIME,
-                    constants.BRANCH__GAME_TYPES:config.DEFAULT_BRANCH_GAME_TYPES
-                }
-            )
-            branch_id = str(obj.id)
-
+            
             is_valid, error_messages, obj = OrganizationController.db_insert_record(
                 data={
                     constants.ORGANIZATION__NAME: config.DEFAULT_ADMIN_ORGANIZATION_NAME,
@@ -37,10 +27,26 @@ def create_admin_user_if_not_exists(run=False):
                     constants.ORGANIZATION__CP_NAME: config.DEFAULT_ADMIN_NAME,
                     constants.ORGANIZATION__CP_EMAIL: config.DEFAULT_ADMIN_EMAIL,
                     constants.ORGANIZATION__CP_PHONE_NUMBER: [config.DEFAULT_ADMIN_PHONE],
-                    constants.ORGANIZATION__NTN: 'no ntn'
+                    constants.ORGANIZATION__NTN: 'no ntn',
+                    constants.ORGANIZATION__PERCENTAGE: config.DEFAULT_ADMIN_ORGANIZATION_PERCENTAGE
                 })
             organization_id = str(obj.id)
-            
+
+            is_valid, error_messages, obj = BranchController.db_insert_record(
+                data={
+                    constants.BRANCH__NAME: config.DEFAULT_BRANCH_NAME,
+                    constants.BRANCH__CITY:config.DEFAULT_BRANCH_CITY,
+                    constants.BRANCH__OPENING_TIME:config.DEFAULT_BRANCH_OPENING_TIME,
+                    constants.BRANCH__CLOSING_TIME:config.DEFAULT_BRANCH_CLOSING_TIME,
+                    constants.BRANCH__GAME_TYPES:config.DEFAULT_BRANCH_GAME_TYPES,
+                    constants.BRANCH__PERCENTAGE:config.DEFAULT_BRANCH_PERCENTAGE,
+                    constants.BRANCH__CREDIT_LIMIT:config.DEFAULT_BRANCH_CREDIT_LIMIT,
+                    constants.BRANCH__ORGANIZATION: organization_id
+                }
+            )
+            branch_id = str(obj.id)
+
+
             is_valid, error_messages, obj = RfCardController.db_insert_record(
                 data={
                     constants.RFCARD__UID: config.DEFAULT_ADMIN_CARD_ID,

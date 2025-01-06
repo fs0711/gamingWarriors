@@ -22,8 +22,8 @@ class Branch(models.Model):
             constants.BRANCH__USERS: [{"rule": "datatype", "datatype": str}],
             constants.BRANCH__OPENING_TIME: [{"rule": "required"}],
             constants.BRANCH__CLOSING_TIME: [{"rule": "required"}],
-            constants.BRANCH__PERCENTAGE: [{"rule": "required"}, {"rule": "datatype", "datatype": float}]
-            
+            constants.BRANCH__PERCENTAGE: [{"rule": "required"}, {"rule": "datatype", "datatype": int}],
+            constants.BRANCH__CREDIT_LIMIT: [{"rule": "required"}, {"rule": "datatype", "datatype": int}]  
         }
 
     @classmethod
@@ -33,7 +33,6 @@ class Branch(models.Model):
             constants.BRANCH__OPENING_TIME: [{"rule": "existent"}],
             constants.BRANCH__CLOSING_TIME: [{"rule": "existent"}],
     }
-    
     
     branch_id = db.SequenceField(value_decorator='BR-{}'.format)
     name = db.StringField(required=True)
@@ -45,7 +44,8 @@ class Branch(models.Model):
     closing_time = db.IntField(required=True)
     users = db.LazyReferenceField(document_type="User")
     organization = db.LazyReferenceField(document_type="Organization")
-    percentage = db.FloatField(required=True)
+    percentage = db.IntField(required=True)
+    credit_limit = db.IntField(required=True)
     
     
     def __str__(self):
@@ -58,10 +58,11 @@ class Branch(models.Model):
             constants.BRANCH__NAME: self[constants.BRANCH__NAME],
             constants.BRANCH__CITY: self[constants.BRANCH__CITY],
             constants.BRANCH__GAME_TYPES: self[constants.BRANCH__GAME_TYPES],
-            constants.BRANCH__USERS: self[constants.BRANCH__USERS].fetch().name,
+            # constants.BRANCH__USERS: self[constants.BRANCH__USERS].fetch().name,
             constants.BRANCH__OPENING_TIME: self[constants.BRANCH__OPENING_TIME],
             constants.BRANCH__CLOSING_TIME: self[constants.BRANCH__CLOSING_TIME],
             constants.BRANCH__ORGANIZATION: self[constants.BRANCH__ORGANIZATION].fetch().name,
+            constants.BRANCH__CREDIT_LIMIT: self[constants.BRANCH__CREDIT_LIMIT],
             constants.STATUS: self[constants.STATUS],
         }
     

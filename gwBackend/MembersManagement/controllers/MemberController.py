@@ -5,12 +5,11 @@
 # Local imports
 from ast import Constant
 from gwBackend.generic.controllers import Controller
-from gwBackend.MembersManagement.models.Members import Members
-from gwBackend.OrganizationsManagement.controllers.organizationcontroller import Organization
+from gwBackend.MembersManagement.models.Member import Members
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline,common_utils
 
 
-class MembersController(Controller):
+class MemberController(Controller):
     Model = Members
 
     @classmethod
@@ -123,7 +122,7 @@ class MembersController(Controller):
             constants.MEMBER__CARD_ID:data[constants.MEMBER__CARD_ID]})
         obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] + data[constants.ACCOUNTS__AMOUNT]
         obj.save()
-        return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+        return {"status":1, "name":obj[constants.MEMBER__NAME], "id":str(obj[constants.ID]), "balance":obj[constants.MEMBER__CREDIT]}
     
     @classmethod
     def get_members(cls):
@@ -132,7 +131,7 @@ class MembersController(Controller):
         response_message=response_codes.MESSAGE_SUCCESS,
         response_data=[{'id':str(obj[constants.ID]),'member_id':obj[constants.MEMBER__ID] ,'name':obj[constants.MEMBER__NAME],'phone_number':obj[constants.MEMBER__PHONE_NUMBER],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'membership_level':obj[constants.MEMBER__MEMBERSHIP_LEVEL],'email_address':obj[constants.MEMBER__EMAIL_ADDRESS],'type':obj[constants.MEMBER__TYPE],'organization':str(obj[constants.MEMBER__ORGANIZATION_ID].fetch().name),'card_id':str(obj[constants.MEMBER__CARD_ID].fetch().card_id)}  for obj in cls.db_read_records(read_filter={})],
         )
-        # ,'parent':str(obj[constants.MEMBER__PARENT].fetch().member_id)
+ 
     @classmethod
     def get_members_id(cls):
         return response_utils.get_json_response_object(

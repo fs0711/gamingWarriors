@@ -26,7 +26,9 @@ class RfCard(models.Model):
 
     @classmethod
     def update_validation_rules(cls): 
-        return {}
+        return {
+            constants.RFCARD__UID: [{"rule":"non-existent"}]
+        }
 
     card_id = db.SequenceField(value_decorator='CI-{}'.format)
     card_uid = db.StringField(required=True)
@@ -44,17 +46,16 @@ class RfCard(models.Model):
             constants.RFCARD__ID: self[constants.RFCARD__ID],
             constants.RFCARD__UID: self[constants.RFCARD__UID],
             constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED],
-            constants.RFCARD__BRANCH:self[constants.RFCARD__BRANCH].fetch().name,
-            constants.RFCARD__ORGANIZATION:self [constants.RFCARD__ORGANIZATION].fetch().name
+            constants.RFCARD__BRANCH:self[constants.RFCARD__BRANCH].fetch().name if self[constants.RFCARD__BRANCH] else "",
+            constants.RFCARD__ORGANIZATION:self [constants.RFCARD__ORGANIZATION].fetch().name if self[constants.RFCARD__ORGANIZATION] else ""
         }
 
     def display_min(self):
         return {
             constants.ID: str(self[constants.ID]),
             constants.RFCARD__ID: self[constants.RFCARD__ID], 
+            constants.RFCARD__UID: self[constants.RFCARD__UID], 
             constants.RFCARD__ASSIGNED: self[constants.RFCARD__ASSIGNED],
-            constants.RFCARD__BRANCH:self[constants.RFCARD__BRANCH].fetch().name,
-            constants.RFCARD__ORGANIZATION:self [constants.RFCARD__ORGANIZATION].fetch().name  
         }
     
     def display_card_id(self):

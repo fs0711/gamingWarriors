@@ -20,11 +20,11 @@ def create_view(data):
     res = RfCardController.create_controller(data=data)
     return res
 
-@rfcard_bp.route("/read", methods=["GET","POST"])
+@rfcard_bp.route("/read", methods=["POST"])
 @decorators.is_authenticated
 @decorators.keys_validator(
     [],
-    [constants.RFCARD__ASSIGNED,constants.RFCARD__ORGANIZATION]
+    [constants.ID, constants.RFCARD__ASSIGNED, constants.RFCARD__ORGANIZATION]
 )
 def read_view(data):
     res = RfCardController.read_controller(data=data)
@@ -38,38 +38,36 @@ def read_view(data):
 def update_view(data):
     return RfCardController.update_controller(data=data)
 
-@rfcard_bp.route("/list_rfcards", methods=["GET","POST"])
+# @rfcard_bp.route("/list_rfcards", methods=["GET","POST"])
+# # @decorators.is_authenticated
+# # @decorators.roles_allowed([])
+# @decorators.keys_validator(
+#     [],
+#     [constants.RFCARD__ASSIGNED,constants.RFCARD__ORGANIZATION]
+# )
+# def list_view(data):
+#     return RfCardController.get_rfcards(data=data)
+
+
+# @rfcard_bp.route("/list_by_org", methods=["POST"])
 # @decorators.is_authenticated
-# @decorators.roles_allowed([])
-@decorators.keys_validator(
-    [],
-    [constants.RFCARD__ASSIGNED,constants.RFCARD__ORGANIZATION]
-)
-def list_view(data):
-    return RfCardController.get_rfcards(data=data)
+# @decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+# @decorators.keys_validator(
+#     [constants.RFCARD__ORGANIZATION]
+# )
+# def list_card_by_org(data):
+#     res = RfCardController.get_rfcards_org(data=data)
+#     return res
 
-
-@rfcard_bp.route("/list_by_org", methods=["POST"])
-@decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
-@decorators.keys_validator(
-    [constants.RFCARD__ORGANIZATION]
-)
-def list_card_by_org(data):
-    res = RfCardController.get_rfcards_org(data=data)
-    return res
-
-@rfcard_bp.route("/list_by_branch", methods=["POST"])
-@decorators.is_authenticated
-@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
-@decorators.keys_validator(
-    [constants.RFCARD__BRANCH]
-)
-def list_card_by_branch(data):
-    res = RfCardController.get_rfcards_branch(data=data)
-    return res
-
-
+# @rfcard_bp.route("/list_by_branch", methods=["POST"])
+# @decorators.is_authenticated
+# @decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+# @decorators.keys_validator(
+#     [constants.RFCARD__BRANCH]
+# )
+# def list_card_by_branch(data):
+#     res = RfCardController.get_rfcards_branch(data=data)
+#     return res
 
 
 @rfcard_bp.route("/get_card_id", methods=["POST"])
@@ -83,11 +81,22 @@ def list_card_by_uid(data):
     return res
 
 
-
 @rfcard_bp.route("/list_rfcard_ids", methods=["GET"])
 @decorators.is_authenticated
 @decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
 @decorators.keys_validator()
 def list_rfcard_ids(data):
     res = RfCardController.get_rfcard_ids()
+    return res
+
+
+@rfcard_bp.route("/transfer", methods=["POST"])
+@decorators.is_authenticated
+@decorators.roles_allowed([constants.ROLE_ID_ADMIN,constants.ROLE_ID_OWNER, constants.ROLE_ID_CLIENT])
+@decorators.keys_validator(
+    [constants.ID],
+    [constants.RFCARD__ORGANIZATION,constants.RFCARD__BRANCH]
+)
+def transfer_card(data):
+    res = RfCardController.transfer_rfcard(data)
     return res

@@ -96,12 +96,9 @@ class BranchController(Controller):
         response_message=response_codes.MESSAGE_SUCCESS,
         response_data=[{'id':str(obj[constants.ID]), 'name':obj[constants.BRANCH__NAME],'organization':str(obj[constants.BRANCH__ORGANIZATION].fetch().id) } for obj in cls.db_read_records(read_filter={})],
         )
-    
-
-        
+     
     @classmethod
     def get_branchs_orgs(cls,data):
-        
         obj = cls.db_read_records(read_filter={constants.BRANCH__ORGANIZATION:data[constants.BRANCH__ORGANIZATION]})
         branch_id_list = [branch.display_branchs_id() for branch in obj]
         return response_utils.get_json_response_object(
@@ -109,3 +106,13 @@ class BranchController(Controller):
         response_message=response_codes.MESSAGE_SUCCESS,
         response_data=branch_id_list
         )
+    
+    @classmethod
+    def update_limit (cls, data):
+        obj = cls.db_read_single_record(read_filter={constants.ID: data[constants.ID]})
+        if obj:
+            obj[constants.BRANCH__CREDIT_LIMIT] = data[constants.BRANCH__CREDIT_LIMIT]
+            obj.save()
+            return 1
+        else:
+            return 0

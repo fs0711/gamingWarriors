@@ -28,17 +28,18 @@ class Accounts(models.Model):
 
     transaction_id = db.SequenceField(value_decorator='TI-{}'.format)
     type = db.StringField(required=True)
-    branch = db.LazyReferenceField(document_type="Branch")
-    organization = db.LazyReferenceField(document_type="Organization")
+    branch = db.LazyReferenceField(document_type="Branch", required=True)
+    organization = db.LazyReferenceField(document_type="Organization", required=True)
     amount = db.IntField(required=True)
     member = db.LazyReferenceField(document_type="Members")
     purpose = db.StringField(required=True)
-    name = db.StringField()
-    profit_org = db.FloatField(required=True)
-    profit_admin = db.FloatField(required=True)
+    name = db.StringField(required=True)
+    profit_org = db.FloatField()
+    profit_admin = db.FloatField()
+    paid_org = db.BooleanField(required=True)
+    paid_admin = db.BooleanField(required=True)
     
     
-
     def __str__(self):
         return str(self.pk)
 

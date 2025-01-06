@@ -20,7 +20,7 @@ class Organization(models.Model):
             constants.ORGANIZATION__COUNTRY:[{'rule':'required'}, {'rule':'datatype', 'datatype':str}],
             constants.ORGANIZATION__CP_NAME:[{'rule':'required'}, {'rule':'datatype', 'datatype':str}],
             constants.ORGANIZATION__CP_EMAIL:[{'rule':'required'}, {'rule':'datatype', 'datatype':str}],
-            constants.ORGANIZATION__PERCENTAGE:[{'rule':'required'}, {'rule':'datatype', 'datatype':float}],
+            constants.ORGANIZATION__PERCENTAGE:[{'rule':'required'}, {'rule':'datatype', 'datatype':int}],
             constants.ORGANIZATION__CP_PHONE_NUMBER:[{'rule':'required'}, {'rule':'datatype', 'datatype':list}],
             constants.ORGANIZATION__NTN:[{'rule':'datatype', 'datatype': str}],
             constants.ORGANIZATION__CUSTOM_FIELDS:[{'rule':'datatype', 'datatype': dict}]
@@ -40,7 +40,7 @@ class Organization(models.Model):
     cp_phone_number = db.ListField(required=True)
     ntn = db.StringField(default='')
     custom_fields = db.DictField(default={})
-    percentage = db.FloatField(required=True)
+    percentage = db.IntField(required=True)
 
 
     def __str__(self):

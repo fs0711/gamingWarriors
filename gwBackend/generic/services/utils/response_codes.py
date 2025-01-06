@@ -119,7 +119,10 @@ MESSAGE_INVALID_OTP = "Invalid OTP"
 MESSAGE_INVALID_TOKEN = "Invalid Token"
 MESSAGE_TOKEN_EXPIRED = "Token has Expired"
 MESSAGE_TOKEN_REVOKED = "Token has been Revoked"
-
+MESSAGE_WRONG_PURPOSE = "Teansaction Type is Invalid"
+MESSAGE_WRONG_CREDIT_LIMIT = "Insufficient credit limit"
+MESSAGE_WRONG_CARD_ID = "Card ID is invalid"
+MESSAGE_WRONG_AMOUNT = "ammount cannot be Zero"
 
 # GENERAL ERRORS
 MESSAGE_SYSTEM_ERROR = 'Server is not responding at the moment.'

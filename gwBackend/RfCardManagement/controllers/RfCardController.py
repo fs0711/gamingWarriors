@@ -6,7 +6,7 @@
 from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.UserManagement.controllers.UserController import UserController
-from gwBackend.MembersManagement.controllers.MembersController import MembersController
+from gwBackend.MembersManagement.controllers.MemberController import MemberController
 from gwBackend.RfCardManagement.models.RfCard import RfCard
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, common_utils, pipeline
 from gwBackend import config
@@ -17,7 +17,12 @@ class RfCardController(Controller):
 
     @classmethod
     def create_controller(cls, data):
-        data[constants.RFCARD__ASSIGNED] = "false"
+        if data.get(constants.RFCARD__BRANCH):
+            data[constants.RFCARD__ASSIGNED] = True
+            branch = data[constants.RFCARD__BRANCH]
+        else:
+            data[constants.RFCARD__ASSIGNED] = False
+            branch = None
         credit = data[constants.RFCARD__CREDIT]
         del data[constants.RFCARD__CREDIT]
         is_valid, error_messages = cls.cls_validate_data(data=data)
@@ -46,19 +51,19 @@ class RfCardController(Controller):
                 data={
                     constants.USER__NAME: config.DUMMY_NAME,
                     constants.USER__PHONE_NUMBER: config.DUMMY_PHONE,
-                    constants.USER__GENDER: constants.GENDER_LIST[0],
+                    constants.USER__GENDER: config.DUMMY_GENDER,
                     constants.USER__NIC: "123456",
                     constants.USER__ROLE: constants.DEFAULT_MB_ROLE_OBJECT,
                     constants.USER__CITY: config.DUMMY_CITY,
                     constants.USER__URL_KEY : common_utils.generate_random_string(),
                     constants.USER__CARD_ID: str(obj[constants.ID]),
-                    constants.USER__BRANCH: str(obj['branch'].fetch().id),
+                    constants.USER__BRANCH: branch,
                     constants.USER__ORGANIZATION: str(obj['organization'].fetch().id)
                 }
             )
             user_id = str(obj.id)
             
-            is_valid, error_messages, obj = MembersController.db_insert_record(
+            is_valid, error_messages, obj = MemberController.db_insert_record(
                 data={
                     constants.MEMBER__NAME: config.DUMMY_MEMBER_NAME,
                     constants.MEMBER__NIC: "123456",
@@ -68,13 +73,12 @@ class RfCardController(Controller):
                     constants.MEMBER__CREDIT : credit,
                     constants.MEMBER__TYPE : config.DUMMY_MEMBER_TYPE,
                     # constants.MEMBER__CITY : config.DUMMY_CITY,
-                    constants.MEMBER__CARD_ID: str(obj[constants.ID]),
+                    constants.MEMBER__CARD_ID: str(rfcard[constants.ID]),
                     constants.MEMBER__ORGANIZATION_ID: str(obj['organization'].fetch().id),
                     constants.MEMBER__USER_ID :user_id
                 }
             )
-            
-        
+
             return response_utils.get_response_object(
                 response_code=response_codes.CODE_SUCCESS,
                 response_message=response_codes.MESSAGE_SUCCESS,
@@ -83,7 +87,7 @@ class RfCardController(Controller):
 
     @classmethod
     def read_controller(cls, data):
-                return response_utils.get_response_object(
+            return response_utils.get_response_object(
             response_code=response_codes.CODE_SUCCESS,
             response_message=response_codes.MESSAGE_SUCCESS,
             response_data=[
@@ -96,8 +100,12 @@ class RfCardController(Controller):
         if obj:    
             return str(obj.id)
         else:
-            return 0
-
+            obj = cls.db_read_single_record(read_filter={constants.RFCARD__ID:data})
+            if obj:
+                return str(obj.id)
+            else:
+                return 0
+            
     @classmethod
     def update_controller(cls, data):
         is_valid, error_messages, obj = cls.db_update_single_record(
@@ -141,39 +149,36 @@ class RfCardController(Controller):
                 constants.GAMEUNIT.title(), constants.ID
             ))
         
-    @classmethod
-    def get_rfcards(cls,data):
-        return response_utils.get_json_response_object(
-        response_code=response_codes.CODE_SUCCESS,
-        response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[obj.display_min() for obj in cls.db_read_records(read_filter=data)],
-        )
+    # @classmethod
+    # def get_rfcards(cls,data):
+    #     return response_utils.get_json_response_object(
+    #     response_code=response_codes.CODE_SUCCESS,
+    #     response_message=response_codes.MESSAGE_SUCCESS,
+    #     response_data=[obj.display_min() for obj in cls.db_read_records(read_filter=data)],
+    #     )
         
-    @classmethod
-    def get_rfcards_org(cls,data):
+    # @classmethod
+    # def get_rfcards_org(cls,data):
+    #     obj = cls.db_read_records(read_filter={constants.RFCARD__ORGANIZATION:data[constants.RFCARD__ORGANIZATION]})
+    #     card_id_list = [rfcard.display_card_id() for rfcard in obj]
+    #     return response_utils.get_json_response_object(
+    #     response_code=response_codes.CODE_SUCCESS,
+    #     response_message=response_codes.MESSAGE_SUCCESS,
+    #     response_data=card_id_list
+    #     )
         
-        obj = cls.db_read_records(read_filter={constants.RFCARD__ORGANIZATION:data[constants.RFCARD__ORGANIZATION]})
-        card_id_list = [rfcard.display_card_id() for rfcard in obj]
-        return response_utils.get_json_response_object(
-        response_code=response_codes.CODE_SUCCESS,
-        response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=card_id_list
-        )
-        
-    @classmethod
-    def get_rfcards_branch(cls,data):
-        
-        obj = cls.db_read_records(read_filter={constants.RFCARD__BRANCH:data[constants.RFCARD__BRANCH]})
-        card_id_list = [rfcard.display_card_id() for rfcard in obj]
-        return response_utils.get_json_response_object(
-        response_code=response_codes.CODE_SUCCESS,
-        response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=card_id_list
-        )
+    # @classmethod
+    # def get_rfcards_branch(cls,data):
+    #     obj = cls.db_read_records(read_filter={constants.RFCARD__BRANCH:data[constants.RFCARD__BRANCH]})
+    #     card_id_list = [rfcard.display_card_id() for rfcard in obj]
+    #     return response_utils.get_json_response_object(
+    #     response_code=response_codes.CODE_SUCCESS,
+    #     response_message=response_codes.MESSAGE_SUCCESS,
+    #     response_data=card_id_list
+    #     )
     
     @classmethod 
     def get_card_id_list(cls, data):
-
         obj = cls.db_read_records(read_filter={constants.RFCARD__UID:data[constants.RFCARD__UID]})
         card_id_list = [rfcard.display_card_id() for rfcard in obj]
         return response_utils.get_response_object(
@@ -186,6 +191,32 @@ class RfCardController(Controller):
         return response_utils.get_json_response_object(
         response_code=response_codes.CODE_SUCCESS,
         response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[{'id':str(obj[constants.ID]), 'card_id':obj[constants.RFCARD__ID],'card_uid':obj[constants.RFCARD__UID] } for obj in cls.db_read_records(read_filter={})],
+        response_data=[obj.display_min() for obj in cls.db_read_records(read_filter={})],
         )
     
+    @classmethod
+    def transfer_rfcard(cls, data):
+        # obj = cls.db_read_records(read_filter={constants.ID:data[constants.ID]})
+        if data.get(constants.RFCARD__ORGANIZATION):
+            update_filter={constants.RFCARD__ORGANIZATION:data[constants.RFCARD__ORGANIZATION]}
+        if data.get(constants.RFCARD__BRANCH):
+            update_filter={constants.RFCARD__BRANCH:data[constants.RFCARD__BRANCH],
+                           constants.RFCARD__ASSIGNED: True}
+        is_valid, error_message, obj = cls.db_update_records(read_filter={constants.ID+"__in":data[constants.ID]}, 
+                                    update_filter=update_filter)
+        if is_valid:
+            if data.get(constants.RFCARD__BRANCH):
+                del update_filter[constants.RFCARD__ASSIGNED]
+            is_valid, error_message, obj = UserController.db_update_records(read_filter={constants.USER__CARD_ID+"__in":data[constants.ID]},
+                                                                               update_filter=update_filter)
+        if is_valid:
+            if data.get(constants.RFCARD__ORGANIZATION):
+                # if data.get(constants.RFCARD__BRANCH):
+                update_filters = {constants.MEMBER__ORGANIZATION_ID: data[constants.RFCARD__ORGANIZATION]}
+                    
+                is_valid, error_message, obj = MemberController.db_update_records(read_filter={constants.MEMBER__CARD_ID+"__in":data[constants.ID]},
+                                                                                    update_filter=update_filters)
+        return response_utils.get_response_object(
+            response_code=response_codes.CODE_SUCCESS,
+            response_message=response_codes.MESSAGE_SUCCESS
+        )

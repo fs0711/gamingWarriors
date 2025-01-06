@@ -73,6 +73,12 @@
     "game_types": [
         "Arcade",
         "Snooker"
+    ],
+
+    "payment_purpose": [
+        "card_recharge",
+        "card_purchase",
+        "hardware_sale"
     ]
 
 }

@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import Blueprint
 
 # Local imports
-from gwBackend.AccountsManagement.controllers.AccountsController import AccountsController
+from gwBackend.AccountsManagement.controllers.AccountController import AccountsController
 from gwBackend.generic.services.utils import constants, decorators
 from gwBackend.config import config
 
@@ -34,20 +34,3 @@ def read_view(data):
 @decorators.keys_validator()
 def list_transactions(data):
     return AccountsController.get_transactions()
-
-
-# @accounts_bp.route("/update", methods=["PUT"])
-# @decorators.is_authenticated
-# @decorators.keys_validator(
-#     []
-# )
-# def update_view(data):
-#     return RfCardController.update_controller(data=dataAccountsController.route("/list_rfcards", methods=["GET","POST"])
-# @decorators.is_authenticated
-# # @decorators.roles_allowed([])
-# @decorators.keys_validator(
-#     [],
-#     [constants.RFCARD__ASSIGNED,constants.RFCARD__ORGANIZATION]
-# )
-# def list_vAccountsController):
-#     return RfCardController.get_rfcards(data=data)
