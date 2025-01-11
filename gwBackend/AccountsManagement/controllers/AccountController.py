@@ -47,6 +47,7 @@ class AccountsController(Controller):
                             data[constants.ACCOUNTS__AMOUNT_ADMIN] = data[constants.ACCOUNTS__AMOUNT] * (org_percentage / 100)
                             data[constants.ACCOUNTS__PAID_ADMIN] = False
                             data[constants.ACCOUNTS__PAID_ORGANIZATION] = False
+                            data[constants.ACCOUNTS__INVOICED] = False
                             is_valid, error_messages = cls.cls_validate_data(data=data)
                             if not is_valid:
                                  return response_utils.get_response_object(

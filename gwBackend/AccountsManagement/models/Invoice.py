@@ -14,20 +14,44 @@ class Invoice(models.Model):
         return {
             constants.INVOICE__AMOUNT: [
                 {"rule": "required"},
-                {"rule": "datatype", "datatype": int}
+                {"rule": "datatype", "datatype": float}
+            ],
+            constants.INVOICE__TRANSACTION:[
+                {"rule": "required"},
+                {"rule": "datatype", "datatype": list}
+            ],
+            constants.INVOICE__BRANCH:[
+                {"rule": "datatype", "datatype": str}
+            ],
+            constants.INVOICE__ORGANIZATION:[
+                {"rule": "datatype", "datatype": str}
+            ],
+            constants.INVOICE__PAID:[
+                {"rule": "required"},
+                {"rule": "datatype", "datatype": bool}
+            ],
+            constants.INVOICE__CREATED_BY_ORGANIZATION:[
+                {"rule": "required"},
+                {"rule": "datatype", "datatype": str}
             ]
         }
 
     @classmethod
     def update_validation_rules(cls): 
         return {
-            constants.INVOICE__AMOUNT: [{"rule":"non-existent"}]
+            constants.INVOICE__AMOUNT: [{"rule":"non-existent"}],
+            constants.INVOICE__BRANCH: [{"rule":"non-existent"}],
+            constants.INVOICE__ORGANIZATION: [{"rule":"non-existent"}],
+            constants.INVOICE__CREATED_BY_ORGANIZATION: [{"rule":"non-existent"}],
+            constants.INVOICE__PAID: [{"rule":"non-existent"}],
+            constants.INVOICE__TRANSACTION: [{"rule":"non-existent"}]
         }
 
     invoice_id = db.SequenceField(value_decorator='DZ-{}'.format)
     organization = db.LazyReferenceField(document_type="Organization")
     branch = db.LazyReferenceField(document_type="Branch")
-    amount = db.IntField(required=True)
+    created_by_organization = db.LazyReferenceField(document_type="Organization")
+    amount = db.FloatField(required=True)
     paid = db.BooleanField(required=True)
     transaction = db.ListField(required=True)    
     

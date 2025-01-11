@@ -22,15 +22,11 @@ def create_view(data):
 
 @accounts_bp.route("/read", methods=["GET","POST"])
 @decorators.is_authenticated
-@decorators.keys_validator()
+@decorators.keys_validator(
+    [],
+    constants.ALL_FIELDS_LIST__ACCOUNTS
+)
 def read_view(data):
     res = AccountsController.read_controller(data=data)
     return res
 
-
-@accounts_bp.route("/list_transactions", methods=["GET"])
-@decorators.is_authenticated
-# @decorators.roles_allowed([])
-@decorators.keys_validator()
-def list_transactions(data):
-    return AccountsController.get_transactions()
