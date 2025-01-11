@@ -93,3 +93,12 @@ class AccountsController(Controller):
             response_data=[
                 obj.display() for obj in cls.db_read_records(read_filter=data)
             ])
+                
+    @classmethod
+    def list_controller(cls, data):
+            obj = cls.db_read_records(read_filter={constants.ORGANIZATION:data[constants.ORGANIZATION],constants.BRANCH:data[constants.BRANCH],constants.CREATED_ON + "__gte" :data[constants.ACCOUNTS__START_DATE],constants.CREATED_ON + "__lte" :data[constants.ACCOUNTS__END_DATE]})
+            list = [acc.display() for acc in obj]
+            return response_utils.get_response_object(
+            response_code=response_codes.CODE_SUCCESS,
+            response_message=response_codes.MESSAGE_SUCCESS,
+            response_data= list)
