@@ -72,7 +72,9 @@ class RfCardController(Controller):
                     constants.MEMBER__GAME_HISTORY : config.DUMMY_MEMBER_GAME_HISTORY,
                     constants.MEMBER__CREDIT : credit,
                     constants.MEMBER__TYPE : config.DUMMY_MEMBER_TYPE,
-                    # constants.MEMBER__CITY : config.DUMMY_CITY,
+                    constants.MEMBER__CITY : config.DUMMY_CITY,
+                    constants.MEMBER__EMAIL_ADDRESS: config.DUMMY_EMAIL,
+                    constants.MEMBER__PHONE_NUMBER: config.DUMMY_PHONE,
                     constants.MEMBER__CARD_ID: str(rfcard[constants.ID]),
                     constants.MEMBER__ORGANIZATION_ID: str(obj['organization'].fetch().id),
                     constants.MEMBER__USER_ID :user_id
