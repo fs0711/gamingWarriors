@@ -19,16 +19,17 @@ class AccountsController(Controller):
     @classmethod
     def create_controller(cls, data):
         data[constants.ACCOUNTS__TYPE] = "credit"
+        card_id = RfCardController.read_UID_controller(data=data[constants.MEMBER__CARD_ID])
         user = common_utils.current_user()
-        data[constants.ACCOUNTS__ORGANIZATION] = str(user[constants.USER__ORGANIZATION].fetch().id)
-        data[constants.ACCOUNTS__ORGANIZATION_NAME] = str(user[constants.USER__ORGANIZATION].fetch().name)
-        data[constants.ACCOUNTS__BRANCH] = str(user[constants.USER__BRANCH].fetch().id)
         if data[constants.ACCOUNTS__AMOUNT] != "0":
-            card_id = RfCardController.read_UID_controller(data=data[constants.MEMBER__CARD_ID])
+            # card_id = RfCardController.read_UID_controller(data=data[constants.MEMBER__CARD_ID])
             if card_id:
-                credit_limit = user[constants.USER__BRANCH].fetch().credit_limit
-                branch_percentage = user[constants.USER__BRANCH].fetch().percentage
-                org_percentage = user[constants.USER__ORGANIZATION].fetch().percentage
+                data[constants.ACCOUNTS__ORGANIZATION] = str(card_id[constants.USER__ORGANIZATION].fetch().id)
+                data[constants.ACCOUNTS__ORGANIZATION_NAME] = str(card_id[constants.USER__ORGANIZATION].fetch().name)
+                data[constants.ACCOUNTS__BRANCH] = str(card_id[constants.USER__BRANCH].fetch().id)
+                credit_limit = card_id[constants.USER__BRANCH].fetch().credit_limit
+                branch_percentage = card_id[constants.USER__BRANCH].fetch().percentage
+                org_percentage = card_id[constants.USER__ORGANIZATION].fetch().percentage
                 if credit_limit - data[constants.ACCOUNTS__AMOUNT] >= 0:
                     if data[constants.ACCOUNTS__PURPOSE] == constants.PAYMENT_PURPOSE[0]:
                         obj = MemberController.recharge_controller(data={constants.MEMBER__CARD_ID: card_id, 

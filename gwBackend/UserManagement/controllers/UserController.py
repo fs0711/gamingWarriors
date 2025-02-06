@@ -224,7 +224,7 @@ class UserController(Controller):
         return response_utils.get_json_response_object(
         response_code=response_codes.CODE_SUCCESS,
         response_message=response_codes.MESSAGE_SUCCESS,
-        response_data=[{'name':str(obj[constants.USER__NAME]), 'email_address':obj[constants.USER__EMAIL_ADDRESS] ,'phone_number':obj[constants.USER__PHONE_NUMBER],'role':obj[constants.USER__ROLE],'organization':str(obj[constants.USER__ORGANIZATION].fetch().name),'branch':str(obj[constants.USER__BRANCH].fetch().name)}  for obj in cls.db_read_records(read_filter={})],
+        response_data=[obj.display_user_list()  for obj in cls.db_read_records(read_filter={})],
         )
         
         

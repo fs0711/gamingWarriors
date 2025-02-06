@@ -101,8 +101,17 @@ class User(models.Model):
     def display_id(self):
         return {
             constants.ID: str(self[constants.ID]),
-            constants.USER__NAME: self[constants.USER__NAME],
-            
+            constants.USER__NAME: self[constants.USER__NAME]
+        }
+
+    def display_user_list(self):
+        return {
+            constants.ID: str(self[constants.ID]),
+            constants.USER__NAME: self[constants.USER__NAME],   
+            constants.USER__BRANCH: str(self[constants.USER__BRANCH].fetch().id) if self[constants.USER__BRANCH] else "",
+            constants.USER__ORGANIZATION: str(self[constants.USER__ORGANIZATION].fetch().id),
+            constants.USER__EMAIL_ADDRESS: self[constants.USER__EMAIL_ADDRESS],
+            constants.USER__PHONE_NUMBER: self[constants.USER__PHONE_NUMBER],   
         }
 
     def verify_password(self, password):
