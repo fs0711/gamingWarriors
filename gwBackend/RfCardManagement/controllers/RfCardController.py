@@ -100,11 +100,11 @@ class RfCardController(Controller):
     def read_UID_controller(cls, data):
         obj = cls.db_read_single_record(read_filter={constants.RFCARD__UID:data})
         if obj:    
-            return str(obj.id)
+            return obj
         else:
             obj = cls.db_read_single_record(read_filter={constants.RFCARD__ID:data})
             if obj:
-                return str(obj.id)
+                return obj
             else:
                 return 0
             
