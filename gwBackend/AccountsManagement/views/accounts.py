@@ -30,3 +30,12 @@ def read_view(data):
     res = AccountsController.read_controller(data=data)
     return res
 
+@accounts_bp.route("/list_transactions", methods=["GET","POST"])
+@decorators.is_authenticated
+@decorators.keys_validator(
+    [constants.ORGANIZATION,constants.BRANCH,constants.ACCOUNTS__START_DATE,constants.ACCOUNTS__END_DATE],
+)
+def list_by_user(data):
+    return AccountsController.list_controller(data=data)
+
+

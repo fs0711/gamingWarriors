@@ -38,6 +38,10 @@ class Members(models.Model):
     game_history = db.DictField(default = {})
     credit = db.IntField(required=True)
     type = db.StringField(required=True)
+    phone_number = db.StringField(required=True)
+    city = db.StringField(required=True)
+    email_address = db.StringField(required=True)
+    
     parent = db.LazyReferenceField(document_type="Members")
     card_id = db.LazyReferenceField(document_type="RfCard")
     organization_id = db.LazyReferenceField(document_type="Organization")
@@ -60,7 +64,7 @@ class Members(models.Model):
             constants.MEMBER__GAME_HISTORY:self[constants.MEMBER__GAME_HISTORY],
             constants.MEMBER__CREDIT:self[constants.MEMBER__CREDIT],
             constants.MEMBER__TYPE:self[constants.MEMBER__TYPE],
-            constants.MEMBER__PARENT:str(self[constants.MEMBER__PARENT].fetch().name),
+            #constants.MEMBER__PARENT:str(self[constants.MEMBER__PARENT].fetch().name),
             constants.MEMBER__ORGANIZATION_ID:str(self[constants.MEMBER__ORGANIZATION_ID].fetch().id)
             # constants.MEMBER__CARD_ID:self[constants.MEMBER__CARD_ID].fetch().card_id
         }
