@@ -54,3 +54,12 @@ def card_punch_view(data):
 @decorators.keys_validator()
 def list_view(data):
     return GameunitController.get_gameunits()
+
+
+@gameunit_bp.route("/cost", methods=["POST"])
+@decorators.is_authenticated
+@decorators.keys_validator(
+    [constants.GAMEUNIT__ID]
+)
+def game_cost_view(data):
+    return GameunitController.game_cost_controller(data=data)

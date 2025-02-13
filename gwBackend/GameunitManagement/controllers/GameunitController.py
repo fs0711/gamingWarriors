@@ -133,3 +133,9 @@ class GameunitController(Controller):
         response_message=response_codes.MESSAGE_SUCCESS,
         response_data=[{'game_id':obj[constants.GAMEUNIT__ID], 'name':obj[constants.GAMEUNIT__NAME],'type':obj[constants.GAMEUNIT__TYPE],'unit_status':obj[constants.GAMEUNIT__UNIT_STATUS],'cost':obj[constants.GAMEUNIT__COST],'branch':str(obj[constants.GAMEUNIT__BRANCH].fetch().name),'organization':str(obj[constants.GAMEUNIT__ORGANIZATION].fetch().name)} for obj in cls.db_read_records(read_filter={})],
         )
+    
+    @classmethod
+    def game_cost_controller(cls, data):
+        obj = cls.db_read_single_record(read_filter={
+            constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
+        return {"cost":obj[constants.GAMEUNIT__COST]}
