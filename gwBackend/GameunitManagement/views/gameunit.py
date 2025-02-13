@@ -63,3 +63,9 @@ def list_view(data):
 )
 def game_cost_view(data):
     return GameunitController.game_cost_controller(data=data)
+
+@gameunit_bp.route("/status", methods=["GET"])
+@decorators.is_authenticated
+# @decorators.keys_validator()
+def game_status_view():
+    return GameunitController.game_status_controller()

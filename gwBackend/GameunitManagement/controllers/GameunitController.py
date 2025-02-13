@@ -139,3 +139,7 @@ class GameunitController(Controller):
         obj = cls.db_read_single_record(read_filter={
             constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
         return {"cost":obj[constants.GAMEUNIT__COST]}
+
+    @classmethod
+    def game_status_controller(cls):
+        return {"status":1}
