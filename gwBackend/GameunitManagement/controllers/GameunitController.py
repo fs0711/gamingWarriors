@@ -124,7 +124,7 @@ class GameunitController(Controller):
             print(recharge)
             return recharge
         else:
-            return {"status":0, "name":"None"}
+            return {"status":0, "name":"Unregistered"}
         
     @classmethod
     def get_gameunits(cls):
