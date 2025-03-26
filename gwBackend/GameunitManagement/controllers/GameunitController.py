@@ -119,7 +119,7 @@ class GameunitController(Controller):
             obj = cls.db_read_single_record(read_filter={
                 constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
             recharge = MemberController.card_charge_controller(
-                data={constants.PROFILE__CARD_ID:card, 
+                data={constants.MEMBER__CARD_ID:card, 
                     constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
             print(recharge)
             return recharge
@@ -143,3 +143,23 @@ class GameunitController(Controller):
     @classmethod
     def game_status_controller(cls):
         return {"status":1}
+    
+    @classmethod
+    def offline_update_controller(cls, data):
+        card = RfCardController.read_UID_controller(data = data[constants.RFCARD__UID])
+        if card:
+            obj = cls.db_read_single_record(read_filter={
+                constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
+            recharge = MemberController.bulk_card_charge_controller(
+                data={constants.MEMBER__CARD_ID:card, 
+                    constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
+            print(recharge)
+            return recharge
+        else:
+            return {"status":0, "name":"None"}
+        
+        return response_utils.get_response_object(
+            response_code=response_codes.CODE_SUCCESS,
+            response_message=response_codes.MESSAGE_SUCCESS,
+            response_data=data
+        )

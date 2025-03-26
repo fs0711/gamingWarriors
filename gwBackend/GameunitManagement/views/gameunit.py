@@ -69,3 +69,11 @@ def game_cost_view(data):
 # @decorators.keys_validator()
 def game_status_view():
     return GameunitController.game_status_controller()
+
+@gameunit_bp.route("/offline_update", methods=["POST"])
+@decorators.is_authenticated
+@decorators.keys_validator(
+    [constants.RFCARD__UID]
+)
+def offline_update_view(data):
+    return GameunitController.offline_update_controller(data=data)

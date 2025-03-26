@@ -114,7 +114,18 @@ class MemberController(Controller):
             return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
         else:
             return {"status":0, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
-        
+
+
+    @classmethod
+    def bulk_card_charge_controller(cls, data):
+        obj = cls.db_read_records(read_filter={
+            constants.MEMBER__CARD_ID+"__in":data[constants.MEMBER__CARD_ID]})
+        if obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
+            obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST]
+            obj.save()
+            return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+        else:
+            return {"status":0, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}    
     
     @classmethod
     def recharge_controller(cls, data):
