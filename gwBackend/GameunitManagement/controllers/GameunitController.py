@@ -120,7 +120,8 @@ class GameunitController(Controller):
                 constants.GAMEUNIT__ID:data[constants.GAMEUNIT__ID][3:]})
             recharge = MemberController.card_charge_controller(
                 data={constants.MEMBER__CARD_ID:card, 
-                    constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST]})
+                    constants.GAMEUNIT__COST:obj[constants.GAMEUNIT__COST],
+                    constants.ID:str(card[constants.ID])})
             print(recharge)
             return recharge
         else:

@@ -6,6 +6,7 @@
 from ast import Constant
 from gwBackend.generic.controllers import Controller
 from gwBackend.MembersManagement.models.Member import Members
+from gwBackend.UserManagement.controllers.UserController import UserController
 from gwBackend.generic.services.utils import constants, response_codes, response_utils, pipeline,common_utils
 
 
@@ -108,12 +109,18 @@ class MemberController(Controller):
     def card_charge_controller(cls, data):
         obj = cls.db_read_single_record(read_filter={
             constants.MEMBER__CARD_ID:data[constants.MEMBER__CARD_ID]})
-        if obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
-            obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST]
-            obj.save()
-            return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+        if obj:
+            if obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST] >= 0:
+                obj[constants.MEMBER__CREDIT] = obj[constants.MEMBER__CREDIT] - data[constants.GAMEUNIT__COST]
+                obj.save()
+                return {"status":1, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+            else:
+                return {"status":0, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
         else:
-            return {"status":0, "name":obj[constants.MEMBER__NAME], "balance":obj[constants.MEMBER__CREDIT]}
+            obj = UserController.db_read_single_record(read_filter={
+                constants.USER__CARD_ID:data[constants.ID]})
+            if obj:
+                return {"status":1, "name":"User "+obj[constants.USER__NAME], "balance":10000}
 
 
     @classmethod
